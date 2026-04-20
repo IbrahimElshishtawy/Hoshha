@@ -21,6 +21,11 @@ class AchievementsLocalDataSource {
     return collection.where().findAllAsync();
   }
 
+  Stream<List<AchievementProgressRecord>> watchAll() async* {
+    yield await getAll();
+    yield* collection.watch().asyncMap((_) => getAll());
+  }
+
   Future<void> putRecord(AchievementProgressRecord record) async {
     await _isar.writeAsync((isar) {
       putRecordInTransaction(isar, record);

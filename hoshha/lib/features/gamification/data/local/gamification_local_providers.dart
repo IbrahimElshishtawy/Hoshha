@@ -9,10 +9,11 @@ import 'streak_record.dart';
 import 'streaks_local_data_source.dart';
 import 'user_stats_record.dart';
 
-final userStatsCollectionProvider = Provider<IsarCollection<int, UserStatsRecord>>(
-  (ref) => ref.watch(isarProvider).userStatsRecords,
-  name: 'userStatsCollectionProvider',
-);
+final userStatsCollectionProvider =
+    Provider<IsarCollection<int, UserStatsRecord>>(
+      (ref) => ref.watch(isarProvider).userStatsRecords,
+      name: 'userStatsCollectionProvider',
+    );
 
 final streakCollectionProvider = Provider<IsarCollection<int, StreakRecord>>(
   (ref) => ref.watch(isarProvider).streakRecords,

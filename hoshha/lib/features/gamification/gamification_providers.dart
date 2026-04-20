@@ -30,8 +30,9 @@ final streakRepositoryProvider = Provider<StreakRepository>(
 );
 
 final achievementsRepositoryProvider = Provider<AchievementsRepository>(
-  (ref) =>
-      LocalAchievementsRepository(ref.watch(achievementsLocalDataSourceProvider)),
+  (ref) => LocalAchievementsRepository(
+    ref.watch(achievementsLocalDataSourceProvider),
+  ),
   name: 'achievementsRepositoryProvider',
 );
 
@@ -98,7 +99,7 @@ final getGamificationSnapshotProvider = Provider<GetGamificationSnapshot>(
   name: 'getGamificationSnapshotProvider',
 );
 
-final gamificationSnapshotProvider = FutureProvider<GamificationSnapshot>(
-  (ref) => ref.watch(getGamificationSnapshotProvider).call(),
+final gamificationSnapshotProvider = StreamProvider<GamificationSnapshot>(
+  (ref) => ref.watch(getGamificationSnapshotProvider).watch(),
   name: 'gamificationSnapshotProvider',
 );

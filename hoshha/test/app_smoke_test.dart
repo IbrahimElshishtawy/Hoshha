@@ -102,6 +102,11 @@ class _FakeExpensesRepository implements ExpensesRepository {
   @override
   Future<Expense> saveExpense(Expense expense) async => expense;
 
+  @override
+  Stream<List<Expense>> watchExpenses(ExpenseQuery query) async* {
+    yield await getExpenses(query);
+  }
+
   Expense get _expense => Expense(
     id: 'expense_1',
     amountMinor: 25000,
@@ -130,6 +135,11 @@ class _FakeBudgetRepository implements BudgetRepository {
 
   @override
   Future<Budget> saveBudget(Budget budget) async => budget;
+
+  @override
+  Stream<Budget?> watchBudgetForMonth(DateTime month) async* {
+    yield await getBudgetForMonth(month);
+  }
 }
 
 class _FakeUserStatsRepository implements UserStatsRepository {
@@ -152,6 +162,11 @@ class _FakeUserStatsRepository implements UserStatsRepository {
 
   @override
   Future<UserStats> saveUserStats(UserStats stats) async => stats;
+
+  @override
+  Stream<UserStats?> watchUserStats() async* {
+    yield await getUserStats();
+  }
 }
 
 class _FakeStreakRepository implements StreakRepository {
@@ -173,11 +188,18 @@ class _FakeStreakRepository implements StreakRepository {
 
   @override
   Future<Streak> saveStreak(Streak streak) async => streak;
+
+  @override
+  Stream<Streak?> watchStreak(StreakType type) async* {
+    yield await getStreak(type);
+  }
 }
 
 class _FakeAchievementsRepository implements AchievementsRepository {
   @override
-  Future<AchievementProgress?> getAchievement(AchievementId achievementId) async {
+  Future<AchievementProgress?> getAchievement(
+    AchievementId achievementId,
+  ) async {
     return null;
   }
 
@@ -193,4 +215,9 @@ class _FakeAchievementsRepository implements AchievementsRepository {
   Future<List<AchievementProgress>> saveAchievements(
     List<AchievementProgress> achievements,
   ) async => achievements;
+
+  @override
+  Stream<List<AchievementProgress>> watchAchievements() async* {
+    yield const [];
+  }
 }

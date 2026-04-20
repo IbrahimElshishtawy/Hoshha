@@ -13,6 +13,11 @@ class BudgetsLocalDataSource {
     return collection.where().monthKeyEqualTo(monthKey).findFirstAsync();
   }
 
+  Stream<BudgetRecord?> watchByMonthKey(String monthKey) async* {
+    yield await findByMonthKey(monthKey);
+    yield* collection.watch().asyncMap((_) => findByMonthKey(monthKey));
+  }
+
   Future<void> putRecord(BudgetRecord record) async {
     await _isar.writeAsync((isar) {
       putRecordInTransaction(isar, record);

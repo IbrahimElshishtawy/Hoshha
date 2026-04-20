@@ -7,9 +7,15 @@ abstract class ExpensesRepository {
 
   Future<List<Expense>> getExpenses(ExpenseQuery query);
 
-  Future<List<Expense>> getExpensesByDateRange(DateRange range);
+  Stream<List<Expense>> watchExpenses(ExpenseQuery query);
 
-  Future<List<Expense>> getRecentExpenses({int limit = 5});
+  Future<List<Expense>> getExpensesByDateRange(DateRange range) {
+    return getExpenses(ExpenseQuery(dateRange: range));
+  }
+
+  Future<List<Expense>> getRecentExpenses({int limit = 5}) {
+    return getExpenses(ExpenseQuery.recent(limit: limit));
+  }
 
   Future<Expense> saveExpense(Expense expense);
 

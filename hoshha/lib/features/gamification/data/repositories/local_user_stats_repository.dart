@@ -15,6 +15,13 @@ class LocalUserStatsRepository implements UserStatsRepository {
   }
 
   @override
+  Stream<UserStats?> watchUserStats() {
+    return _localDataSource.watchStats().map(
+      (record) => record == null ? null : mapUserStatsRecordToDomain(record),
+    );
+  }
+
+  @override
   Future<UserStats> saveUserStats(UserStats stats) async {
     final existing = await _localDataSource.getStats();
     final record = mapUserStatsToRecord(stats, current: existing);

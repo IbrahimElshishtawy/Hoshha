@@ -44,12 +44,17 @@ class RecordExpenseLocalPersister {
     required List<AchievementProgress> achievements,
     Budget? budget,
   }) async {
-    final currentExpense = await _expensesLocalDataSource.findByEntityId(expense.id);
+    final currentExpense = await _expensesLocalDataSource.findByEntityId(
+      expense.id,
+    );
     final currentStats = await _statsLocalDataSource.getStats();
-    final currentStreak = await _streaksLocalDataSource.findByType(streak.type.name);
+    final currentStreak = await _streaksLocalDataSource.findByType(
+      streak.type.name,
+    );
     final currentAchievements = await _achievementsLocalDataSource.getAll();
     final currentAchievementsById = {
-      for (final achievement in currentAchievements) achievement.achievementId: achievement,
+      for (final achievement in currentAchievements)
+        achievement.achievementId: achievement,
     };
     final currentBudget = budget == null
         ? null

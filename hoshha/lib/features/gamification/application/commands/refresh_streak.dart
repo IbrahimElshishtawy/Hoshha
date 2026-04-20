@@ -21,7 +21,9 @@ class RefreshStreak {
   final DateTime Function() _now;
 
   Future<Streak> call() async {
-    final expenses = await _expensesRepository.getExpenses(const ExpenseQuery());
+    final expenses = await _expensesRepository.getExpenses(
+      const ExpenseQuery(),
+    );
     final streak = _streakProjector.projectFromExpenses(
       expenses: expenses,
       now: _now(),

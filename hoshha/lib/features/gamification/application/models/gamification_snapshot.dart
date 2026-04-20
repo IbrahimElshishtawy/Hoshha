@@ -1,18 +1,25 @@
-import '../../domain/achievement_progress.dart';
-import '../../domain/streak.dart';
-import '../../domain/user_stats.dart';
-
 class GamificationSnapshot {
   const GamificationSnapshot({
-    required this.stats,
-    required this.streak,
-    required this.achievements,
+    required this.totalXp,
+    required this.currentLevel,
+    required this.currentStreak,
+    required this.bestStreak,
+    required this.unlockedAchievementsCount,
+    required this.nextLevelProgress,
   });
 
-  final UserStats stats;
-  final Streak streak;
-  final List<AchievementProgress> achievements;
+  const GamificationSnapshot.empty()
+    : totalXp = 0,
+      currentLevel = 1,
+      currentStreak = 0,
+      bestStreak = 0,
+      unlockedAchievementsCount = 0,
+      nextLevelProgress = 0.0;
 
-  int get unlockedAchievementsCount =>
-      achievements.where((achievement) => achievement.isUnlocked).length;
+  final int totalXp;
+  final int currentLevel;
+  final int currentStreak;
+  final int bestStreak;
+  final int unlockedAchievementsCount;
+  final double nextLevelProgress;
 }

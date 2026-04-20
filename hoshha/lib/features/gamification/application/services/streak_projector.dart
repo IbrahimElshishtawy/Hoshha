@@ -41,11 +41,12 @@ class StreakProjector {
       return _initial(now);
     }
 
-    final uniqueDays = expenses
-        .map((expense) => _dayOnly(expense.occurredAt))
-        .toSet()
-        .toList(growable: false)
-      ..sort();
+    final uniqueDays =
+        expenses
+            .map((expense) => _dayOnly(expense.occurredAt))
+            .toSet()
+            .toList(growable: false)
+          ..sort();
 
     var bestCount = 0;
     var currentRun = 0;

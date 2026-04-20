@@ -15,6 +15,15 @@ class LocalStreakRepository implements StreakRepository {
   }
 
   @override
+  Stream<Streak?> watchStreak(StreakType type) {
+    return _localDataSource
+        .watchByType(type.name)
+        .map(
+          (record) => record == null ? null : mapStreakRecordToDomain(record),
+        );
+  }
+
+  @override
   Future<Streak> saveStreak(Streak streak) async {
     final existing = await _localDataSource.findByType(streak.type.name);
     final record = mapStreakToRecord(streak, current: existing);

@@ -12,6 +12,9 @@ class GetCurrentBudget {
       return null;
     }
 
-    return MonthlyBudget(month: DateTime(month.year, month.month), limitMinor: budget.limitMinor);
+    return MonthlyBudget(
+      month: DateTime(month.year, month.month),
+      limitMinor: budget.limitMinor,
+    );
   }
 }

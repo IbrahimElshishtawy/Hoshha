@@ -9,13 +9,17 @@ import '../gamification/data/local/gamification_local_providers.dart';
 import 'application/commands/delete_expense.dart';
 import 'application/commands/record_expense.dart';
 import 'application/commands/update_expense.dart';
+import 'application/models/budget_status.dart';
+import 'application/models/budget_status_thresholds.dart';
 import 'application/models/expense_query.dart';
+import 'application/models/monthly_summary.dart';
 import 'application/models/record_expense_result.dart';
 import 'application/queries/get_expenses.dart';
-import 'application/queries/get_expenses_by_date_range.dart';
 import 'application/queries/get_monthly_summary.dart';
-import 'application/queries/get_recent_expenses.dart';
 import 'application/record_expense_controller.dart';
+import 'application/services/budget_status_calculator.dart';
+import 'application/services/expense_aggregator.dart';
+import 'application/services/expense_grouping.dart';
 import 'data/local/expenses_local_providers.dart';
 import 'data/local/record_expense_local_persister.dart';
 import 'data/repositories/local_expenses_repository.dart';
@@ -32,35 +36,51 @@ final getExpensesProvider = Provider<GetExpenses>(
   name: 'getExpensesProvider',
 );
 
-final getExpensesByDateRangeProvider = Provider<GetExpensesByDateRange>(
-  (ref) => GetExpensesByDateRange(ref.watch(expensesRepositoryProvider)),
-  name: 'getExpensesByDateRangeProvider',
+final expenseGroupingProvider = Provider<ExpenseGrouping>(
+  (ref) => const ExpenseGrouping(),
+  name: 'expenseGroupingProvider',
 );
 
-final getRecentExpensesProvider = Provider<GetRecentExpenses>(
-  (ref) => GetRecentExpenses(ref.watch(expensesRepositoryProvider)),
-  name: 'getRecentExpensesProvider',
+final expenseAggregatorProvider = Provider<ExpenseAggregator>(
+  (ref) => const ExpenseAggregator(),
+  name: 'expenseAggregatorProvider',
+);
+
+final budgetStatusThresholdsProvider = Provider<BudgetStatusThresholds>(
+  (ref) => BudgetStatusThresholds.v1,
+  name: 'budgetStatusThresholdsProvider',
+);
+
+final budgetStatusCalculatorProvider = Provider<BudgetStatusCalculator>(
+  (ref) => BudgetStatusCalculator(
+    thresholds: ref.watch(budgetStatusThresholdsProvider),
+  ),
+  name: 'budgetStatusCalculatorProvider',
 );
 
 final getMonthlySummaryProvider = Provider<GetMonthlySummary>(
   (ref) => GetMonthlySummary(
     expensesRepository: ref.watch(expensesRepositoryProvider),
     budgetRepository: ref.watch(budgetRepositoryProvider),
+    expenseAggregator: ref.watch(expenseAggregatorProvider),
   ),
   name: 'getMonthlySummaryProvider',
 );
 
-final recordExpenseLocalPersisterProvider = Provider<RecordExpenseLocalPersister>(
-  (ref) => RecordExpenseLocalPersister(
-    databaseWriter: ref.watch(appDatabaseWriterProvider),
-    expensesLocalDataSource: ref.watch(expensesLocalDataSourceProvider),
-    statsLocalDataSource: ref.watch(statsLocalDataSourceProvider),
-    streaksLocalDataSource: ref.watch(streaksLocalDataSourceProvider),
-    achievementsLocalDataSource: ref.watch(achievementsLocalDataSourceProvider),
-    budgetsLocalDataSource: ref.watch(budgetsLocalDataSourceProvider),
-  ),
-  name: 'recordExpenseLocalPersisterProvider',
-);
+final recordExpenseLocalPersisterProvider =
+    Provider<RecordExpenseLocalPersister>(
+      (ref) => RecordExpenseLocalPersister(
+        databaseWriter: ref.watch(appDatabaseWriterProvider),
+        expensesLocalDataSource: ref.watch(expensesLocalDataSourceProvider),
+        statsLocalDataSource: ref.watch(statsLocalDataSourceProvider),
+        streaksLocalDataSource: ref.watch(streaksLocalDataSourceProvider),
+        achievementsLocalDataSource: ref.watch(
+          achievementsLocalDataSourceProvider,
+        ),
+        budgetsLocalDataSource: ref.watch(budgetsLocalDataSourceProvider),
+      ),
+      name: 'recordExpenseLocalPersisterProvider',
+    );
 
 final recordExpenseProvider = Provider<RecordExpense>(
   (ref) => RecordExpense(
@@ -99,19 +119,34 @@ final deleteExpenseProvider = Provider<DeleteExpense>(
   name: 'deleteExpenseProvider',
 );
 
-final recentExpensesProvider = FutureProvider<List<Expense>>(
-  (ref) => ref.watch(getRecentExpensesProvider).call(),
+final recentExpensesProvider = StreamProvider<List<Expense>>(
+  (ref) => ref.watch(getExpensesProvider).watch(const ExpenseQuery.recent()),
   name: 'recentExpensesProvider',
 );
 
-final expensesQueryProvider = FutureProvider.family<List<Expense>, ExpenseQuery>(
-  (ref, query) => ref.watch(getExpensesProvider).call(query),
-  name: 'expensesQueryProvider',
+final expenseHistoryProvider =
+    StreamProvider.family<List<Expense>, ExpenseQuery>(
+      (ref, query) => ref.watch(getExpensesProvider).watch(query),
+      name: 'expenseHistoryProvider',
+    );
+
+final expensesQueryProvider = expenseHistoryProvider;
+
+final monthlySummaryProvider = StreamProvider<MonthlySummary>(
+  (ref) => ref
+      .watch(getMonthlySummaryProvider)
+      .watch(ref.watch(clockProvider).now()),
+  name: 'monthlySummaryProvider',
 );
 
-final currentMonthSummaryProvider = FutureProvider(
-  (ref) => ref.watch(getMonthlySummaryProvider).call(ref.watch(clockProvider).now()),
-  name: 'currentMonthSummaryProvider',
+final currentMonthSummaryProvider = monthlySummaryProvider;
+
+final budgetStatusProvider = StreamProvider<BudgetStatus>(
+  (ref) => ref
+      .watch(getMonthlySummaryProvider)
+      .watch(ref.watch(clockProvider).now())
+      .map(ref.watch(budgetStatusCalculatorProvider).call),
+  name: 'budgetStatusProvider',
 );
 
 final recordExpenseControllerProvider =

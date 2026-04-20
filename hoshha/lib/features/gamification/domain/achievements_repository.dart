@@ -5,6 +5,8 @@ abstract class AchievementsRepository {
 
   Future<List<AchievementProgress>> getAchievements();
 
+  Stream<List<AchievementProgress>> watchAchievements();
+
   Future<AchievementProgress> saveAchievement(AchievementProgress achievement);
 
   Future<List<AchievementProgress>> saveAchievements(

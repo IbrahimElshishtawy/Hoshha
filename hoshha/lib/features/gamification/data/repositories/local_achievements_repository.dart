@@ -10,8 +10,12 @@ class LocalAchievementsRepository implements AchievementsRepository {
   final AchievementsLocalDataSource _localDataSource;
 
   @override
-  Future<AchievementProgress?> getAchievement(AchievementId achievementId) async {
-    final record = await _localDataSource.findByAchievementId(achievementId.name);
+  Future<AchievementProgress?> getAchievement(
+    AchievementId achievementId,
+  ) async {
+    final record = await _localDataSource.findByAchievementId(
+      achievementId.name,
+    );
     return record == null ? null : mapAchievementProgressRecordToDomain(record);
   }
 
@@ -21,6 +25,15 @@ class LocalAchievementsRepository implements AchievementsRepository {
     return records
         .map(mapAchievementProgressRecordToDomain)
         .toList(growable: false);
+  }
+
+  @override
+  Stream<List<AchievementProgress>> watchAchievements() {
+    return _localDataSource.watchAll().map(
+      (records) => records
+          .map(mapAchievementProgressRecordToDomain)
+          .toList(growable: false),
+    );
   }
 
   @override

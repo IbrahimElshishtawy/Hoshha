@@ -46,17 +46,17 @@ class EvaluateAchievements {
     DateTime? month,
   }) async {
     final now = _now();
-    final targetMonth = DateTime(
-      (month ?? now).year,
-      (month ?? now).month,
-    );
+    final targetMonth = DateTime((month ?? now).year, (month ?? now).month);
     final stats =
-        await _userStatsRepository.getUserStats() ?? _userStatsProjector.initial(now);
-    final streak = await _streakRepository.getStreak(StreakType.expenseLogging) ??
+        await _userStatsRepository.getUserStats() ??
+        _userStatsProjector.initial(now);
+    final streak =
+        await _streakRepository.getStreak(StreakType.expenseLogging) ??
         _streakProjector.initial(now);
     final currentAchievements = await _achievementsRepository.getAchievements();
     final budget =
-        budgetOverride ?? await _budgetRepository.getBudgetForMonth(targetMonth);
+        budgetOverride ??
+        await _budgetRepository.getBudgetForMonth(targetMonth);
     final monthlySummary = await _getMonthlySummary(targetMonth);
     final achievements = _achievementProjector.project(
       now: now,

@@ -1,6 +1,6 @@
 import '../../application/models/date_range.dart';
 import '../../application/models/expense_query.dart';
-import '../../application/models/sort_option.dart';
+import '../../application/models/expense_sort_option.dart';
 import '../../domain/expense.dart';
 import '../../domain/expense_repository.dart';
 import '../local/expense_mapper.dart';
@@ -20,21 +20,14 @@ class LocalExpensesRepository implements ExpensesRepository {
   @override
   Future<List<Expense>> getExpenses(ExpenseQuery query) async {
     final records = await _localDataSource.getAll();
-    final expenses = records
-        .map(mapExpenseRecordToDomain)
-        .where((expense) => _matchesQuery(expense, query))
-        .toList(growable: false);
+    return _applyQuery(records.map(mapExpenseRecordToDomain), query);
+  }
 
-    final sorted = expenses.toList(growable: false)..sort(
-      (left, right) => _compareExpenses(left, right, query.sort),
+  @override
+  Stream<List<Expense>> watchExpenses(ExpenseQuery query) {
+    return _localDataSource.watchAll().map(
+      (records) => _applyQuery(records.map(mapExpenseRecordToDomain), query),
     );
-
-    final limit = query.limit;
-    if (limit == null || limit >= sorted.length) {
-      return sorted;
-    }
-
-    return sorted.take(limit).toList(growable: false);
   }
 
   @override
@@ -44,7 +37,7 @@ class LocalExpensesRepository implements ExpensesRepository {
 
   @override
   Future<List<Expense>> getRecentExpenses({int limit = 5}) {
-    return getExpenses(ExpenseQuery(limit: limit));
+    return getExpenses(ExpenseQuery.recent(limit: limit));
   }
 
   @override
@@ -60,8 +53,27 @@ class LocalExpensesRepository implements ExpensesRepository {
     await _localDataSource.deleteByEntityId(expenseId);
   }
 
+  List<Expense> _applyQuery(Iterable<Expense> expenses, ExpenseQuery query) {
+    final normalizedQuery = query.normalized;
+    final filtered =
+        expenses
+            .where((expense) => _matchesQuery(expense, normalizedQuery))
+            .toList(growable: false)
+          ..sort(
+            (left, right) =>
+                _compareExpenses(left, right, normalizedQuery.sort),
+          );
+
+    final limit = normalizedQuery.normalizedLimit;
+    if (limit == null || limit >= filtered.length) {
+      return filtered;
+    }
+
+    return filtered.take(limit).toList(growable: false);
+  }
+
   bool _matchesQuery(Expense expense, ExpenseQuery query) {
-    final categoryId = query.categoryId;
+    final categoryId = query.normalizedCategoryId;
     if (categoryId != null && expense.categoryId != categoryId) {
       return false;
     }
@@ -74,20 +86,14 @@ class LocalExpensesRepository implements ExpensesRepository {
     return true;
   }
 
-  int _compareExpenses(
-    Expense left,
-    Expense right,
-    SortOption<ExpenseSortField> sort,
-  ) {
-    final comparison = switch (sort.field) {
-      ExpenseSortField.occurredAt =>
-        left.occurredAt.compareTo(right.occurredAt),
-      ExpenseSortField.createdAt => left.createdAt.compareTo(right.createdAt),
-      ExpenseSortField.amountMinor => left.amountMinor.compareTo(right.amountMinor),
+  int _compareExpenses(Expense left, Expense right, ExpenseSortOption sort) {
+    return switch (sort) {
+      ExpenseSortOption.latest => right.occurredAt.compareTo(left.occurredAt),
+      ExpenseSortOption.oldest => left.occurredAt.compareTo(right.occurredAt),
+      ExpenseSortOption.highest => right.amountMinor.compareTo(
+        left.amountMinor,
+      ),
+      ExpenseSortOption.lowest => left.amountMinor.compareTo(right.amountMinor),
     };
-
-    return sort.direction == SortDirection.ascending
-        ? comparison
-        : -comparison;
   }
 }

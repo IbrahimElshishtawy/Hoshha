@@ -21,7 +21,9 @@ class RefreshUserStats {
   final DateTime Function() _now;
 
   Future<UserStats> call() async {
-    final expenses = await _expensesRepository.getExpenses(const ExpenseQuery());
+    final expenses = await _expensesRepository.getExpenses(
+      const ExpenseQuery(),
+    );
     final stats = _userStatsProjector.projectFromExpenses(
       expenses: expenses,
       now: _now(),

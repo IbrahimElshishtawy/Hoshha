@@ -29,6 +29,7 @@ final setMonthlyBudgetProvider = Provider<SetMonthlyBudget>(
 );
 
 final currentBudgetProvider = FutureProvider<MonthlyBudget?>(
-  (ref) => ref.watch(getCurrentBudgetProvider).call(ref.watch(clockProvider).now()),
+  (ref) =>
+      ref.watch(getCurrentBudgetProvider).call(ref.watch(clockProvider).now()),
   name: 'currentBudgetProvider',
 );

@@ -8,6 +8,10 @@ class GetExpenses {
   final ExpensesRepository _repository;
 
   Future<List<Expense>> call(ExpenseQuery query) {
-    return _repository.getExpenses(query);
+    return _repository.getExpenses(query.normalized);
+  }
+
+  Stream<List<Expense>> watch(ExpenseQuery query) {
+    return _repository.watchExpenses(query.normalized);
   }
 }

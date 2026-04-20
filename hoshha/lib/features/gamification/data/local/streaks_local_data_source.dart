@@ -13,6 +13,11 @@ class StreaksLocalDataSource {
     return collection.where().typeEqualTo(type).findFirstAsync();
   }
 
+  Stream<StreakRecord?> watchByType(String type) async* {
+    yield await findByType(type);
+    yield* collection.watch().asyncMap((_) => findByType(type));
+  }
+
   Future<void> putRecord(StreakRecord record) async {
     await _isar.writeAsync((isar) {
       putRecordInTransaction(isar, record);

@@ -77,7 +77,8 @@ class RecordExpense {
       final currentStreak = await _streakRepository.getStreak(
         StreakType.expenseLogging,
       );
-      final currentAchievements = await _achievementsRepository.getAchievements();
+      final currentAchievements = await _achievementsRepository
+          .getAchievements();
       final currentBudget = await _budgetRepository.getBudgetForMonth(
         expense.occurredAt,
       );
@@ -172,11 +173,22 @@ class RecordExpense {
     Budget? currentBudget,
   ) async {
     final summary = await _getMonthlySummary(expense.occurredAt);
+    final spentMinor = summary.spentMinor + expense.amountMinor;
+    final budgetMinor = currentBudget?.limitMinor ?? summary.budgetMinor;
+    final daysInMonth = DateTime(
+      summary.month.year,
+      summary.month.month + 1,
+      0,
+    ).day;
+
     return MonthlySummary(
-      month: summary.month,
-      totalSpentMinor: summary.totalSpentMinor + expense.amountMinor,
+      monthKey: summary.monthKey,
+      spentMinor: spentMinor,
+      budgetMinor: budgetMinor,
+      remainingMinor: currentBudget == null ? 0 : budgetMinor - spentMinor,
       expenseCount: summary.expenseCount + 1,
-      budgetLimitMinor: currentBudget?.limitMinor ?? summary.budgetLimitMinor,
+      topCategoryId: summary.topCategoryId,
+      averageDailySpentMinor: daysInMonth == 0 ? 0.0 : spentMinor / daysInMonth,
     );
   }
 }

@@ -34,7 +34,10 @@ class AchievementProjector {
         .toList(growable: false);
   }
 
-  List<AchievementProgress> seed(DateTime now, List<AchievementProgress> current) {
+  List<AchievementProgress> seed(
+    DateTime now,
+    List<AchievementProgress> current,
+  ) {
     return project(
       now: now,
       stats: UserStats(
@@ -80,7 +83,11 @@ class AchievementProjector {
         streak.currentCount >= 7,
       ),
       AchievementId.underBudgetMonth => (
-        _underBudgetProgress(budget: budget, monthlySummary: monthlySummary, now: now),
+        _underBudgetProgress(
+          budget: budget,
+          monthlySummary: monthlySummary,
+          now: now,
+        ),
         _isUnderBudgetMonthCompleted(
           budget: budget,
           monthlySummary: monthlySummary,
@@ -111,10 +118,10 @@ class AchievementProjector {
     required DateTime now,
   }) {
     return _isUnderBudgetMonthCompleted(
-      budget: budget,
-      monthlySummary: monthlySummary,
-      now: now,
-    )
+          budget: budget,
+          monthlySummary: monthlySummary,
+          now: now,
+        )
         ? 1
         : 0;
   }

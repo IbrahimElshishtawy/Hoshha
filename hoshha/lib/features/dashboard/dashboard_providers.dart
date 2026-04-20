@@ -9,15 +9,17 @@ import 'domain/dashboard_snapshot.dart';
 
 final getDashboardSnapshotProvider = Provider<GetDashboardSnapshot>(
   (ref) => GetDashboardSnapshot(
+    getExpenses: ref.watch(getExpensesProvider),
     getMonthlySummary: ref.watch(getMonthlySummaryProvider),
     getGamificationSnapshot: ref.watch(getGamificationSnapshotProvider),
+    budgetStatusCalculator: ref.watch(budgetStatusCalculatorProvider),
     now: ref.watch(clockProvider).now,
   ),
   name: 'getDashboardSnapshotProvider',
 );
 
-final dashboardSnapshotProvider = FutureProvider<DashboardSnapshot>(
-  (ref) => ref.watch(getDashboardSnapshotProvider).call(),
+final dashboardSnapshotProvider = StreamProvider<DashboardSnapshot>(
+  (ref) => ref.watch(getDashboardSnapshotProvider).watch(),
   name: 'dashboardSnapshotProvider',
 );
 

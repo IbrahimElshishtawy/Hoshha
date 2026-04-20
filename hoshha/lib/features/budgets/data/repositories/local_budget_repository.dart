@@ -11,8 +11,20 @@ class LocalBudgetRepository implements BudgetRepository {
 
   @override
   Future<Budget?> getBudgetForMonth(DateTime month) async {
-    final record = await _localDataSource.findByMonthKey(monthKeyFromDate(month));
+    final record = await _localDataSource.findByMonthKey(
+      monthKeyFromDate(month),
+    );
     return record == null ? null : mapBudgetRecordToDomain(record);
+  }
+
+  @override
+  Stream<Budget?> watchBudgetForMonth(DateTime month) {
+    final monthKey = monthKeyFromDate(month);
+    return _localDataSource
+        .watchByMonthKey(monthKey)
+        .map(
+          (record) => record == null ? null : mapBudgetRecordToDomain(record),
+        );
   }
 
   @override
