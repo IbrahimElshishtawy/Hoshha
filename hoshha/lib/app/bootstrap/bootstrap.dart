@@ -7,6 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/config/app_environment.dart';
 import '../../core/logging/app_logger.dart';
 import '../../core/time/clock.dart';
+import '../../infrastructure/database/app_database.dart';
+import '../../infrastructure/database/database_providers.dart';
 import '../../infrastructure/storage/storage_providers.dart';
 import '../app_providers.dart';
 import 'app_bootstrap_controller.dart';
@@ -16,6 +18,7 @@ Future<void> bootstrap(Widget app) async {
   final environment = AppEnvironment.fromBuild();
   final logger = DebugAppLogger();
   final sharedPreferences = await SharedPreferences.getInstance();
+  final isar = await openAppDatabase();
   final container = ProviderContainer(
     observers: [AppProviderObserver(logger)],
     overrides: [
@@ -23,6 +26,7 @@ Future<void> bootstrap(Widget app) async {
       appLoggerProvider.overrideWithValue(logger),
       clockProvider.overrideWithValue(const SystemClock()),
       sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+      isarProvider.overrideWithValue(isar),
     ],
   );
 

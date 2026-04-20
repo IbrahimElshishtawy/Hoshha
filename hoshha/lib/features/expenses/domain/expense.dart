@@ -1,13 +1,19 @@
 class Expense {
   const Expense({
     required this.id,
-    required this.amount,
-    required this.category,
+    required this.amountMinor,
+    required this.categoryId,
     required this.occurredAt,
+    required this.createdAt,
+    required this.updatedAt,
+    this.note,
   });
 
   final String id;
-  final double amount;
-  final String category;
+  final int amountMinor;
+  final String categoryId;
   final DateTime occurredAt;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final String? note;
 }

@@ -23,31 +23,40 @@ class InMemoryExpenseRepository implements ExpenseRepository {
 
   List<Expense> _seedExpenses() {
     final now = _clock.now();
+    final createdAt = now.subtract(const Duration(days: 7));
 
     return [
       Expense(
         id: 'expense-groceries',
-        amount: 320,
-        category: 'Groceries',
+        amountMinor: 32000,
+        categoryId: 'groceries',
         occurredAt: now.subtract(const Duration(days: 1)),
+        createdAt: createdAt,
+        updatedAt: now,
       ),
       Expense(
         id: 'expense-transport',
-        amount: 140,
-        category: 'Transport',
+        amountMinor: 14000,
+        categoryId: 'transport',
         occurredAt: now.subtract(const Duration(days: 3)),
+        createdAt: createdAt,
+        updatedAt: now,
       ),
       Expense(
         id: 'expense-coffee',
-        amount: 85,
-        category: 'Coffee',
+        amountMinor: 8500,
+        categoryId: 'coffee',
         occurredAt: now.subtract(const Duration(days: 5)),
+        createdAt: createdAt,
+        updatedAt: now,
       ),
       Expense(
         id: 'expense-previous-month',
-        amount: 210,
-        category: 'Shopping',
+        amountMinor: 21000,
+        categoryId: 'shopping',
         occurredAt: DateTime(now.year, now.month - 1, 28),
+        createdAt: createdAt,
+        updatedAt: now,
       ),
     ];
   }

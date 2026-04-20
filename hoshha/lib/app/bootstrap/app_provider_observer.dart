@@ -9,12 +9,13 @@ final class AppProviderObserver extends ProviderObserver {
 
   @override
   void providerDidFail(
-    ProviderObserverContext context,
+    ProviderBase<Object?> provider,
     Object error,
     StackTrace stackTrace,
+    ProviderContainer container,
   ) {
     _logger.error(
-      'Provider failed: ${context.provider.name ?? context.provider.runtimeType}',
+      'Provider failed: ${provider.name ?? provider.runtimeType}',
       error,
       stackTrace,
     );

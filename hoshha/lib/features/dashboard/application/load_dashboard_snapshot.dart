@@ -26,7 +26,7 @@ class LoadDashboardSnapshot {
 
     final totalSpent = expenses.fold<double>(
       0,
-      (sum, expense) => sum + expense.amount,
+      (sum, expense) => sum + (expense.amountMinor / 100),
     );
 
     return DashboardSnapshot(
