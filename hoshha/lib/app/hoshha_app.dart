@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hoshha/l10n/generated/app_localizations.dart';
 
-import '../features/dashboard/presentation/dashboard_screen.dart';
-import '../infrastructure/providers.dart';
+import '../localization/localization_providers.dart';
+import '../theme/theme_providers.dart';
+import 'app_providers.dart';
+import 'bootstrap/app_bootstrap_controller.dart';
+import 'router/app_router.dart';
 
 class HoshhaApp extends ConsumerWidget {
   const HoshhaApp({super.key});
@@ -10,16 +14,22 @@ class HoshhaApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final environment = ref.watch(appEnvironmentProvider);
+    final router = ref.watch(appRouterProvider);
+    final themeConfiguration = ref.watch(appThemeConfigurationProvider);
+    final locale = ref.watch(currentLocaleProvider);
+    ref.watch(appBootstrapControllerProvider);
 
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: environment.appName,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0B6E4F)),
-        scaffoldBackgroundColor: const Color(0xFFF7F6F2),
-        useMaterial3: true,
-      ),
-      home: const DashboardScreen(),
+      onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
+      routerConfig: router,
+      theme: themeConfiguration.theme,
+      darkTheme: themeConfiguration.darkTheme,
+      themeMode: themeConfiguration.themeMode,
+      locale: locale,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }

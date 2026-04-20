@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'app/bootstrap/bootstrap.dart';
 import 'app/hoshha_app.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  bootstrap(const HoshhaApp());
+  await bootstrap(const HoshhaApp());
 }

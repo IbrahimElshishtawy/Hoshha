@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../app/app_providers.dart';
 import '../../../analytics/analytics_event.dart';
-import '../../../infrastructure/providers.dart';
 import '../dashboard_providers.dart';
 import '../domain/dashboard_snapshot.dart';
 

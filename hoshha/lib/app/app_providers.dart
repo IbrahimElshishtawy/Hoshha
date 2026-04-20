@@ -5,20 +5,15 @@ import '../core/config/app_environment.dart';
 import '../core/config/app_feature_flags.dart';
 import '../core/logging/app_logger.dart';
 import '../core/time/clock.dart';
-import 'telemetry/console_analytics_tracker.dart';
+import '../infrastructure/telemetry/console_analytics_tracker.dart';
 
 final appEnvironmentProvider = Provider<AppEnvironment>(
-  (ref) => const AppEnvironment.development(),
+  (ref) => AppEnvironment.fromBuild(),
   name: 'appEnvironmentProvider',
 );
 
 final appFeatureFlagsProvider = Provider<AppFeatureFlags>(
-  (ref) => const AppFeatureFlags(
-    authEnabled: false,
-    premiumEnabled: false,
-    inAppUpdatesEnabled: false,
-    remoteSyncEnabled: false,
-  ),
+  (ref) => const AppFeatureFlags.defaults(),
   name: 'appFeatureFlagsProvider',
 );
 

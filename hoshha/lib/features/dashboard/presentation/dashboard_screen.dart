@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hoshha/l10n/generated/app_localizations.dart';
 
+import '../../../app/app_providers.dart';
 import '../../../core/config/app_environment.dart';
 import '../../../core/config/app_feature_flags.dart';
-import '../../../infrastructure/providers.dart';
+import '../../../theme/theme_extensions.dart';
 import '../dashboard_providers.dart';
 import '../domain/dashboard_snapshot.dart';
 
@@ -15,6 +17,7 @@ class DashboardScreen extends ConsumerWidget {
     final snapshot = ref.watch(dashboardControllerProvider);
     final environment = ref.watch(appEnvironmentProvider);
     final flags = ref.watch(appFeatureFlagsProvider);
+    final spacing = context.appSpacing;
 
     return Scaffold(
       appBar: AppBar(title: Text(environment.appName)),
@@ -22,10 +25,10 @@ class DashboardScreen extends ConsumerWidget {
         onRefresh: () =>
             ref.read(dashboardControllerProvider.notifier).refresh(),
         child: ListView(
-          padding: const EdgeInsets.all(24),
+          padding: EdgeInsets.all(spacing.lg),
           children: [
             _EnvironmentBanner(environment: environment, flags: flags),
-            const SizedBox(height: 16),
+            SizedBox(height: spacing.md),
             snapshot.when(
               data: (value) => _DashboardContent(snapshot: value),
               loading: () => const Center(
@@ -51,20 +54,26 @@ class _EnvironmentBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final spacing = context.appSpacing;
+    final statusEnabled = l10n.statusEnabled;
+    final statusDisabled = l10n.statusDisabled;
     final chips = <String>[
-      'env: ${environment.environment.name}',
-      'auth: ${flags.authEnabled ? 'on' : 'off'}',
-      'premium: ${flags.premiumEnabled ? 'on' : 'off'}',
-      'updates: ${flags.inAppUpdatesEnabled ? 'on' : 'off'}',
-      'sync: ${flags.remoteSyncEnabled ? 'on' : 'off'}',
+      l10n.environmentChip(environment.environment.name),
+      l10n.authChip(flags.authEnabled ? statusEnabled : statusDisabled),
+      l10n.premiumChip(flags.premiumEnabled ? statusEnabled : statusDisabled),
+      l10n.updatesChip(
+        flags.inAppUpdatesEnabled ? statusEnabled : statusDisabled,
+      ),
+      l10n.syncChip(flags.remoteSyncEnabled ? statusEnabled : statusDisabled),
     ];
 
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(spacing.md),
         child: Wrap(
-          spacing: 8,
-          runSpacing: 8,
+          spacing: spacing.sm,
+          runSpacing: spacing.sm,
           children: chips.map((chip) => Chip(label: Text(chip))).toList(),
         ),
       ),
@@ -79,25 +88,35 @@ class _DashboardContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final spacing = context.appSpacing;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _MetricCard(
-          title: 'Monthly spend',
+          title: l10n.dashboardMonthlySpendTitle,
           value: snapshot.totalSpent.toStringAsFixed(0),
-          subtitle: '${snapshot.transactionCount} tracked expenses',
+          subtitle: l10n.dashboardMonthlySpendSubtitle(
+            snapshot.transactionCount,
+          ),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: spacing.sm + spacing.xs),
         _MetricCard(
-          title: 'Budget remaining',
+          title: l10n.dashboardBudgetRemainingTitle,
           value: snapshot.remainingBudget.toStringAsFixed(0),
-          subtitle: 'Budget cap ${snapshot.budgetLimit.toStringAsFixed(0)}',
+          subtitle: l10n.dashboardBudgetRemainingSubtitle(
+            snapshot.budgetLimit.toStringAsFixed(0),
+          ),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: spacing.sm + spacing.xs),
         _MetricCard(
-          title: 'Gamification',
+          title: l10n.dashboardGamificationTitle,
           value: 'Level ${snapshot.level}',
-          subtitle: '${snapshot.streakDays} day streak | ${snapshot.xp} XP',
+          subtitle: l10n.dashboardGamificationSubtitle(
+            snapshot.streakDays,
+            snapshot.xp,
+          ),
         ),
       ],
     );
@@ -117,16 +136,18 @@ class _MetricCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final spacing = context.appSpacing;
+
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(spacing.md + spacing.xs),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(title, style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: 8),
+            SizedBox(height: spacing.sm),
             Text(value, style: Theme.of(context).textTheme.headlineMedium),
-            const SizedBox(height: 4),
+            SizedBox(height: spacing.xs),
             Text(subtitle),
           ],
         ),
@@ -142,10 +163,13 @@ class _ErrorState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final spacing = context.appSpacing;
+
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Text('Failed to load dashboard snapshot: $error'),
+        padding: EdgeInsets.all(spacing.md + spacing.xs),
+        child: Text(l10n.dashboardLoadFailure(error.toString())),
       ),
     );
   }

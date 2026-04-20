@@ -1,0 +1,70 @@
+{
+  "@@locale": "ar",
+  "appTitle": "حوشها",
+  "dashboardMonthlySpendTitle": "المصروف الشهري",
+  "dashboardMonthlySpendSubtitle": "{count} عملية مسجلة",
+  "@dashboardMonthlySpendSubtitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dashboardBudgetRemainingTitle": "المتبقي من الميزانية",
+  "dashboardBudgetRemainingSubtitle": "حد الميزانية {limit}",
+  "@dashboardBudgetRemainingSubtitle": {
+    "placeholders": {
+      "limit": {}
+    }
+  },
+  "dashboardGamificationTitle": "التحدي",
+  "dashboardGamificationSubtitle": "{streak} يوم متواصل | {xp} نقطة خبرة",
+  "@dashboardGamificationSubtitle": {
+    "placeholders": {
+      "streak": {
+        "type": "int"
+      },
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "dashboardLoadFailure": "تعذر تحميل ملخص اللوحة: {error}",
+  "@dashboardLoadFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "environmentChip": "البيئة: {value}",
+  "@environmentChip": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "authChip": "المصادقة: {value}",
+  "@authChip": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "premiumChip": "الاشتراك: {value}",
+  "@premiumChip": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "updatesChip": "التحديثات: {value}",
+  "@updatesChip": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "syncChip": "المزامنة: {value}",
+  "@syncChip": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "statusEnabled": "مفعل",
+  "statusDisabled": "متوقف"
+}

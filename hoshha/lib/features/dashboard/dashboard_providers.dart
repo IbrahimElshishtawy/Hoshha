@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../infrastructure/providers.dart';
+import '../../app/app_providers.dart';
 import '../budgets/budget_providers.dart';
 import '../expenses/expenses_providers.dart';
 import '../gamification/gamification_providers.dart';

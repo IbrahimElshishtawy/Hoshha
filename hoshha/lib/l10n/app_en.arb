@@ -1,0 +1,70 @@
+{
+  "@@locale": "en",
+  "appTitle": "Hoshha",
+  "dashboardMonthlySpendTitle": "Monthly spend",
+  "dashboardMonthlySpendSubtitle": "{count} tracked expenses",
+  "@dashboardMonthlySpendSubtitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dashboardBudgetRemainingTitle": "Budget remaining",
+  "dashboardBudgetRemainingSubtitle": "Budget cap {limit}",
+  "@dashboardBudgetRemainingSubtitle": {
+    "placeholders": {
+      "limit": {}
+    }
+  },
+  "dashboardGamificationTitle": "Gamification",
+  "dashboardGamificationSubtitle": "{streak} day streak | {xp} XP",
+  "@dashboardGamificationSubtitle": {
+    "placeholders": {
+      "streak": {
+        "type": "int"
+      },
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "dashboardLoadFailure": "Failed to load dashboard snapshot: {error}",
+  "@dashboardLoadFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "environmentChip": "Environment: {value}",
+  "@environmentChip": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "authChip": "Auth: {value}",
+  "@authChip": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "premiumChip": "Premium: {value}",
+  "@premiumChip": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "updatesChip": "Updates: {value}",
+  "@updatesChip": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "syncChip": "Sync: {value}",
+  "@syncChip": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "statusEnabled": "on",
+  "statusDisabled": "off"
+}

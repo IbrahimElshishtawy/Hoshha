@@ -10,4 +10,12 @@ class AppFeatureFlags {
   final bool premiumEnabled;
   final bool inAppUpdatesEnabled;
   final bool remoteSyncEnabled;
+
+  const AppFeatureFlags.defaults()
+    : this(
+        authEnabled: false,
+        premiumEnabled: false,
+        inAppUpdatesEnabled: false,
+        remoteSyncEnabled: false,
+      );
 }

@@ -36,6 +36,11 @@ dependencies:
   cupertino_icons: ^1.0.8
   rename_app: ^1.6.5
   flutter_riverpod: ^3.3.1
+  go_router: ^17.2.1
+  shared_preferences: ^2.5.5
+  intl: ^0.20.2
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -53,6 +58,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
