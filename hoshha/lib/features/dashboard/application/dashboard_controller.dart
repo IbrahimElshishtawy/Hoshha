@@ -12,13 +12,13 @@ class DashboardController extends AsyncNotifier<DashboardSnapshot> {
         .watch(analyticsTrackerProvider)
         .track(const AnalyticsEvent(name: 'dashboard_opened'));
 
-    return ref.watch(loadDashboardSnapshotProvider).call();
+    return ref.watch(getDashboardSnapshotProvider).call();
   }
 
   Future<void> refresh() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(
-      () => ref.read(loadDashboardSnapshotProvider).call(),
+      () => ref.read(getDashboardSnapshotProvider).call(),
     );
   }
 }

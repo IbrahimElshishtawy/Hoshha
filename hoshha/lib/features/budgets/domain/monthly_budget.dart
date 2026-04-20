@@ -1,6 +1,8 @@
 class MonthlyBudget {
-  const MonthlyBudget({required this.month, required this.limit});
+  const MonthlyBudget({required this.month, required this.limitMinor});
 
   final DateTime month;
-  final double limit;
+  final int limitMinor;
+
+  double get limit => limitMinor / 100;
 }

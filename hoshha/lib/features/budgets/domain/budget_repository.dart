@@ -1,5 +1,7 @@
-import 'monthly_budget.dart';
+import 'budget.dart';
 
 abstract class BudgetRepository {
-  Future<MonthlyBudget> getForMonth(DateTime month);
+  Future<Budget?> getBudgetForMonth(DateTime month);
+
+  Future<Budget> saveBudget(Budget budget);
 }

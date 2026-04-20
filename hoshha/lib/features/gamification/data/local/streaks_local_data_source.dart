@@ -1,7 +1,5 @@
 import 'package:isar_db/isar_db.dart';
 
-import '../../domain/streak.dart';
-import 'streak_mapper.dart';
 import 'streak_record.dart';
 
 class StreaksLocalDataSource {
@@ -11,26 +9,20 @@ class StreaksLocalDataSource {
 
   IsarCollection<int, StreakRecord> get collection => _isar.streakRecords;
 
-  Future<void> put(Streak streak) async {
-    final existing = await collection
-        .where()
-        .typeEqualTo(streak.type.name)
-        .findFirstAsync();
-    final record = mapStreakToRecord(streak, current: existing);
-    if (record.id == 0) {
-      record.id = collection.autoIncrement();
-    }
+  Future<StreakRecord?> findByType(String type) {
+    return collection.where().typeEqualTo(type).findFirstAsync();
+  }
 
+  Future<void> putRecord(StreakRecord record) async {
     await _isar.writeAsync((isar) {
-      isar.streakRecords.put(record);
+      putRecordInTransaction(isar, record);
     });
   }
 
-  Future<Streak?> getByType(StreakType type) async {
-    final record = await collection
-        .where()
-        .typeEqualTo(type.name)
-        .findFirstAsync();
-    return record == null ? null : mapStreakRecordToDomain(record);
+  void putRecordInTransaction(Isar isar, StreakRecord record) {
+    if (record.id == 0) {
+      record.id = isar.streakRecords.autoIncrement();
+    }
+    isar.streakRecords.put(record);
   }
 }

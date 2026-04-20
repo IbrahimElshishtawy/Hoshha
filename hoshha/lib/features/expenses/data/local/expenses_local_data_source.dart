@@ -1,7 +1,5 @@
 import 'package:isar_db/isar_db.dart';
 
-import '../../domain/expense.dart';
-import 'expense_mapper.dart';
 import 'expense_record.dart';
 
 class ExpensesLocalDataSource {
@@ -11,34 +9,39 @@ class ExpensesLocalDataSource {
 
   IsarCollection<int, ExpenseRecord> get collection => _isar.expenseRecords;
 
-  Future<void> put(Expense expense) async {
-    final existing = await collection
-        .where()
-        .entityIdEqualTo(expense.id)
-        .findFirstAsync();
-    final record = mapExpenseToRecord(expense, current: existing);
-    if (record.id == 0) {
-      record.id = collection.autoIncrement();
-    }
+  Future<List<ExpenseRecord>> getAll() => collection.where().findAllAsync();
 
+  Future<ExpenseRecord?> findByEntityId(String expenseId) {
+    return collection.where().entityIdEqualTo(expenseId).findFirstAsync();
+  }
+
+  Future<void> putRecord(ExpenseRecord record) async {
     await _isar.writeAsync((isar) {
-      isar.expenseRecords.put(record);
+      putRecordInTransaction(isar, record);
     });
   }
 
-  Future<Expense?> getById(String expenseId) async {
-    final record = await collection
-        .where()
-        .entityIdEqualTo(expenseId)
-        .findFirstAsync();
-    return record == null ? null : mapExpenseRecordToDomain(record);
+  Future<bool> deleteByEntityId(String expenseId) async {
+    final existing = await findByEntityId(expenseId);
+    if (existing == null) {
+      return false;
+    }
+
+    await _isar.writeAsync((isar) {
+      isar.expenseRecords.delete(existing.id);
+    });
+
+    return true;
   }
 
-  Future<List<Expense>> listByMonth(String monthKey) async {
-    final records = await collection
-        .where()
-        .monthKeyEqualTo(monthKey)
-        .findAllAsync();
-    return records.map(mapExpenseRecordToDomain).toList(growable: false);
+  void putRecordInTransaction(Isar isar, ExpenseRecord record) {
+    if (record.id == 0) {
+      record.id = isar.expenseRecords.autoIncrement();
+    }
+    isar.expenseRecords.put(record);
+  }
+
+  void deleteRecordInTransaction(Isar isar, int id) {
+    isar.expenseRecords.delete(id);
   }
 }

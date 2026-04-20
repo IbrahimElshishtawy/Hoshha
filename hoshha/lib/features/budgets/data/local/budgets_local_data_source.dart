@@ -1,7 +1,5 @@
 import 'package:isar_db/isar_db.dart';
 
-import '../../domain/budget.dart';
-import 'budget_mapper.dart';
 import 'budget_record.dart';
 
 class BudgetsLocalDataSource {
@@ -11,26 +9,20 @@ class BudgetsLocalDataSource {
 
   IsarCollection<int, BudgetRecord> get collection => _isar.budgetRecords;
 
-  Future<void> put(Budget budget) async {
-    final existing = await collection
-        .where()
-        .monthKeyEqualTo(budget.monthKey)
-        .findFirstAsync();
-    final record = mapBudgetToRecord(budget, current: existing);
-    if (record.id == 0) {
-      record.id = collection.autoIncrement();
-    }
+  Future<BudgetRecord?> findByMonthKey(String monthKey) {
+    return collection.where().monthKeyEqualTo(monthKey).findFirstAsync();
+  }
 
+  Future<void> putRecord(BudgetRecord record) async {
     await _isar.writeAsync((isar) {
-      isar.budgetRecords.put(record);
+      putRecordInTransaction(isar, record);
     });
   }
 
-  Future<Budget?> getByMonthKey(String monthKey) async {
-    final record = await collection
-        .where()
-        .monthKeyEqualTo(monthKey)
-        .findFirstAsync();
-    return record == null ? null : mapBudgetRecordToDomain(record);
+  void putRecordInTransaction(Isar isar, BudgetRecord record) {
+    if (record.id == 0) {
+      record.id = isar.budgetRecords.autoIncrement();
+    }
+    isar.budgetRecords.put(record);
   }
 }
