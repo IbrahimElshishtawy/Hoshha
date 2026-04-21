@@ -1,4 +1,4 @@
-import 'package:isar_db/isar_db.dart';
+import 'package:isar/isar.dart';
 
 import 'budget_record.dart';
 
@@ -13,9 +13,10 @@ class BudgetsLocalDataSource {
     return collection.where().monthKeyEqualTo(monthKey).findFirstAsync();
   }
 
-  Stream<BudgetRecord?> watchByMonthKey(String monthKey) async* {
-    yield await findByMonthKey(monthKey);
-    yield* collection.watch().asyncMap((_) => findByMonthKey(monthKey));
+  Stream<BudgetRecord?> watchByMonthKey(String monthKey) {
+    return collection.where().monthKeyEqualTo(monthKey).watch(
+      fireImmediately: true,
+    ).map((records) => records.isEmpty ? null : records.first);
   }
 
   Future<void> putRecord(BudgetRecord record) async {
@@ -32,6 +33,4 @@ class BudgetsLocalDataSource {
   }
 
   void clearInTransaction(Isar isar) {
-    isar.budgetRecords.clear();
-  }
-}
+    

@@ -21,13 +21,34 @@ const UserStatsRecordSchema = IsarGeneratedSchema(
     idName: 'id',
     embedded: false,
     properties: [
-      IsarPropertySchema(name: 'totalXp', type: IsarType.long),
-      IsarPropertySchema(name: 'level', type: IsarType.long),
-      IsarPropertySchema(name: 'totalExpensesCount', type: IsarType.long),
-      IsarPropertySchema(name: 'totalSpentMinor', type: IsarType.long),
-      IsarPropertySchema(name: 'lastExpenseAt', type: IsarType.dateTime),
-      IsarPropertySchema(name: 'createdAt', type: IsarType.dateTime),
-      IsarPropertySchema(name: 'updatedAt', type: IsarType.dateTime),
+      IsarPropertySchema(
+        name: 'totalXp',
+        type: IsarType.long,
+      ),
+      IsarPropertySchema(
+        name: 'level',
+        type: IsarType.long,
+      ),
+      IsarPropertySchema(
+        name: 'totalExpensesCount',
+        type: IsarType.long,
+      ),
+      IsarPropertySchema(
+        name: 'totalSpentMinor',
+        type: IsarType.long,
+      ),
+      IsarPropertySchema(
+        name: 'lastExpenseAt',
+        type: IsarType.dateTime,
+      ),
+      IsarPropertySchema(
+        name: 'createdAt',
+        type: IsarType.dateTime,
+      ),
+      IsarPropertySchema(
+        name: 'updatedAt',
+        type: IsarType.dateTime,
+      ),
     ],
     indexes: [],
   ),
@@ -46,21 +67,14 @@ int serializeUserStatsRecord(IsarWriter writer, UserStatsRecord object) {
   IsarCore.writeLong(writer, 3, object.totalExpensesCount);
   IsarCore.writeLong(writer, 4, object.totalSpentMinor);
   IsarCore.writeLong(
-    writer,
-    5,
-    object.lastExpenseAt?.toUtc().microsecondsSinceEpoch ??
-        -9223372036854775808,
-  );
+      writer,
+      5,
+      object.lastExpenseAt?.toUtc().microsecondsSinceEpoch ??
+          -9223372036854775808);
   IsarCore.writeLong(
-    writer,
-    6,
-    object.createdAt.toUtc().microsecondsSinceEpoch,
-  );
+      writer, 6, object.createdAt.toUtc().microsecondsSinceEpoch);
   IsarCore.writeLong(
-    writer,
-    7,
-    object.updatedAt.toUtc().microsecondsSinceEpoch,
-  );
+      writer, 7, object.updatedAt.toUtc().microsecondsSinceEpoch);
   return object.id;
 }
 
@@ -77,38 +91,28 @@ UserStatsRecord deserializeUserStatsRecord(IsarReader reader) {
     if (value == -9223372036854775808) {
       object.lastExpenseAt = null;
     } else {
-      object.lastExpenseAt = DateTime.fromMicrosecondsSinceEpoch(
-        value,
-        isUtc: true,
-      ).toLocal();
+      object.lastExpenseAt =
+          DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true).toLocal();
     }
   }
   {
     final value = IsarCore.readLong(reader, 6);
     if (value == -9223372036854775808) {
-      object.createdAt = DateTime.fromMillisecondsSinceEpoch(
-        0,
-        isUtc: true,
-      ).toLocal();
+      object.createdAt =
+          DateTime.fromMillisecondsSinceEpoch(0, isUtc: true).toLocal();
     } else {
-      object.createdAt = DateTime.fromMicrosecondsSinceEpoch(
-        value,
-        isUtc: true,
-      ).toLocal();
+      object.createdAt =
+          DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true).toLocal();
     }
   }
   {
     final value = IsarCore.readLong(reader, 7);
     if (value == -9223372036854775808) {
-      object.updatedAt = DateTime.fromMillisecondsSinceEpoch(
-        0,
-        isUtc: true,
-      ).toLocal();
+      object.updatedAt =
+          DateTime.fromMillisecondsSinceEpoch(0, isUtc: true).toLocal();
     } else {
-      object.updatedAt = DateTime.fromMicrosecondsSinceEpoch(
-        value,
-        isUtc: true,
-      ).toLocal();
+      object.updatedAt =
+          DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true).toLocal();
     }
   }
   return object;
@@ -133,10 +137,8 @@ dynamic deserializeUserStatsRecordProp(IsarReader reader, int property) {
         if (value == -9223372036854775808) {
           return null;
         } else {
-          return DateTime.fromMicrosecondsSinceEpoch(
-            value,
-            isUtc: true,
-          ).toLocal();
+          return DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true)
+              .toLocal();
         }
       }
     case 6:
@@ -145,10 +147,8 @@ dynamic deserializeUserStatsRecordProp(IsarReader reader, int property) {
         if (value == -9223372036854775808) {
           return DateTime.fromMillisecondsSinceEpoch(0, isUtc: true).toLocal();
         } else {
-          return DateTime.fromMicrosecondsSinceEpoch(
-            value,
-            isUtc: true,
-          ).toLocal();
+          return DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true)
+              .toLocal();
         }
       }
     case 7:
@@ -157,10 +157,8 @@ dynamic deserializeUserStatsRecordProp(IsarReader reader, int property) {
         if (value == -9223372036854775808) {
           return DateTime.fromMillisecondsSinceEpoch(0, isUtc: true).toLocal();
         } else {
-          return DateTime.fromMicrosecondsSinceEpoch(
-            value,
-            isUtc: true,
-          ).toLocal();
+          return DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true)
+              .toLocal();
         }
       }
     default:
@@ -197,18 +195,17 @@ class _UserStatsRecordUpdateImpl implements _UserStatsRecordUpdate {
     Object? createdAt = ignore,
     Object? updatedAt = ignore,
   }) {
-    return collection.updateProperties(
-          [id],
-          {
-            if (totalXp != ignore) 1: totalXp as int?,
-            if (level != ignore) 2: level as int?,
-            if (totalExpensesCount != ignore) 3: totalExpensesCount as int?,
-            if (totalSpentMinor != ignore) 4: totalSpentMinor as int?,
-            if (lastExpenseAt != ignore) 5: lastExpenseAt as DateTime?,
-            if (createdAt != ignore) 6: createdAt as DateTime?,
-            if (updatedAt != ignore) 7: updatedAt as DateTime?,
-          },
-        ) >
+    return collection.updateProperties([
+          id
+        ], {
+          if (totalXp != ignore) 1: totalXp as int?,
+          if (level != ignore) 2: level as int?,
+          if (totalExpensesCount != ignore) 3: totalExpensesCount as int?,
+          if (totalSpentMinor != ignore) 4: totalSpentMinor as int?,
+          if (lastExpenseAt != ignore) 5: lastExpenseAt as DateTime?,
+          if (createdAt != ignore) 6: createdAt as DateTime?,
+          if (updatedAt != ignore) 7: updatedAt as DateTime?,
+        }) >
         0;
   }
 }
@@ -355,431 +352,703 @@ extension UserStatsRecordQueryBuilderUpdate
 extension UserStatsRecordQueryFilter
     on QueryBuilder<UserStatsRecord, UserStatsRecord, QFilterCondition> {
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  idEqualTo(int value) {
+      idEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 0, value: value),
+        EqualCondition(
+          property: 0,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  idGreaterThan(int value) {
+      idGreaterThan(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterCondition(property: 0, value: value),
+        GreaterCondition(
+          property: 0,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  idGreaterThanOrEqualTo(int value) {
+      idGreaterThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterOrEqualCondition(property: 0, value: value),
+        GreaterOrEqualCondition(
+          property: 0,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  idLessThan(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(LessCondition(property: 0, value: value));
-    });
-  }
-
-  QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  idLessThanOrEqualTo(int value) {
+      idLessThan(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessOrEqualCondition(property: 0, value: value),
+        LessCondition(
+          property: 0,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  idBetween(int lower, int upper) {
+      idLessThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        BetweenCondition(property: 0, lower: lower, upper: upper),
+        LessOrEqualCondition(
+          property: 0,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  totalXpEqualTo(int value) {
+      idBetween(
+    int lower,
+    int upper,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 1, value: value),
+        BetweenCondition(
+          property: 0,
+          lower: lower,
+          upper: upper,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  totalXpGreaterThan(int value) {
+      totalXpEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterCondition(property: 1, value: value),
+        EqualCondition(
+          property: 1,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  totalXpGreaterThanOrEqualTo(int value) {
+      totalXpGreaterThan(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterOrEqualCondition(property: 1, value: value),
+        GreaterCondition(
+          property: 1,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  totalXpLessThan(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(LessCondition(property: 1, value: value));
-    });
-  }
-
-  QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  totalXpLessThanOrEqualTo(int value) {
+      totalXpGreaterThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessOrEqualCondition(property: 1, value: value),
+        GreaterOrEqualCondition(
+          property: 1,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  totalXpBetween(int lower, int upper) {
+      totalXpLessThan(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        BetweenCondition(property: 1, lower: lower, upper: upper),
+        LessCondition(
+          property: 1,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  levelEqualTo(int value) {
+      totalXpLessThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 2, value: value),
+        LessOrEqualCondition(
+          property: 1,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  levelGreaterThan(int value) {
+      totalXpBetween(
+    int lower,
+    int upper,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterCondition(property: 2, value: value),
+        BetweenCondition(
+          property: 1,
+          lower: lower,
+          upper: upper,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  levelGreaterThanOrEqualTo(int value) {
+      levelEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterOrEqualCondition(property: 2, value: value),
+        EqualCondition(
+          property: 2,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  levelLessThan(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(LessCondition(property: 2, value: value));
-    });
-  }
-
-  QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  levelLessThanOrEqualTo(int value) {
+      levelGreaterThan(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessOrEqualCondition(property: 2, value: value),
+        GreaterCondition(
+          property: 2,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  levelBetween(int lower, int upper) {
+      levelGreaterThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        BetweenCondition(property: 2, lower: lower, upper: upper),
+        GreaterOrEqualCondition(
+          property: 2,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  totalExpensesCountEqualTo(int value) {
+      levelLessThan(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 3, value: value),
+        LessCondition(
+          property: 2,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  totalExpensesCountGreaterThan(int value) {
+      levelLessThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterCondition(property: 3, value: value),
+        LessOrEqualCondition(
+          property: 2,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  totalExpensesCountGreaterThanOrEqualTo(int value) {
+      levelBetween(
+    int lower,
+    int upper,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterOrEqualCondition(property: 3, value: value),
+        BetweenCondition(
+          property: 2,
+          lower: lower,
+          upper: upper,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  totalExpensesCountLessThan(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(LessCondition(property: 3, value: value));
-    });
-  }
-
-  QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  totalExpensesCountLessThanOrEqualTo(int value) {
+      totalExpensesCountEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessOrEqualCondition(property: 3, value: value),
+        EqualCondition(
+          property: 3,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  totalExpensesCountBetween(int lower, int upper) {
+      totalExpensesCountGreaterThan(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        BetweenCondition(property: 3, lower: lower, upper: upper),
+        GreaterCondition(
+          property: 3,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  totalSpentMinorEqualTo(int value) {
+      totalExpensesCountGreaterThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 4, value: value),
+        GreaterOrEqualCondition(
+          property: 3,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  totalSpentMinorGreaterThan(int value) {
+      totalExpensesCountLessThan(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterCondition(property: 4, value: value),
+        LessCondition(
+          property: 3,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  totalSpentMinorGreaterThanOrEqualTo(int value) {
+      totalExpensesCountLessThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterOrEqualCondition(property: 4, value: value),
+        LessOrEqualCondition(
+          property: 3,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  totalSpentMinorLessThan(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(LessCondition(property: 4, value: value));
-    });
-  }
-
-  QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  totalSpentMinorLessThanOrEqualTo(int value) {
+      totalExpensesCountBetween(
+    int lower,
+    int upper,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessOrEqualCondition(property: 4, value: value),
+        BetweenCondition(
+          property: 3,
+          lower: lower,
+          upper: upper,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  totalSpentMinorBetween(int lower, int upper) {
+      totalSpentMinorEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        BetweenCondition(property: 4, lower: lower, upper: upper),
+        EqualCondition(
+          property: 4,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  lastExpenseAtIsNull() {
+      totalSpentMinorGreaterThan(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 4,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
+      totalSpentMinorGreaterThanOrEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 4,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
+      totalSpentMinorLessThan(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessCondition(
+          property: 4,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
+      totalSpentMinorLessThanOrEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 4,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
+      totalSpentMinorBetween(
+    int lower,
+    int upper,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 4,
+          lower: lower,
+          upper: upper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
+      lastExpenseAtIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const IsNullCondition(property: 5));
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  lastExpenseAtIsNotNull() {
+      lastExpenseAtIsNotNull() {
     return QueryBuilder.apply(not(), (query) {
       return query.addFilterCondition(const IsNullCondition(property: 5));
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  lastExpenseAtEqualTo(DateTime? value) {
+      lastExpenseAtEqualTo(
+    DateTime? value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 5, value: value),
+        EqualCondition(
+          property: 5,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  lastExpenseAtGreaterThan(DateTime? value) {
+      lastExpenseAtGreaterThan(
+    DateTime? value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterCondition(property: 5, value: value),
+        GreaterCondition(
+          property: 5,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  lastExpenseAtGreaterThanOrEqualTo(DateTime? value) {
+      lastExpenseAtGreaterThanOrEqualTo(
+    DateTime? value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterOrEqualCondition(property: 5, value: value),
+        GreaterOrEqualCondition(
+          property: 5,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  lastExpenseAtLessThan(DateTime? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(LessCondition(property: 5, value: value));
-    });
-  }
-
-  QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  lastExpenseAtLessThanOrEqualTo(DateTime? value) {
+      lastExpenseAtLessThan(
+    DateTime? value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessOrEqualCondition(property: 5, value: value),
+        LessCondition(
+          property: 5,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  lastExpenseAtBetween(DateTime? lower, DateTime? upper) {
+      lastExpenseAtLessThanOrEqualTo(
+    DateTime? value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        BetweenCondition(property: 5, lower: lower, upper: upper),
+        LessOrEqualCondition(
+          property: 5,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  createdAtEqualTo(DateTime value) {
+      lastExpenseAtBetween(
+    DateTime? lower,
+    DateTime? upper,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 6, value: value),
+        BetweenCondition(
+          property: 5,
+          lower: lower,
+          upper: upper,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  createdAtGreaterThan(DateTime value) {
+      createdAtEqualTo(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterCondition(property: 6, value: value),
+        EqualCondition(
+          property: 6,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  createdAtGreaterThanOrEqualTo(DateTime value) {
+      createdAtGreaterThan(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterOrEqualCondition(property: 6, value: value),
+        GreaterCondition(
+          property: 6,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  createdAtLessThan(DateTime value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(LessCondition(property: 6, value: value));
-    });
-  }
-
-  QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  createdAtLessThanOrEqualTo(DateTime value) {
+      createdAtGreaterThanOrEqualTo(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessOrEqualCondition(property: 6, value: value),
+        GreaterOrEqualCondition(
+          property: 6,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  createdAtBetween(DateTime lower, DateTime upper) {
+      createdAtLessThan(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        BetweenCondition(property: 6, lower: lower, upper: upper),
+        LessCondition(
+          property: 6,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  updatedAtEqualTo(DateTime value) {
+      createdAtLessThanOrEqualTo(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 7, value: value),
+        LessOrEqualCondition(
+          property: 6,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  updatedAtGreaterThan(DateTime value) {
+      createdAtBetween(
+    DateTime lower,
+    DateTime upper,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterCondition(property: 7, value: value),
+        BetweenCondition(
+          property: 6,
+          lower: lower,
+          upper: upper,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  updatedAtGreaterThanOrEqualTo(DateTime value) {
+      updatedAtEqualTo(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterOrEqualCondition(property: 7, value: value),
+        EqualCondition(
+          property: 7,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  updatedAtLessThan(DateTime value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(LessCondition(property: 7, value: value));
-    });
-  }
-
-  QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  updatedAtLessThanOrEqualTo(DateTime value) {
+      updatedAtGreaterThan(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessOrEqualCondition(property: 7, value: value),
+        GreaterCondition(
+          property: 7,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
-  updatedAtBetween(DateTime lower, DateTime upper) {
+      updatedAtGreaterThanOrEqualTo(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        BetweenCondition(property: 7, lower: lower, upper: upper),
+        GreaterOrEqualCondition(
+          property: 7,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
+      updatedAtLessThan(
+    DateTime value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessCondition(
+          property: 7,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
+      updatedAtLessThanOrEqualTo(
+    DateTime value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 7,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterFilterCondition>
+      updatedAtBetween(
+    DateTime lower,
+    DateTime upper,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 7,
+          lower: lower,
+          upper: upper,
+        ),
       );
     });
   }
@@ -809,7 +1078,7 @@ extension UserStatsRecordQuerySortBy
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  sortByTotalXpDesc() {
+      sortByTotalXpDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(1, sort: Sort.desc);
     });
@@ -822,77 +1091,77 @@ extension UserStatsRecordQuerySortBy
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  sortByLevelDesc() {
+      sortByLevelDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(2, sort: Sort.desc);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  sortByTotalExpensesCount() {
+      sortByTotalExpensesCount() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(3);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  sortByTotalExpensesCountDesc() {
+      sortByTotalExpensesCountDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(3, sort: Sort.desc);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  sortByTotalSpentMinor() {
+      sortByTotalSpentMinor() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(4);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  sortByTotalSpentMinorDesc() {
+      sortByTotalSpentMinorDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(4, sort: Sort.desc);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  sortByLastExpenseAt() {
+      sortByLastExpenseAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(5);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  sortByLastExpenseAtDesc() {
+      sortByLastExpenseAtDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(5, sort: Sort.desc);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  sortByCreatedAt() {
+      sortByCreatedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(6);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  sortByCreatedAtDesc() {
+      sortByCreatedAtDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(6, sort: Sort.desc);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  sortByUpdatedAt() {
+      sortByUpdatedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(7);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  sortByUpdatedAtDesc() {
+      sortByUpdatedAtDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(7, sort: Sort.desc);
     });
@@ -920,7 +1189,7 @@ extension UserStatsRecordQuerySortThenBy
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  thenByTotalXpDesc() {
+      thenByTotalXpDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(1, sort: Sort.desc);
     });
@@ -933,77 +1202,77 @@ extension UserStatsRecordQuerySortThenBy
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  thenByLevelDesc() {
+      thenByLevelDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(2, sort: Sort.desc);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  thenByTotalExpensesCount() {
+      thenByTotalExpensesCount() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(3);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  thenByTotalExpensesCountDesc() {
+      thenByTotalExpensesCountDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(3, sort: Sort.desc);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  thenByTotalSpentMinor() {
+      thenByTotalSpentMinor() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(4);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  thenByTotalSpentMinorDesc() {
+      thenByTotalSpentMinorDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(4, sort: Sort.desc);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  thenByLastExpenseAt() {
+      thenByLastExpenseAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(5);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  thenByLastExpenseAtDesc() {
+      thenByLastExpenseAtDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(5, sort: Sort.desc);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  thenByCreatedAt() {
+      thenByCreatedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(6);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  thenByCreatedAtDesc() {
+      thenByCreatedAtDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(6, sort: Sort.desc);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  thenByUpdatedAt() {
+      thenByUpdatedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(7);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterSortBy>
-  thenByUpdatedAtDesc() {
+      thenByUpdatedAtDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(7, sort: Sort.desc);
     });
@@ -1013,49 +1282,49 @@ extension UserStatsRecordQuerySortThenBy
 extension UserStatsRecordQueryWhereDistinct
     on QueryBuilder<UserStatsRecord, UserStatsRecord, QDistinct> {
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterDistinct>
-  distinctByTotalXp() {
+      distinctByTotalXp() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(1);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterDistinct>
-  distinctByLevel() {
+      distinctByLevel() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(2);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterDistinct>
-  distinctByTotalExpensesCount() {
+      distinctByTotalExpensesCount() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(3);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterDistinct>
-  distinctByTotalSpentMinor() {
+      distinctByTotalSpentMinor() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(4);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterDistinct>
-  distinctByLastExpenseAt() {
+      distinctByLastExpenseAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(5);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterDistinct>
-  distinctByCreatedAt() {
+      distinctByCreatedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(6);
     });
   }
 
   QueryBuilder<UserStatsRecord, UserStatsRecord, QAfterDistinct>
-  distinctByUpdatedAt() {
+      distinctByUpdatedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(7);
     });
@@ -1083,7 +1352,7 @@ extension UserStatsRecordQueryProperty1
   }
 
   QueryBuilder<UserStatsRecord, int, QAfterProperty>
-  totalExpensesCountProperty() {
+      totalExpensesCountProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(3);
     });
@@ -1096,7 +1365,7 @@ extension UserStatsRecordQueryProperty1
   }
 
   QueryBuilder<UserStatsRecord, DateTime?, QAfterProperty>
-  lastExpenseAtProperty() {
+      lastExpenseAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(5);
     });
@@ -1136,35 +1405,35 @@ extension UserStatsRecordQueryProperty2<R>
   }
 
   QueryBuilder<UserStatsRecord, (R, int), QAfterProperty>
-  totalExpensesCountProperty() {
+      totalExpensesCountProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(3);
     });
   }
 
   QueryBuilder<UserStatsRecord, (R, int), QAfterProperty>
-  totalSpentMinorProperty() {
+      totalSpentMinorProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(4);
     });
   }
 
   QueryBuilder<UserStatsRecord, (R, DateTime?), QAfterProperty>
-  lastExpenseAtProperty() {
+      lastExpenseAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(5);
     });
   }
 
   QueryBuilder<UserStatsRecord, (R, DateTime), QAfterProperty>
-  createdAtProperty() {
+      createdAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(6);
     });
   }
 
   QueryBuilder<UserStatsRecord, (R, DateTime), QAfterProperty>
-  updatedAtProperty() {
+      updatedAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(7);
     });
@@ -1192,35 +1461,35 @@ extension UserStatsRecordQueryProperty3<R1, R2>
   }
 
   QueryBuilder<UserStatsRecord, (R1, R2, int), QOperations>
-  totalExpensesCountProperty() {
+      totalExpensesCountProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(3);
     });
   }
 
   QueryBuilder<UserStatsRecord, (R1, R2, int), QOperations>
-  totalSpentMinorProperty() {
+      totalSpentMinorProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(4);
     });
   }
 
   QueryBuilder<UserStatsRecord, (R1, R2, DateTime?), QOperations>
-  lastExpenseAtProperty() {
+      lastExpenseAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(5);
     });
   }
 
   QueryBuilder<UserStatsRecord, (R1, R2, DateTime), QOperations>
-  createdAtProperty() {
+      createdAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(6);
     });
   }
 
   QueryBuilder<UserStatsRecord, (R1, R2, DateTime), QOperations>
-  updatedAtProperty() {
+      updatedAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(7);
     });

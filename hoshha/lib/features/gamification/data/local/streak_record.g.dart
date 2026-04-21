@@ -20,17 +20,37 @@ const StreakRecordSchema = IsarGeneratedSchema(
     idName: 'id',
     embedded: false,
     properties: [
-      IsarPropertySchema(name: 'type', type: IsarType.string),
-      IsarPropertySchema(name: 'currentCount', type: IsarType.long),
-      IsarPropertySchema(name: 'bestCount', type: IsarType.long),
-      IsarPropertySchema(name: 'lastQualifiedAt', type: IsarType.dateTime),
-      IsarPropertySchema(name: 'createdAt', type: IsarType.dateTime),
-      IsarPropertySchema(name: 'updatedAt', type: IsarType.dateTime),
+      IsarPropertySchema(
+        name: 'type',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'currentCount',
+        type: IsarType.long,
+      ),
+      IsarPropertySchema(
+        name: 'bestCount',
+        type: IsarType.long,
+      ),
+      IsarPropertySchema(
+        name: 'lastQualifiedAt',
+        type: IsarType.dateTime,
+      ),
+      IsarPropertySchema(
+        name: 'createdAt',
+        type: IsarType.dateTime,
+      ),
+      IsarPropertySchema(
+        name: 'updatedAt',
+        type: IsarType.dateTime,
+      ),
     ],
     indexes: [
       IsarIndexSchema(
         name: 'type',
-        properties: ["type"],
+        properties: [
+          "type",
+        ],
         unique: true,
         hash: false,
       ),
@@ -50,21 +70,14 @@ int serializeStreakRecord(IsarWriter writer, StreakRecord object) {
   IsarCore.writeLong(writer, 2, object.currentCount);
   IsarCore.writeLong(writer, 3, object.bestCount);
   IsarCore.writeLong(
-    writer,
-    4,
-    object.lastQualifiedAt?.toUtc().microsecondsSinceEpoch ??
-        -9223372036854775808,
-  );
+      writer,
+      4,
+      object.lastQualifiedAt?.toUtc().microsecondsSinceEpoch ??
+          -9223372036854775808);
   IsarCore.writeLong(
-    writer,
-    5,
-    object.createdAt.toUtc().microsecondsSinceEpoch,
-  );
+      writer, 5, object.createdAt.toUtc().microsecondsSinceEpoch);
   IsarCore.writeLong(
-    writer,
-    6,
-    object.updatedAt.toUtc().microsecondsSinceEpoch,
-  );
+      writer, 6, object.updatedAt.toUtc().microsecondsSinceEpoch);
   return object.id;
 }
 
@@ -80,38 +93,28 @@ StreakRecord deserializeStreakRecord(IsarReader reader) {
     if (value == -9223372036854775808) {
       object.lastQualifiedAt = null;
     } else {
-      object.lastQualifiedAt = DateTime.fromMicrosecondsSinceEpoch(
-        value,
-        isUtc: true,
-      ).toLocal();
+      object.lastQualifiedAt =
+          DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true).toLocal();
     }
   }
   {
     final value = IsarCore.readLong(reader, 5);
     if (value == -9223372036854775808) {
-      object.createdAt = DateTime.fromMillisecondsSinceEpoch(
-        0,
-        isUtc: true,
-      ).toLocal();
+      object.createdAt =
+          DateTime.fromMillisecondsSinceEpoch(0, isUtc: true).toLocal();
     } else {
-      object.createdAt = DateTime.fromMicrosecondsSinceEpoch(
-        value,
-        isUtc: true,
-      ).toLocal();
+      object.createdAt =
+          DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true).toLocal();
     }
   }
   {
     final value = IsarCore.readLong(reader, 6);
     if (value == -9223372036854775808) {
-      object.updatedAt = DateTime.fromMillisecondsSinceEpoch(
-        0,
-        isUtc: true,
-      ).toLocal();
+      object.updatedAt =
+          DateTime.fromMillisecondsSinceEpoch(0, isUtc: true).toLocal();
     } else {
-      object.updatedAt = DateTime.fromMicrosecondsSinceEpoch(
-        value,
-        isUtc: true,
-      ).toLocal();
+      object.updatedAt =
+          DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true).toLocal();
     }
   }
   return object;
@@ -134,10 +137,8 @@ dynamic deserializeStreakRecordProp(IsarReader reader, int property) {
         if (value == -9223372036854775808) {
           return null;
         } else {
-          return DateTime.fromMicrosecondsSinceEpoch(
-            value,
-            isUtc: true,
-          ).toLocal();
+          return DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true)
+              .toLocal();
         }
       }
     case 5:
@@ -146,10 +147,8 @@ dynamic deserializeStreakRecordProp(IsarReader reader, int property) {
         if (value == -9223372036854775808) {
           return DateTime.fromMillisecondsSinceEpoch(0, isUtc: true).toLocal();
         } else {
-          return DateTime.fromMicrosecondsSinceEpoch(
-            value,
-            isUtc: true,
-          ).toLocal();
+          return DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true)
+              .toLocal();
         }
       }
     case 6:
@@ -158,10 +157,8 @@ dynamic deserializeStreakRecordProp(IsarReader reader, int property) {
         if (value == -9223372036854775808) {
           return DateTime.fromMillisecondsSinceEpoch(0, isUtc: true).toLocal();
         } else {
-          return DateTime.fromMicrosecondsSinceEpoch(
-            value,
-            isUtc: true,
-          ).toLocal();
+          return DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true)
+              .toLocal();
         }
       }
     default:
@@ -196,17 +193,16 @@ class _StreakRecordUpdateImpl implements _StreakRecordUpdate {
     Object? createdAt = ignore,
     Object? updatedAt = ignore,
   }) {
-    return collection.updateProperties(
-          [id],
-          {
-            if (type != ignore) 1: type as String?,
-            if (currentCount != ignore) 2: currentCount as int?,
-            if (bestCount != ignore) 3: bestCount as int?,
-            if (lastQualifiedAt != ignore) 4: lastQualifiedAt as DateTime?,
-            if (createdAt != ignore) 5: createdAt as DateTime?,
-            if (updatedAt != ignore) 6: updatedAt as DateTime?,
-          },
-        ) >
+    return collection.updateProperties([
+          id
+        ], {
+          if (type != ignore) 1: type as String?,
+          if (currentCount != ignore) 2: currentCount as int?,
+          if (bestCount != ignore) 3: bestCount as int?,
+          if (lastQualifiedAt != ignore) 4: lastQualifiedAt as DateTime?,
+          if (createdAt != ignore) 5: createdAt as DateTime?,
+          if (updatedAt != ignore) 6: updatedAt as DateTime?,
+        }) >
         0;
   }
 }
@@ -346,7 +342,10 @@ extension StreakRecordQueryFilter
   ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 0, value: value),
+        EqualCondition(
+          property: 0,
+          value: value,
+        ),
       );
     });
   }
@@ -356,16 +355,24 @@ extension StreakRecordQueryFilter
   ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterCondition(property: 0, value: value),
+        GreaterCondition(
+          property: 0,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  idGreaterThanOrEqualTo(int value) {
+      idGreaterThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterOrEqualCondition(property: 0, value: value),
+        GreaterOrEqualCondition(
+          property: 0,
+          value: value,
+        ),
       );
     });
   }
@@ -374,15 +381,25 @@ extension StreakRecordQueryFilter
     int value,
   ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(LessCondition(property: 0, value: value));
+      return query.addFilterCondition(
+        LessCondition(
+          property: 0,
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  idLessThanOrEqualTo(int value) {
+      idLessThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessOrEqualCondition(property: 0, value: value),
+        LessOrEqualCondition(
+          property: 0,
+          value: value,
+        ),
       );
     });
   }
@@ -393,7 +410,11 @@ extension StreakRecordQueryFilter
   ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        BetweenCondition(property: 0, lower: lower, upper: upper),
+        BetweenCondition(
+          property: 0,
+          lower: lower,
+          upper: upper,
+        ),
       );
     });
   }
@@ -404,13 +425,20 @@ extension StreakRecordQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 1, value: value, caseSensitive: caseSensitive),
+        EqualCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  typeGreaterThan(String value, {bool caseSensitive = true}) {
+      typeGreaterThan(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterCondition(
@@ -423,7 +451,10 @@ extension StreakRecordQueryFilter
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  typeGreaterThanOrEqualTo(String value, {bool caseSensitive = true}) {
+      typeGreaterThanOrEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterOrEqualCondition(
@@ -441,13 +472,20 @@ extension StreakRecordQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessCondition(property: 1, value: value, caseSensitive: caseSensitive),
+        LessCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  typeLessThanOrEqualTo(String value, {bool caseSensitive = true}) {
+      typeLessThanOrEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessOrEqualCondition(
@@ -477,7 +515,10 @@ extension StreakRecordQueryFilter
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  typeStartsWith(String value, {bool caseSensitive = true}) {
+      typeStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         StartsWithCondition(
@@ -505,9 +546,8 @@ extension StreakRecordQueryFilter
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition> typeContains(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+      String value,
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         ContainsCondition(
@@ -520,9 +560,8 @@ extension StreakRecordQueryFilter
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition> typeMatches(
-    String pattern, {
-    bool caseSensitive = true,
-  }) {
+      String pattern,
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         MatchesCondition(
@@ -535,293 +574,469 @@ extension StreakRecordQueryFilter
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  typeIsEmpty() {
+      typeIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        const EqualCondition(property: 1, value: ''),
+        const EqualCondition(
+          property: 1,
+          value: '',
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  typeIsNotEmpty() {
+      typeIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        const GreaterCondition(property: 1, value: ''),
+        const GreaterCondition(
+          property: 1,
+          value: '',
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  currentCountEqualTo(int value) {
+      currentCountEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 2, value: value),
+        EqualCondition(
+          property: 2,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  currentCountGreaterThan(int value) {
+      currentCountGreaterThan(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterCondition(property: 2, value: value),
+        GreaterCondition(
+          property: 2,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  currentCountGreaterThanOrEqualTo(int value) {
+      currentCountGreaterThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterOrEqualCondition(property: 2, value: value),
+        GreaterOrEqualCondition(
+          property: 2,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  currentCountLessThan(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(LessCondition(property: 2, value: value));
-    });
-  }
-
-  QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  currentCountLessThanOrEqualTo(int value) {
+      currentCountLessThan(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessOrEqualCondition(property: 2, value: value),
+        LessCondition(
+          property: 2,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  currentCountBetween(int lower, int upper) {
+      currentCountLessThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        BetweenCondition(property: 2, lower: lower, upper: upper),
+        LessOrEqualCondition(
+          property: 2,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  bestCountEqualTo(int value) {
+      currentCountBetween(
+    int lower,
+    int upper,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 3, value: value),
+        BetweenCondition(
+          property: 2,
+          lower: lower,
+          upper: upper,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  bestCountGreaterThan(int value) {
+      bestCountEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterCondition(property: 3, value: value),
+        EqualCondition(
+          property: 3,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  bestCountGreaterThanOrEqualTo(int value) {
+      bestCountGreaterThan(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterOrEqualCondition(property: 3, value: value),
+        GreaterCondition(
+          property: 3,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  bestCountLessThan(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(LessCondition(property: 3, value: value));
-    });
-  }
-
-  QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  bestCountLessThanOrEqualTo(int value) {
+      bestCountGreaterThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessOrEqualCondition(property: 3, value: value),
+        GreaterOrEqualCondition(
+          property: 3,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  bestCountBetween(int lower, int upper) {
+      bestCountLessThan(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        BetweenCondition(property: 3, lower: lower, upper: upper),
+        LessCondition(
+          property: 3,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  lastQualifiedAtIsNull() {
+      bestCountLessThanOrEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 3,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
+      bestCountBetween(
+    int lower,
+    int upper,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 3,
+          lower: lower,
+          upper: upper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
+      lastQualifiedAtIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const IsNullCondition(property: 4));
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  lastQualifiedAtIsNotNull() {
+      lastQualifiedAtIsNotNull() {
     return QueryBuilder.apply(not(), (query) {
       return query.addFilterCondition(const IsNullCondition(property: 4));
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  lastQualifiedAtEqualTo(DateTime? value) {
+      lastQualifiedAtEqualTo(
+    DateTime? value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 4, value: value),
+        EqualCondition(
+          property: 4,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  lastQualifiedAtGreaterThan(DateTime? value) {
+      lastQualifiedAtGreaterThan(
+    DateTime? value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterCondition(property: 4, value: value),
+        GreaterCondition(
+          property: 4,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  lastQualifiedAtGreaterThanOrEqualTo(DateTime? value) {
+      lastQualifiedAtGreaterThanOrEqualTo(
+    DateTime? value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterOrEqualCondition(property: 4, value: value),
+        GreaterOrEqualCondition(
+          property: 4,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  lastQualifiedAtLessThan(DateTime? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(LessCondition(property: 4, value: value));
-    });
-  }
-
-  QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  lastQualifiedAtLessThanOrEqualTo(DateTime? value) {
+      lastQualifiedAtLessThan(
+    DateTime? value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessOrEqualCondition(property: 4, value: value),
+        LessCondition(
+          property: 4,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  lastQualifiedAtBetween(DateTime? lower, DateTime? upper) {
+      lastQualifiedAtLessThanOrEqualTo(
+    DateTime? value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        BetweenCondition(property: 4, lower: lower, upper: upper),
+        LessOrEqualCondition(
+          property: 4,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  createdAtEqualTo(DateTime value) {
+      lastQualifiedAtBetween(
+    DateTime? lower,
+    DateTime? upper,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 5, value: value),
+        BetweenCondition(
+          property: 4,
+          lower: lower,
+          upper: upper,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  createdAtGreaterThan(DateTime value) {
+      createdAtEqualTo(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterCondition(property: 5, value: value),
+        EqualCondition(
+          property: 5,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  createdAtGreaterThanOrEqualTo(DateTime value) {
+      createdAtGreaterThan(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterOrEqualCondition(property: 5, value: value),
+        GreaterCondition(
+          property: 5,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  createdAtLessThan(DateTime value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(LessCondition(property: 5, value: value));
-    });
-  }
-
-  QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  createdAtLessThanOrEqualTo(DateTime value) {
+      createdAtGreaterThanOrEqualTo(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessOrEqualCondition(property: 5, value: value),
+        GreaterOrEqualCondition(
+          property: 5,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  createdAtBetween(DateTime lower, DateTime upper) {
+      createdAtLessThan(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        BetweenCondition(property: 5, lower: lower, upper: upper),
+        LessCondition(
+          property: 5,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  updatedAtEqualTo(DateTime value) {
+      createdAtLessThanOrEqualTo(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 6, value: value),
+        LessOrEqualCondition(
+          property: 5,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  updatedAtGreaterThan(DateTime value) {
+      createdAtBetween(
+    DateTime lower,
+    DateTime upper,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterCondition(property: 6, value: value),
+        BetweenCondition(
+          property: 5,
+          lower: lower,
+          upper: upper,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  updatedAtGreaterThanOrEqualTo(DateTime value) {
+      updatedAtEqualTo(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterOrEqualCondition(property: 6, value: value),
+        EqualCondition(
+          property: 6,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  updatedAtLessThan(DateTime value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(LessCondition(property: 6, value: value));
-    });
-  }
-
-  QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  updatedAtLessThanOrEqualTo(DateTime value) {
+      updatedAtGreaterThan(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessOrEqualCondition(property: 6, value: value),
+        GreaterCondition(
+          property: 6,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
-  updatedAtBetween(DateTime lower, DateTime upper) {
+      updatedAtGreaterThanOrEqualTo(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        BetweenCondition(property: 6, lower: lower, upper: upper),
+        GreaterOrEqualCondition(
+          property: 6,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
+      updatedAtLessThan(
+    DateTime value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessCondition(
+          property: 6,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
+      updatedAtLessThanOrEqualTo(
+    DateTime value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 6,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<StreakRecord, StreakRecord, QAfterFilterCondition>
+      updatedAtBetween(
+    DateTime lower,
+    DateTime upper,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 6,
+          lower: lower,
+          upper: upper,
+        ),
       );
     });
   }
@@ -844,19 +1059,24 @@ extension StreakRecordQuerySortBy
     });
   }
 
-  QueryBuilder<StreakRecord, StreakRecord, QAfterSortBy> sortByType({
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<StreakRecord, StreakRecord, QAfterSortBy> sortByType(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(1, caseSensitive: caseSensitive);
+      return query.addSortBy(
+        1,
+        caseSensitive: caseSensitive,
+      );
     });
   }
 
-  QueryBuilder<StreakRecord, StreakRecord, QAfterSortBy> sortByTypeDesc({
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<StreakRecord, StreakRecord, QAfterSortBy> sortByTypeDesc(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(1, sort: Sort.desc, caseSensitive: caseSensitive);
+      return query.addSortBy(
+        1,
+        sort: Sort.desc,
+        caseSensitive: caseSensitive,
+      );
     });
   }
 
@@ -867,7 +1087,7 @@ extension StreakRecordQuerySortBy
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterSortBy>
-  sortByCurrentCountDesc() {
+      sortByCurrentCountDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(2, sort: Sort.desc);
     });
@@ -886,14 +1106,14 @@ extension StreakRecordQuerySortBy
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterSortBy>
-  sortByLastQualifiedAt() {
+      sortByLastQualifiedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(4);
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterSortBy>
-  sortByLastQualifiedAtDesc() {
+      sortByLastQualifiedAtDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(4, sort: Sort.desc);
     });
@@ -938,17 +1158,15 @@ extension StreakRecordQuerySortThenBy
     });
   }
 
-  QueryBuilder<StreakRecord, StreakRecord, QAfterSortBy> thenByType({
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<StreakRecord, StreakRecord, QAfterSortBy> thenByType(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(1, caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<StreakRecord, StreakRecord, QAfterSortBy> thenByTypeDesc({
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<StreakRecord, StreakRecord, QAfterSortBy> thenByTypeDesc(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(1, sort: Sort.desc, caseSensitive: caseSensitive);
     });
@@ -961,7 +1179,7 @@ extension StreakRecordQuerySortThenBy
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterSortBy>
-  thenByCurrentCountDesc() {
+      thenByCurrentCountDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(2, sort: Sort.desc);
     });
@@ -980,14 +1198,14 @@ extension StreakRecordQuerySortThenBy
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterSortBy>
-  thenByLastQualifiedAt() {
+      thenByLastQualifiedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(4);
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterSortBy>
-  thenByLastQualifiedAtDesc() {
+      thenByLastQualifiedAtDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(4, sort: Sort.desc);
     });
@@ -1020,44 +1238,43 @@ extension StreakRecordQuerySortThenBy
 
 extension StreakRecordQueryWhereDistinct
     on QueryBuilder<StreakRecord, StreakRecord, QDistinct> {
-  QueryBuilder<StreakRecord, StreakRecord, QAfterDistinct> distinctByType({
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<StreakRecord, StreakRecord, QAfterDistinct> distinctByType(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(1, caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterDistinct>
-  distinctByCurrentCount() {
+      distinctByCurrentCount() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(2);
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterDistinct>
-  distinctByBestCount() {
+      distinctByBestCount() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(3);
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterDistinct>
-  distinctByLastQualifiedAt() {
+      distinctByLastQualifiedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(4);
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterDistinct>
-  distinctByCreatedAt() {
+      distinctByCreatedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(5);
     });
   }
 
   QueryBuilder<StreakRecord, StreakRecord, QAfterDistinct>
-  distinctByUpdatedAt() {
+      distinctByUpdatedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(6);
     });
@@ -1091,7 +1308,7 @@ extension StreakRecordQueryProperty1
   }
 
   QueryBuilder<StreakRecord, DateTime?, QAfterProperty>
-  lastQualifiedAtProperty() {
+      lastQualifiedAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(4);
     });
@@ -1137,21 +1354,21 @@ extension StreakRecordQueryProperty2<R>
   }
 
   QueryBuilder<StreakRecord, (R, DateTime?), QAfterProperty>
-  lastQualifiedAtProperty() {
+      lastQualifiedAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(4);
     });
   }
 
   QueryBuilder<StreakRecord, (R, DateTime), QAfterProperty>
-  createdAtProperty() {
+      createdAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(5);
     });
   }
 
   QueryBuilder<StreakRecord, (R, DateTime), QAfterProperty>
-  updatedAtProperty() {
+      updatedAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(6);
     });
@@ -1173,7 +1390,7 @@ extension StreakRecordQueryProperty3<R1, R2>
   }
 
   QueryBuilder<StreakRecord, (R1, R2, int), QOperations>
-  currentCountProperty() {
+      currentCountProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(2);
     });
@@ -1186,21 +1403,21 @@ extension StreakRecordQueryProperty3<R1, R2>
   }
 
   QueryBuilder<StreakRecord, (R1, R2, DateTime?), QOperations>
-  lastQualifiedAtProperty() {
+      lastQualifiedAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(4);
     });
   }
 
   QueryBuilder<StreakRecord, (R1, R2, DateTime), QOperations>
-  createdAtProperty() {
+      createdAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(5);
     });
   }
 
   QueryBuilder<StreakRecord, (R1, R2, DateTime), QOperations>
-  updatedAtProperty() {
+      updatedAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(6);
     });

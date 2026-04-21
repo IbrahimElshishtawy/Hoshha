@@ -1,4 +1,4 @@
-import 'package:isar_db/isar_db.dart';
+import 'package:isar/isar.dart';
 
 import 'expense_record.dart';
 

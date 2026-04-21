@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:isar_db/isar_db.dart';
+import 'package:isar/isar.dart';
 
 import '../../../../infrastructure/database/database_providers.dart';
 import 'achievement_progress_record.dart';

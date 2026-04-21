@@ -20,22 +20,41 @@ const BudgetRecordSchema = IsarGeneratedSchema(
     idName: 'id',
     embedded: false,
     properties: [
-      IsarPropertySchema(name: 'entityId', type: IsarType.string),
-      IsarPropertySchema(name: 'monthKey', type: IsarType.string),
-      IsarPropertySchema(name: 'limitMinor', type: IsarType.long),
-      IsarPropertySchema(name: 'createdAt', type: IsarType.dateTime),
-      IsarPropertySchema(name: 'updatedAt', type: IsarType.dateTime),
+      IsarPropertySchema(
+        name: 'entityId',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'monthKey',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'limitMinor',
+        type: IsarType.long,
+      ),
+      IsarPropertySchema(
+        name: 'createdAt',
+        type: IsarType.dateTime,
+      ),
+      IsarPropertySchema(
+        name: 'updatedAt',
+        type: IsarType.dateTime,
+      ),
     ],
     indexes: [
       IsarIndexSchema(
         name: 'entityId',
-        properties: ["entityId"],
+        properties: [
+          "entityId",
+        ],
         unique: true,
         hash: false,
       ),
       IsarIndexSchema(
         name: 'monthKey',
-        properties: ["monthKey"],
+        properties: [
+          "monthKey",
+        ],
         unique: true,
         hash: false,
       ),
@@ -55,15 +74,9 @@ int serializeBudgetRecord(IsarWriter writer, BudgetRecord object) {
   IsarCore.writeString(writer, 2, object.monthKey);
   IsarCore.writeLong(writer, 3, object.limitMinor);
   IsarCore.writeLong(
-    writer,
-    4,
-    object.createdAt.toUtc().microsecondsSinceEpoch,
-  );
+      writer, 4, object.createdAt.toUtc().microsecondsSinceEpoch);
   IsarCore.writeLong(
-    writer,
-    5,
-    object.updatedAt.toUtc().microsecondsSinceEpoch,
-  );
+      writer, 5, object.updatedAt.toUtc().microsecondsSinceEpoch);
   return object.id;
 }
 
@@ -77,29 +90,21 @@ BudgetRecord deserializeBudgetRecord(IsarReader reader) {
   {
     final value = IsarCore.readLong(reader, 4);
     if (value == -9223372036854775808) {
-      object.createdAt = DateTime.fromMillisecondsSinceEpoch(
-        0,
-        isUtc: true,
-      ).toLocal();
+      object.createdAt =
+          DateTime.fromMillisecondsSinceEpoch(0, isUtc: true).toLocal();
     } else {
-      object.createdAt = DateTime.fromMicrosecondsSinceEpoch(
-        value,
-        isUtc: true,
-      ).toLocal();
+      object.createdAt =
+          DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true).toLocal();
     }
   }
   {
     final value = IsarCore.readLong(reader, 5);
     if (value == -9223372036854775808) {
-      object.updatedAt = DateTime.fromMillisecondsSinceEpoch(
-        0,
-        isUtc: true,
-      ).toLocal();
+      object.updatedAt =
+          DateTime.fromMillisecondsSinceEpoch(0, isUtc: true).toLocal();
     } else {
-      object.updatedAt = DateTime.fromMicrosecondsSinceEpoch(
-        value,
-        isUtc: true,
-      ).toLocal();
+      object.updatedAt =
+          DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true).toLocal();
     }
   }
   return object;
@@ -122,10 +127,8 @@ dynamic deserializeBudgetRecordProp(IsarReader reader, int property) {
         if (value == -9223372036854775808) {
           return DateTime.fromMillisecondsSinceEpoch(0, isUtc: true).toLocal();
         } else {
-          return DateTime.fromMicrosecondsSinceEpoch(
-            value,
-            isUtc: true,
-          ).toLocal();
+          return DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true)
+              .toLocal();
         }
       }
     case 5:
@@ -134,10 +137,8 @@ dynamic deserializeBudgetRecordProp(IsarReader reader, int property) {
         if (value == -9223372036854775808) {
           return DateTime.fromMillisecondsSinceEpoch(0, isUtc: true).toLocal();
         } else {
-          return DateTime.fromMicrosecondsSinceEpoch(
-            value,
-            isUtc: true,
-          ).toLocal();
+          return DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true)
+              .toLocal();
         }
       }
     default:
@@ -170,16 +171,15 @@ class _BudgetRecordUpdateImpl implements _BudgetRecordUpdate {
     Object? createdAt = ignore,
     Object? updatedAt = ignore,
   }) {
-    return collection.updateProperties(
-          [id],
-          {
-            if (entityId != ignore) 1: entityId as String?,
-            if (monthKey != ignore) 2: monthKey as String?,
-            if (limitMinor != ignore) 3: limitMinor as int?,
-            if (createdAt != ignore) 4: createdAt as DateTime?,
-            if (updatedAt != ignore) 5: updatedAt as DateTime?,
-          },
-        ) >
+    return collection.updateProperties([
+          id
+        ], {
+          if (entityId != ignore) 1: entityId as String?,
+          if (monthKey != ignore) 2: monthKey as String?,
+          if (limitMinor != ignore) 3: limitMinor as int?,
+          if (createdAt != ignore) 4: createdAt as DateTime?,
+          if (updatedAt != ignore) 5: updatedAt as DateTime?,
+        }) >
         0;
   }
 }
@@ -311,7 +311,10 @@ extension BudgetRecordQueryFilter
   ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 0, value: value),
+        EqualCondition(
+          property: 0,
+          value: value,
+        ),
       );
     });
   }
@@ -321,16 +324,24 @@ extension BudgetRecordQueryFilter
   ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterCondition(property: 0, value: value),
+        GreaterCondition(
+          property: 0,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  idGreaterThanOrEqualTo(int value) {
+      idGreaterThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterOrEqualCondition(property: 0, value: value),
+        GreaterOrEqualCondition(
+          property: 0,
+          value: value,
+        ),
       );
     });
   }
@@ -339,15 +350,25 @@ extension BudgetRecordQueryFilter
     int value,
   ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(LessCondition(property: 0, value: value));
+      return query.addFilterCondition(
+        LessCondition(
+          property: 0,
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  idLessThanOrEqualTo(int value) {
+      idLessThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessOrEqualCondition(property: 0, value: value),
+        LessOrEqualCondition(
+          property: 0,
+          value: value,
+        ),
       );
     });
   }
@@ -358,22 +379,36 @@ extension BudgetRecordQueryFilter
   ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        BetweenCondition(property: 0, lower: lower, upper: upper),
+        BetweenCondition(
+          property: 0,
+          lower: lower,
+          upper: upper,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  entityIdEqualTo(String value, {bool caseSensitive = true}) {
+      entityIdEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 1, value: value, caseSensitive: caseSensitive),
+        EqualCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  entityIdGreaterThan(String value, {bool caseSensitive = true}) {
+      entityIdGreaterThan(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterCondition(
@@ -386,7 +421,10 @@ extension BudgetRecordQueryFilter
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  entityIdGreaterThanOrEqualTo(String value, {bool caseSensitive = true}) {
+      entityIdGreaterThanOrEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterOrEqualCondition(
@@ -399,16 +437,26 @@ extension BudgetRecordQueryFilter
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  entityIdLessThan(String value, {bool caseSensitive = true}) {
+      entityIdLessThan(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessCondition(property: 1, value: value, caseSensitive: caseSensitive),
+        LessCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  entityIdLessThanOrEqualTo(String value, {bool caseSensitive = true}) {
+      entityIdLessThanOrEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessOrEqualCondition(
@@ -421,7 +469,11 @@ extension BudgetRecordQueryFilter
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  entityIdBetween(String lower, String upper, {bool caseSensitive = true}) {
+      entityIdBetween(
+    String lower,
+    String upper, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         BetweenCondition(
@@ -435,7 +487,10 @@ extension BudgetRecordQueryFilter
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  entityIdStartsWith(String value, {bool caseSensitive = true}) {
+      entityIdStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         StartsWithCondition(
@@ -448,7 +503,10 @@ extension BudgetRecordQueryFilter
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  entityIdEndsWith(String value, {bool caseSensitive = true}) {
+      entityIdEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EndsWithCondition(
@@ -461,7 +519,7 @@ extension BudgetRecordQueryFilter
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  entityIdContains(String value, {bool caseSensitive = true}) {
+      entityIdContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         ContainsCondition(
@@ -474,7 +532,7 @@ extension BudgetRecordQueryFilter
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  entityIdMatches(String pattern, {bool caseSensitive = true}) {
+      entityIdMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         MatchesCondition(
@@ -487,34 +545,50 @@ extension BudgetRecordQueryFilter
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  entityIdIsEmpty() {
+      entityIdIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        const EqualCondition(property: 1, value: ''),
+        const EqualCondition(
+          property: 1,
+          value: '',
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  entityIdIsNotEmpty() {
+      entityIdIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        const GreaterCondition(property: 1, value: ''),
+        const GreaterCondition(
+          property: 1,
+          value: '',
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  monthKeyEqualTo(String value, {bool caseSensitive = true}) {
+      monthKeyEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 2, value: value, caseSensitive: caseSensitive),
+        EqualCondition(
+          property: 2,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  monthKeyGreaterThan(String value, {bool caseSensitive = true}) {
+      monthKeyGreaterThan(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterCondition(
@@ -527,7 +601,10 @@ extension BudgetRecordQueryFilter
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  monthKeyGreaterThanOrEqualTo(String value, {bool caseSensitive = true}) {
+      monthKeyGreaterThanOrEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterOrEqualCondition(
@@ -540,16 +617,26 @@ extension BudgetRecordQueryFilter
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  monthKeyLessThan(String value, {bool caseSensitive = true}) {
+      monthKeyLessThan(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessCondition(property: 2, value: value, caseSensitive: caseSensitive),
+        LessCondition(
+          property: 2,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  monthKeyLessThanOrEqualTo(String value, {bool caseSensitive = true}) {
+      monthKeyLessThanOrEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessOrEqualCondition(
@@ -562,7 +649,11 @@ extension BudgetRecordQueryFilter
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  monthKeyBetween(String lower, String upper, {bool caseSensitive = true}) {
+      monthKeyBetween(
+    String lower,
+    String upper, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         BetweenCondition(
@@ -576,7 +667,10 @@ extension BudgetRecordQueryFilter
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  monthKeyStartsWith(String value, {bool caseSensitive = true}) {
+      monthKeyStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         StartsWithCondition(
@@ -589,7 +683,10 @@ extension BudgetRecordQueryFilter
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  monthKeyEndsWith(String value, {bool caseSensitive = true}) {
+      monthKeyEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EndsWithCondition(
@@ -602,7 +699,7 @@ extension BudgetRecordQueryFilter
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  monthKeyContains(String value, {bool caseSensitive = true}) {
+      monthKeyContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         ContainsCondition(
@@ -615,7 +712,7 @@ extension BudgetRecordQueryFilter
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  monthKeyMatches(String pattern, {bool caseSensitive = true}) {
+      monthKeyMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         MatchesCondition(
@@ -628,175 +725,283 @@ extension BudgetRecordQueryFilter
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  monthKeyIsEmpty() {
+      monthKeyIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        const EqualCondition(property: 2, value: ''),
+        const EqualCondition(
+          property: 2,
+          value: '',
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  monthKeyIsNotEmpty() {
+      monthKeyIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        const GreaterCondition(property: 2, value: ''),
+        const GreaterCondition(
+          property: 2,
+          value: '',
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  limitMinorEqualTo(int value) {
+      limitMinorEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 3, value: value),
+        EqualCondition(
+          property: 3,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  limitMinorGreaterThan(int value) {
+      limitMinorGreaterThan(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterCondition(property: 3, value: value),
+        GreaterCondition(
+          property: 3,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  limitMinorGreaterThanOrEqualTo(int value) {
+      limitMinorGreaterThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterOrEqualCondition(property: 3, value: value),
+        GreaterOrEqualCondition(
+          property: 3,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  limitMinorLessThan(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(LessCondition(property: 3, value: value));
-    });
-  }
-
-  QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  limitMinorLessThanOrEqualTo(int value) {
+      limitMinorLessThan(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessOrEqualCondition(property: 3, value: value),
+        LessCondition(
+          property: 3,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  limitMinorBetween(int lower, int upper) {
+      limitMinorLessThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        BetweenCondition(property: 3, lower: lower, upper: upper),
+        LessOrEqualCondition(
+          property: 3,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  createdAtEqualTo(DateTime value) {
+      limitMinorBetween(
+    int lower,
+    int upper,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 4, value: value),
+        BetweenCondition(
+          property: 3,
+          lower: lower,
+          upper: upper,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  createdAtGreaterThan(DateTime value) {
+      createdAtEqualTo(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterCondition(property: 4, value: value),
+        EqualCondition(
+          property: 4,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  createdAtGreaterThanOrEqualTo(DateTime value) {
+      createdAtGreaterThan(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterOrEqualCondition(property: 4, value: value),
+        GreaterCondition(
+          property: 4,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  createdAtLessThan(DateTime value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(LessCondition(property: 4, value: value));
-    });
-  }
-
-  QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  createdAtLessThanOrEqualTo(DateTime value) {
+      createdAtGreaterThanOrEqualTo(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessOrEqualCondition(property: 4, value: value),
+        GreaterOrEqualCondition(
+          property: 4,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  createdAtBetween(DateTime lower, DateTime upper) {
+      createdAtLessThan(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        BetweenCondition(property: 4, lower: lower, upper: upper),
+        LessCondition(
+          property: 4,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  updatedAtEqualTo(DateTime value) {
+      createdAtLessThanOrEqualTo(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        EqualCondition(property: 5, value: value),
+        LessOrEqualCondition(
+          property: 4,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  updatedAtGreaterThan(DateTime value) {
+      createdAtBetween(
+    DateTime lower,
+    DateTime upper,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterCondition(property: 5, value: value),
+        BetweenCondition(
+          property: 4,
+          lower: lower,
+          upper: upper,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  updatedAtGreaterThanOrEqualTo(DateTime value) {
+      updatedAtEqualTo(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        GreaterOrEqualCondition(property: 5, value: value),
+        EqualCondition(
+          property: 5,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  updatedAtLessThan(DateTime value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(LessCondition(property: 5, value: value));
-    });
-  }
-
-  QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  updatedAtLessThanOrEqualTo(DateTime value) {
+      updatedAtGreaterThan(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        LessOrEqualCondition(property: 5, value: value),
+        GreaterCondition(
+          property: 5,
+          value: value,
+        ),
       );
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
-  updatedAtBetween(DateTime lower, DateTime upper) {
+      updatedAtGreaterThanOrEqualTo(
+    DateTime value,
+  ) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        BetweenCondition(property: 5, lower: lower, upper: upper),
+        GreaterOrEqualCondition(
+          property: 5,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
+      updatedAtLessThan(
+    DateTime value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessCondition(
+          property: 5,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
+      updatedAtLessThanOrEqualTo(
+    DateTime value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 5,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<BudgetRecord, BudgetRecord, QAfterFilterCondition>
+      updatedAtBetween(
+    DateTime lower,
+    DateTime upper,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 5,
+          lower: lower,
+          upper: upper,
+        ),
       );
     });
   }
@@ -819,35 +1024,45 @@ extension BudgetRecordQuerySortBy
     });
   }
 
-  QueryBuilder<BudgetRecord, BudgetRecord, QAfterSortBy> sortByEntityId({
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<BudgetRecord, BudgetRecord, QAfterSortBy> sortByEntityId(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(1, caseSensitive: caseSensitive);
+      return query.addSortBy(
+        1,
+        caseSensitive: caseSensitive,
+      );
     });
   }
 
-  QueryBuilder<BudgetRecord, BudgetRecord, QAfterSortBy> sortByEntityIdDesc({
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<BudgetRecord, BudgetRecord, QAfterSortBy> sortByEntityIdDesc(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(1, sort: Sort.desc, caseSensitive: caseSensitive);
+      return query.addSortBy(
+        1,
+        sort: Sort.desc,
+        caseSensitive: caseSensitive,
+      );
     });
   }
 
-  QueryBuilder<BudgetRecord, BudgetRecord, QAfterSortBy> sortByMonthKey({
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<BudgetRecord, BudgetRecord, QAfterSortBy> sortByMonthKey(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(2, caseSensitive: caseSensitive);
+      return query.addSortBy(
+        2,
+        caseSensitive: caseSensitive,
+      );
     });
   }
 
-  QueryBuilder<BudgetRecord, BudgetRecord, QAfterSortBy> sortByMonthKeyDesc({
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<BudgetRecord, BudgetRecord, QAfterSortBy> sortByMonthKeyDesc(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(2, sort: Sort.desc, caseSensitive: caseSensitive);
+      return query.addSortBy(
+        2,
+        sort: Sort.desc,
+        caseSensitive: caseSensitive,
+      );
     });
   }
 
@@ -858,7 +1073,7 @@ extension BudgetRecordQuerySortBy
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterSortBy>
-  sortByLimitMinorDesc() {
+      sortByLimitMinorDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(3, sort: Sort.desc);
     });
@@ -903,33 +1118,29 @@ extension BudgetRecordQuerySortThenBy
     });
   }
 
-  QueryBuilder<BudgetRecord, BudgetRecord, QAfterSortBy> thenByEntityId({
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<BudgetRecord, BudgetRecord, QAfterSortBy> thenByEntityId(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(1, caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<BudgetRecord, BudgetRecord, QAfterSortBy> thenByEntityIdDesc({
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<BudgetRecord, BudgetRecord, QAfterSortBy> thenByEntityIdDesc(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(1, sort: Sort.desc, caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<BudgetRecord, BudgetRecord, QAfterSortBy> thenByMonthKey({
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<BudgetRecord, BudgetRecord, QAfterSortBy> thenByMonthKey(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(2, caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<BudgetRecord, BudgetRecord, QAfterSortBy> thenByMonthKeyDesc({
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<BudgetRecord, BudgetRecord, QAfterSortBy> thenByMonthKeyDesc(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(2, sort: Sort.desc, caseSensitive: caseSensitive);
     });
@@ -942,7 +1153,7 @@ extension BudgetRecordQuerySortThenBy
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterSortBy>
-  thenByLimitMinorDesc() {
+      thenByLimitMinorDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(3, sort: Sort.desc);
     });
@@ -975,38 +1186,36 @@ extension BudgetRecordQuerySortThenBy
 
 extension BudgetRecordQueryWhereDistinct
     on QueryBuilder<BudgetRecord, BudgetRecord, QDistinct> {
-  QueryBuilder<BudgetRecord, BudgetRecord, QAfterDistinct> distinctByEntityId({
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<BudgetRecord, BudgetRecord, QAfterDistinct> distinctByEntityId(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(1, caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<BudgetRecord, BudgetRecord, QAfterDistinct> distinctByMonthKey({
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<BudgetRecord, BudgetRecord, QAfterDistinct> distinctByMonthKey(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(2, caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterDistinct>
-  distinctByLimitMinor() {
+      distinctByLimitMinor() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(3);
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterDistinct>
-  distinctByCreatedAt() {
+      distinctByCreatedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(4);
     });
   }
 
   QueryBuilder<BudgetRecord, BudgetRecord, QAfterDistinct>
-  distinctByUpdatedAt() {
+      distinctByUpdatedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(5);
     });
@@ -1079,14 +1288,14 @@ extension BudgetRecordQueryProperty2<R>
   }
 
   QueryBuilder<BudgetRecord, (R, DateTime), QAfterProperty>
-  createdAtProperty() {
+      createdAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(4);
     });
   }
 
   QueryBuilder<BudgetRecord, (R, DateTime), QAfterProperty>
-  updatedAtProperty() {
+      updatedAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(5);
     });
@@ -1120,14 +1329,14 @@ extension BudgetRecordQueryProperty3<R1, R2>
   }
 
   QueryBuilder<BudgetRecord, (R1, R2, DateTime), QOperations>
-  createdAtProperty() {
+      createdAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(4);
     });
   }
 
   QueryBuilder<BudgetRecord, (R1, R2, DateTime), QOperations>
-  updatedAtProperty() {
+      updatedAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(5);
     });

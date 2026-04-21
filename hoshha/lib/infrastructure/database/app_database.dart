@@ -1,4 +1,4 @@
-import 'package:isar_db/isar_db.dart';
+import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'app_database_schemas.dart';

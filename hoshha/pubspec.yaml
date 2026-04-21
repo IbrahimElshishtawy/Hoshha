@@ -39,8 +39,8 @@ dependencies:
   go_router: ^17.2.1
   shared_preferences: ^2.5.5
   intl: ^0.20.2
-  isar_db: ^1.0.1+1
-  isar_db_flutter_libs: ^1.0.1+1
+  isar: 4.0.0-dev.14
+  isar_flutter_libs: 4.0.0-dev.14
   package_info_plus: ^9.0.0
   path_provider: ^2.1.5
   flutter_localizations:
@@ -56,11 +56,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
-  build_runner: ^2.5.4
-
-dependency_overrides:
-  isar_db_flutter_libs:
-    path: third_party/isar_db_flutter_libs
+  build_runner: 2.4.13
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
