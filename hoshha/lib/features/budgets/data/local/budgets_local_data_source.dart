@@ -30,4 +30,8 @@ class BudgetsLocalDataSource {
     }
     isar.budgetRecords.put(record);
   }
+
+  void clearInTransaction(Isar isar) {
+    isar.budgetRecords.clear();
+  }
 }

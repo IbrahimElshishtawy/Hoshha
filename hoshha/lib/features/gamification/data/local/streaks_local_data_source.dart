@@ -30,4 +30,8 @@ class StreaksLocalDataSource {
     }
     isar.streakRecords.put(record);
   }
+
+  void clearInTransaction(Isar isar) {
+    isar.streakRecords.clear();
+  }
 }

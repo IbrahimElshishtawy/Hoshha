@@ -49,4 +49,8 @@ class ExpensesLocalDataSource {
   void deleteRecordInTransaction(Isar isar, int id) {
     isar.expenseRecords.delete(id);
   }
+
+  void clearInTransaction(Isar isar) {
+    isar.expenseRecords.clear();
+  }
 }

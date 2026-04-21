@@ -46,4 +46,8 @@ class AchievementsLocalDataSource {
     }
     isar.achievementProgressRecords.put(record);
   }
+
+  void clearInTransaction(Isar isar) {
+    isar.achievementProgressRecords.clear();
+  }
 }

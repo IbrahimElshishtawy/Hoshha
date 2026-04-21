@@ -41,6 +41,7 @@ dependencies:
   intl: ^0.20.2
   isar_db: ^1.0.1+1
   isar_db_flutter_libs: ^1.0.1+1
+  package_info_plus: ^9.0.0
   path_provider: ^2.1.5
   flutter_localizations:
     sdk: flutter

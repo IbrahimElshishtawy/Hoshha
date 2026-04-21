@@ -6,6 +6,7 @@ import '../../features/expenses/presentation/screens/add_expense_screen.dart';
 import '../../features/history/presentation/screens/history_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/insights/presentation/screens/insights_screen.dart';
+import '../../features/settings/presentation/screens/settings_screen.dart';
 
 abstract final class AppRoutes {
   static const dashboard = '/';
@@ -13,6 +14,7 @@ abstract final class AppRoutes {
   static const history = '/history';
   static const insights = '/insights';
   static const addExpense = '/expenses/add';
+  static const settings = '/settings';
 }
 
 final appRouterProvider = Provider<GoRouter>(
@@ -38,6 +40,10 @@ final appRouterProvider = Provider<GoRouter>(
       GoRoute(
         path: AppRoutes.addExpense,
         builder: (context, state) => const AddExpenseScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.settings,
+        builder: (context, state) => const SettingsScreen(),
       ),
     ],
   ),

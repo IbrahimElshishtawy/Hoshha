@@ -26,4 +26,8 @@ class StatsLocalDataSource {
     record.id = 0;
     isar.userStatsRecords.put(record);
   }
+
+  void clearInTransaction(Isar isar) {
+    isar.userStatsRecords.clear();
+  }
 }
