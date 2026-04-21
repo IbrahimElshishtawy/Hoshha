@@ -18,8 +18,8 @@ class InsightInfoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final spacing = context.appSpacing;
+    final theme = Theme.of(context);
     final colors = context.appColors;
 
     return Container(
@@ -48,7 +48,7 @@ class InsightInfoTile extends StatelessWidget {
           Text(
             title,
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.72),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
           SizedBox(height: spacing.sm),
@@ -58,7 +58,7 @@ class InsightInfoTile extends StatelessWidget {
             Text(
               subtitle!,
               style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurface.withValues(alpha: 0.66),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.64),
               ),
             ),
           ],

@@ -29,8 +29,8 @@ class InsightsEmptyState extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 64,
-              height: 64,
+              width: 68,
+              height: 68,
               decoration: BoxDecoration(
                 color: colors.surfaceContainer,
                 borderRadius: BorderRadiusDirectional.circular(
@@ -40,7 +40,7 @@ class InsightsEmptyState extends StatelessWidget {
               child: Icon(
                 Icons.insights_rounded,
                 color: colors.primary,
-                size: 30,
+                size: 32,
               ),
             ),
             SizedBox(height: spacing.lg),

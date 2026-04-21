@@ -63,7 +63,7 @@ class InsightsSummaryCard extends StatelessWidget {
                       subtitle!,
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: theme.colorScheme.onSurface.withValues(
-                          alpha: 0.7,
+                          alpha: 0.68,
                         ),
                       ),
                     ),
@@ -71,53 +71,52 @@ class InsightsSummaryCard extends StatelessWidget {
                   SizedBox(height: spacing.lg),
                   LayoutBuilder(
                     builder: (context, constraints) {
-                      final width = constraints.maxWidth >= 560
+                      final isWide = constraints.maxWidth >= 560;
+                      final tileWidth = isWide
                           ? (constraints.maxWidth - spacing.md) / 2
                           : constraints.maxWidth;
-
-                      final tiles = [
-                        SizedBox(
-                          width: width,
-                          child: InsightInfoTile(
-                            title: 'إجمالي الصرف',
-                            value: spentValue,
-                            subtitle: spentSubtitle,
-                            icon: Icons.payments_rounded,
-                          ),
-                        ),
-                        SizedBox(
-                          width: width,
-                          child: InsightInfoTile(
-                            title: 'الميزانية',
-                            value: budgetValue,
-                            subtitle: budgetSubtitle,
-                            icon: Icons.account_balance_wallet_rounded,
-                          ),
-                        ),
-                        SizedBox(
-                          width: width,
-                          child: InsightInfoTile(
-                            title: 'المتبقي',
-                            value: remainingValue,
-                            subtitle: remainingSubtitle,
-                            icon: Icons.savings_rounded,
-                          ),
-                        ),
-                        SizedBox(
-                          width: width,
-                          child: InsightInfoTile(
-                            title: 'عدد المصاريف',
-                            value: expenseCountValue,
-                            subtitle: expenseCountSubtitle,
-                            icon: Icons.receipt_long_rounded,
-                          ),
-                        ),
-                      ];
 
                       return Wrap(
                         spacing: spacing.md,
                         runSpacing: spacing.md,
-                        children: tiles,
+                        children: [
+                          SizedBox(
+                            width: tileWidth,
+                            child: InsightInfoTile(
+                              title: 'إجمالي الصرف',
+                              value: spentValue,
+                              subtitle: spentSubtitle,
+                              icon: Icons.payments_rounded,
+                            ),
+                          ),
+                          SizedBox(
+                            width: tileWidth,
+                            child: InsightInfoTile(
+                              title: 'الميزانية',
+                              value: budgetValue,
+                              subtitle: budgetSubtitle,
+                              icon: Icons.account_balance_wallet_rounded,
+                            ),
+                          ),
+                          SizedBox(
+                            width: tileWidth,
+                            child: InsightInfoTile(
+                              title: 'المتبقي',
+                              value: remainingValue,
+                              subtitle: remainingSubtitle,
+                              icon: Icons.savings_rounded,
+                            ),
+                          ),
+                          SizedBox(
+                            width: tileWidth,
+                            child: InsightInfoTile(
+                              title: 'عدد المصاريف',
+                              value: expenseCountValue,
+                              subtitle: expenseCountSubtitle,
+                              icon: Icons.receipt_long_rounded,
+                            ),
+                          ),
+                        ],
                       );
                     },
                   ),
@@ -136,7 +135,7 @@ class _SummaryCardSkeleton extends StatelessWidget {
     final spacing = context.appSpacing;
     final colors = context.appColors;
 
-    Widget skeletonBox({required double widthFactor, required double height}) {
+    Widget line({required double widthFactor, required double height}) {
       return FractionallySizedBox(
         widthFactor: widthFactor,
         alignment: AlignmentDirectional.centerStart,
@@ -155,13 +154,14 @@ class _SummaryCardSkeleton extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        skeletonBox(widthFactor: 0.34, height: 18),
+        line(widthFactor: 0.34, height: 18),
         SizedBox(height: spacing.sm),
-        skeletonBox(widthFactor: 0.48, height: 14),
+        line(widthFactor: 0.46, height: 14),
         SizedBox(height: spacing.lg),
         LayoutBuilder(
           builder: (context, constraints) {
-            final width = constraints.maxWidth >= 560
+            final isWide = constraints.maxWidth >= 560;
+            final tileWidth = isWide
                 ? (constraints.maxWidth - spacing.md) / 2
                 : constraints.maxWidth;
 
@@ -171,8 +171,8 @@ class _SummaryCardSkeleton extends StatelessWidget {
               children: List.generate(
                 4,
                 (_) => Container(
-                  width: width,
-                  height: 128,
+                  width: tileWidth,
+                  height: 132,
                   decoration: BoxDecoration(
                     color: colors.surfaceContainer,
                     borderRadius: BorderRadiusDirectional.circular(

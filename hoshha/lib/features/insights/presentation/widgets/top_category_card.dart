@@ -7,22 +7,47 @@ class TopCategoryCard extends StatelessWidget {
     super.key,
     required this.title,
     required this.categoryLabel,
+    required this.amountLabel,
     required this.subtitle,
     required this.icon,
-  }) : _isLoading = false;
+    this.supportingLabel,
+  }) : _isLoading = false,
+       _isEmpty = false,
+       _emptyMessage = null;
 
   const TopCategoryCard.loading({super.key})
     : title = '',
       categoryLabel = '',
+      amountLabel = '',
       subtitle = '',
       icon = Icons.category_rounded,
-      _isLoading = true;
+      supportingLabel = null,
+      _emptyMessage = null,
+      _isLoading = true,
+      _isEmpty = false;
+
+  const TopCategoryCard.empty({
+    super.key,
+    required this.title,
+    required String message,
+  }) : categoryLabel = '',
+       amountLabel = '',
+       subtitle = '',
+       icon = Icons.category_outlined,
+       supportingLabel = null,
+       _emptyMessage = message,
+       _isLoading = false,
+       _isEmpty = true;
 
   final String title;
   final String categoryLabel;
+  final String amountLabel;
   final String subtitle;
   final IconData icon;
+  final String? supportingLabel;
+  final String? _emptyMessage;
   final bool _isLoading;
+  final bool _isEmpty;
 
   @override
   Widget build(BuildContext context) {
@@ -36,17 +61,21 @@ class TopCategoryCard extends StatelessWidget {
         child: _isLoading
             ? const _TopCategorySkeleton()
             : Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     width: 56,
                     height: 56,
                     decoration: BoxDecoration(
-                      color: colors.secondary.withValues(alpha: 0.16),
+                      color: colors.secondary.withValues(alpha: 0.14),
                       borderRadius: BorderRadiusDirectional.circular(
                         context.appRadius.lg,
                       ),
                     ),
-                    child: Icon(icon, color: colors.secondary),
+                    child: Icon(
+                      _isEmpty ? Icons.insights_outlined : icon,
+                      color: colors.secondary,
+                    ),
                   ),
                   SizedBox(width: spacing.md),
                   Expanded(
@@ -55,19 +84,59 @@ class TopCategoryCard extends StatelessWidget {
                       children: [
                         Text(title, style: theme.textTheme.titleMedium),
                         SizedBox(height: spacing.sm),
-                        Text(
-                          categoryLabel,
-                          style: theme.textTheme.headlineMedium,
-                        ),
-                        SizedBox(height: spacing.xs),
-                        Text(
-                          subtitle,
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.colorScheme.onSurface.withValues(
-                              alpha: 0.72,
+                        if (_isEmpty)
+                          Text(
+                            _emptyMessage!,
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: theme.colorScheme.onSurface.withValues(
+                                alpha: 0.7,
+                              ),
+                            ),
+                          )
+                        else ...[
+                          Text(
+                            categoryLabel,
+                            style: theme.textTheme.headlineSmall,
+                          ),
+                          SizedBox(height: spacing.xs),
+                          Text(
+                            amountLabel,
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              color: colors.secondary,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
-                        ),
+                          SizedBox(height: spacing.xs),
+                          Text(
+                            subtitle,
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: theme.colorScheme.onSurface.withValues(
+                                alpha: 0.72,
+                              ),
+                            ),
+                          ),
+                          if (supportingLabel != null) ...[
+                            SizedBox(height: spacing.sm),
+                            Container(
+                              padding: EdgeInsetsDirectional.symmetric(
+                                horizontal: spacing.sm,
+                                vertical: spacing.xs,
+                              ),
+                              decoration: BoxDecoration(
+                                color: colors.secondary.withValues(alpha: 0.12),
+                                borderRadius: BorderRadiusDirectional.circular(
+                                  context.appRadius.pill,
+                                ),
+                              ),
+                              child: Text(
+                                supportingLabel!,
+                                style: theme.textTheme.labelLarge?.copyWith(
+                                  color: colors.secondary,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ],
                       ],
                     ),
                   ),
@@ -103,11 +172,13 @@ class _TopCategorySkeleton extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _SkeletonLine(widthFactor: 0.28),
+              const _TopCategoryLine(widthFactor: 0.28),
               SizedBox(height: spacing.sm),
-              _SkeletonLine(widthFactor: 0.54, height: 26),
+              const _TopCategoryLine(widthFactor: 0.4, height: 28),
               SizedBox(height: spacing.xs),
-              _SkeletonLine(widthFactor: 0.7, height: 14),
+              const _TopCategoryLine(widthFactor: 0.3, height: 18),
+              SizedBox(height: spacing.xs),
+              const _TopCategoryLine(widthFactor: 0.55, height: 14),
             ],
           ),
         ),
@@ -116,8 +187,8 @@ class _TopCategorySkeleton extends StatelessWidget {
   }
 }
 
-class _SkeletonLine extends StatelessWidget {
-  const _SkeletonLine({required this.widthFactor, this.height = 16});
+class _TopCategoryLine extends StatelessWidget {
+  const _TopCategoryLine({required this.widthFactor, this.height = 16});
 
   final double widthFactor;
   final double height;

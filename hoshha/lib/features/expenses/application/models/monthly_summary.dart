@@ -8,6 +8,8 @@ class MonthlySummary {
     required this.remainingMinor,
     required this.expenseCount,
     required this.topCategoryId,
+    required this.topCategorySpentMinor,
+    required this.topCategoryExpenseCount,
     required this.averageDailySpentMinor,
   });
 
@@ -16,6 +18,8 @@ class MonthlySummary {
       remainingMinor = budgetMinor,
       expenseCount = 0,
       topCategoryId = null,
+      topCategorySpentMinor = 0,
+      topCategoryExpenseCount = 0,
       averageDailySpentMinor = 0.0;
 
   final String monthKey;
@@ -24,6 +28,8 @@ class MonthlySummary {
   final int remainingMinor;
   final int expenseCount;
   final String? topCategoryId;
+  final int topCategorySpentMinor;
+  final int topCategoryExpenseCount;
   final double averageDailySpentMinor;
 
   DateTime get month => monthStartFromKey(monthKey);

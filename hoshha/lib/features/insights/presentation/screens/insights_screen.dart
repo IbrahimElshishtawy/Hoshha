@@ -5,7 +5,6 @@ import 'package:intl/intl.dart' hide TextDirection;
 
 import '../../../../app/router/app_router.dart';
 import '../../../../theme/theme_extensions.dart';
-import '../../../dashboard/dashboard_providers.dart';
 import '../../../expenses/application/models/budget_status.dart';
 import '../../../expenses/application/models/monthly_summary.dart';
 import '../../../expenses/expenses_providers.dart';
@@ -21,7 +20,7 @@ class InsightsScreen extends ConsumerWidget {
   const InsightsScreen({super.key});
 
   static const _maxContentWidth = 720.0;
-  static const _switchDuration = Duration(milliseconds: 240);
+  static const _switchDuration = Duration(milliseconds: 220);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -34,59 +33,66 @@ class InsightsScreen extends ConsumerWidget {
       child: Scaffold(
         appBar: AppBar(title: const Text('تحليلات')),
         body: SafeArea(
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: _maxContentWidth),
-              child: AnimatedSwitcher(
-                duration: _switchDuration,
-                transitionBuilder: _fadeTransition,
-                child: isEmpty
-                    ? SingleChildScrollView(
-                        key: const ValueKey('insights-empty-state'),
-                        padding: EdgeInsetsDirectional.all(spacing.lg),
-                        child: InsightsEmptyState(
-                          title: 'مفيش بيانات كفاية لعرض التحليلات',
-                          message:
-                              'أول ما تضيف شوية مصاريف، هنبدأ نوضحلك الصرف والميزانية بشكل أهدى وأوضح.',
-                          actionLabel: 'ابدأ بإضافة مصروف',
-                          onActionPressed: () =>
-                              context.push(AppRoutes.addExpense),
-                        ),
-                      )
-                    : CustomScrollView(
-                        key: const ValueKey('insights-content'),
-                        slivers: [
-                          SliverPadding(
-                            padding: EdgeInsetsDirectional.only(
-                              start: spacing.lg,
-                              top: spacing.lg,
-                              end: spacing.lg,
-                              bottom: spacing.xl,
-                            ),
-                            sliver: SliverList.list(
-                              children: [
-                                const _SummarySection(),
-                                SizedBox(height: spacing.lg),
-                                const _TopCategorySection(),
-                                SizedBox(height: spacing.lg),
-                                const _AverageSpendingSection(),
-                                SizedBox(height: spacing.lg),
-                                const _BudgetStatusSection(),
-                              ],
-                            ),
+          child: RefreshIndicator(
+            onRefresh: () async {
+              ref.invalidate(monthlySummaryProvider);
+              ref.invalidate(budgetStatusProvider);
+            },
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: _maxContentWidth),
+                child: AnimatedSwitcher(
+                  duration: _switchDuration,
+                  switchInCurve: Curves.easeOutCubic,
+                  switchOutCurve: Curves.easeInCubic,
+                  transitionBuilder: (child, animation) =>
+                      FadeTransition(opacity: animation, child: child),
+                  child: isEmpty
+                      ? SingleChildScrollView(
+                          key: const ValueKey('insights-empty-state'),
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          padding: EdgeInsetsDirectional.all(spacing.lg),
+                          child: InsightsEmptyState(
+                            title: 'مفيش بيانات كفاية لعرض التحليلات',
+                            message:
+                                'أول ما تبدأ تضيف مصاريف، هنقدر نوضحلك الصرف والميزانية بشكل أبسط.',
+                            actionLabel: 'ابدأ بإضافة مصروف',
+                            onActionPressed: () =>
+                                context.push(AppRoutes.addExpense),
                           ),
-                        ],
-                      ),
+                        )
+                      : CustomScrollView(
+                          key: const ValueKey('insights-content'),
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          slivers: [
+                            SliverPadding(
+                              padding: EdgeInsetsDirectional.only(
+                                start: spacing.lg,
+                                top: spacing.lg,
+                                end: spacing.lg,
+                                bottom: spacing.xl,
+                              ),
+                              sliver: SliverList.list(
+                                children: [
+                                  const _SummarySection(),
+                                  SizedBox(height: spacing.lg),
+                                  const _TopCategorySection(),
+                                  SizedBox(height: spacing.lg),
+                                  const _AverageSpendingSection(),
+                                  SizedBox(height: spacing.lg),
+                                  const _BudgetStatusSection(),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                ),
               ),
             ),
           ),
         ),
       ),
     );
-  }
-
-  static Widget _fadeTransition(Widget child, Animation<double> animation) {
-    return FadeTransition(opacity: animation, child: child);
   }
 }
 
@@ -99,14 +105,14 @@ class _SummarySection extends ConsumerWidget {
 
     return AnimatedSwitcher(
       duration: InsightsScreen._switchDuration,
-      transitionBuilder: InsightsScreen._fadeTransition,
+      transitionBuilder: _fadeTransition,
       child: summaryAsync.when(
         loading: () =>
             const InsightsSummaryCard.loading(key: ValueKey('summary-loading')),
         error: (_, _) => InsightsErrorState(
           key: const ValueKey('summary-error'),
           title: 'ملخص الشهر',
-          message: 'مش قادرين نحمل ملخص الشهر الحالي دلوقتي.',
+          message: 'حصلت مشكلة وإحنا بنحمّل ملخص الشهر الحالي.',
           retryLabel: 'حاول تاني',
           onRetry: () => ref.invalidate(monthlySummaryProvider),
         ),
@@ -122,12 +128,12 @@ class _SummarySection extends ConsumerWidget {
               : 'غير محددة',
           remainingValue: _remainingValue(context, summary),
           expenseCountValue: _formatCount(context, summary.expenseCount),
-          spentSubtitle: 'إجمالي اللي اتصرف',
+          spentSubtitle: 'إجمالي اللي اتصرف لحد دلوقتي',
           budgetSubtitle: summary.hasBudget
-              ? 'الحد اللي انت محدده'
-              : 'لسه مفيش ميزانية',
+              ? 'الحد اللي محدده للشهر'
+              : 'لسه مفيش ميزانية متسجلة',
           remainingSubtitle: _remainingSubtitle(summary),
-          expenseCountSubtitle: 'عدد العمليات المسجلة',
+          expenseCountSubtitle: 'عدد المصاريف المسجلة',
         ),
       ),
     );
@@ -139,13 +145,13 @@ class _TopCategorySection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dashboardAsync = ref.watch(dashboardSnapshotProvider);
+    final summaryAsync = ref.watch(monthlySummaryProvider);
     final categoryOptions = ref.watch(expenseCategoryOptionsProvider);
 
     return AnimatedSwitcher(
       duration: InsightsScreen._switchDuration,
-      transitionBuilder: InsightsScreen._fadeTransition,
-      child: dashboardAsync.when(
+      transitionBuilder: _fadeTransition,
+      child: summaryAsync.when(
         loading: () => const TopCategoryCard.loading(
           key: ValueKey('top-category-loading'),
         ),
@@ -154,24 +160,40 @@ class _TopCategorySection extends ConsumerWidget {
           title: 'أكتر فئة صرف',
           message: 'حصلت مشكلة وإحنا بنجهز الفئة الأعلى صرفًا.',
           retryLabel: 'حاول تاني',
-          onRetry: () => ref.invalidate(dashboardSnapshotProvider),
+          onRetry: () => ref.invalidate(monthlySummaryProvider),
         ),
-        data: (snapshot) {
-          final topCategoryId = snapshot.topCategory?.trim();
+        data: (summary) {
+          final topCategoryId = summary.topCategoryId?.trim();
+          if (topCategoryId == null || topCategoryId.isEmpty) {
+            return const TopCategoryCard.empty(
+              key: ValueKey('top-category-empty'),
+              title: 'أكتر فئة صرف',
+              message: 'لسه مفيش بيانات كفاية تحدد فئة واضحة.',
+            );
+          }
+
           final category = categoryOptions
               .cast<ExpenseCategoryOption?>()
               .firstWhere(
                 (option) => option?.id == topCategoryId,
                 orElse: () => null,
               );
+          final share = summary.spentMinor == 0
+              ? 0.0
+              : summary.topCategorySpentMinor / summary.spentMinor;
 
           return TopCategoryCard(
-            key: ValueKey('top-category-${snapshot.monthKey}-$topCategoryId'),
+            key: ValueKey(
+              'top-category-${summary.monthKey}-$topCategoryId-${summary.topCategorySpentMinor}',
+            ),
             title: 'أكتر فئة صرف',
-            categoryLabel: category?.label ?? topCategoryId ?? 'غير محددة',
-            subtitle: topCategoryId == null || topCategoryId.isEmpty
-                ? 'لسه مفيش فئة واضحة نعرضها.'
-                : 'دي الفئة اللي واخدة أكبر جزء من صرفك في الشهر الحالي.',
+            categoryLabel: category?.label ?? topCategoryId,
+            amountLabel: _formatMoney(context, summary.topCategorySpentMinor),
+            subtitle:
+                '${_formatCount(context, summary.topCategoryExpenseCount)} مصروف في الفئة دي',
+            supportingLabel: share > 0
+                ? 'حوالي ${_formatPercent(context, share)} من صرف الشهر'
+                : null,
             icon: category?.icon ?? Icons.category_rounded,
           );
         },
@@ -185,12 +207,12 @@ class _AverageSpendingSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dashboardAsync = ref.watch(dashboardSnapshotProvider);
+    final summaryAsync = ref.watch(monthlySummaryProvider);
 
     return AnimatedSwitcher(
       duration: InsightsScreen._switchDuration,
-      transitionBuilder: InsightsScreen._fadeTransition,
-      child: dashboardAsync.when(
+      transitionBuilder: _fadeTransition,
+      child: summaryAsync.when(
         loading: () => const AverageSpendingCard.loading(
           key: ValueKey('average-spending-loading'),
         ),
@@ -199,14 +221,14 @@ class _AverageSpendingSection extends ConsumerWidget {
           title: 'متوسط الصرف اليومي',
           message: 'مش قادرين نحسب متوسط الصرف اليومي دلوقتي.',
           retryLabel: 'حاول تاني',
-          onRetry: () => ref.invalidate(dashboardSnapshotProvider),
+          onRetry: () => ref.invalidate(monthlySummaryProvider),
         ),
-        data: (snapshot) => AverageSpendingCard(
+        data: (summary) => AverageSpendingCard(
           key: ValueKey(
-            'average-spending-${snapshot.monthKey}-${snapshot.averageDailySpending}',
+            'average-spending-${summary.monthKey}-${summary.averageDailySpentMinor}',
           ),
           title: 'متوسط الصرف اليومي',
-          value: _formatMoney(context, snapshot.averageDailySpending),
+          value: _formatMoney(context, summary.averageDailySpentMinor),
           subtitle: 'محسوب على عدد أيام الشهر الحالي بالكامل.',
         ),
       ),
@@ -233,7 +255,7 @@ class _BudgetStatusSection extends ConsumerWidget {
       return InsightsErrorState(
         key: const ValueKey('budget-status-summary-error'),
         title: 'حالة الميزانية',
-        message: 'مش قادرين نحدد حالة الميزانية دلوقتي.',
+        message: 'حصلت مشكلة وإحنا بنحدد حالة الميزانية الحالية.',
         retryLabel: 'حاول تاني',
         onRetry: () {
           ref.invalidate(monthlySummaryProvider);
@@ -248,7 +270,7 @@ class _BudgetStatusSection extends ConsumerWidget {
         key: const ValueKey('budget-status-no-budget'),
         title: 'حالة الميزانية',
         statusLabel: 'بدون ميزانية',
-        message: 'حدد ميزانية الشهر الحالي علشان نقدر نقولك وضعك بدقة.',
+        message: 'حدد ميزانية للشهر الحالي علشان نوضحلك وضعك بشكل أدق.',
         progressLabel:
             'إجمالي الصرف الحالي ${_formatMoney(context, summary.spentMinor)}',
         detailLabel: 'بعد تحديد الميزانية هتظهر حالة الصرف بشكل أوضح.',
@@ -260,7 +282,7 @@ class _BudgetStatusSection extends ConsumerWidget {
 
     return AnimatedSwitcher(
       duration: InsightsScreen._switchDuration,
-      transitionBuilder: InsightsScreen._fadeTransition,
+      transitionBuilder: _fadeTransition,
       child: statusAsync.when(
         loading: () => const BudgetStatusCard.loading(
           key: ValueKey('budget-status-async-loading'),
@@ -268,7 +290,7 @@ class _BudgetStatusSection extends ConsumerWidget {
         error: (_, _) => InsightsErrorState(
           key: const ValueKey('budget-status-error'),
           title: 'حالة الميزانية',
-          message: 'حصلت مشكلة وإحنا بنحسب وضع الميزانية الحالي.',
+          message: 'حصلت مشكلة وإحنا بنحسب حالة الميزانية.',
           retryLabel: 'حاول تاني',
           onRetry: () {
             ref.invalidate(monthlySummaryProvider);
@@ -279,27 +301,7 @@ class _BudgetStatusSection extends ConsumerWidget {
           final ratio = summary.budgetLimitMinor == 0
               ? 0.0
               : summary.spentMinor / summary.budgetLimitMinor;
-
-          final config = switch (status) {
-            BudgetStatus.safe => _BudgetStatusViewData(
-              label: 'آمن',
-              message: 'أنت لسه جوه الميزانية وماشي كويس.',
-              icon: Icons.verified_rounded,
-              color: colors.success,
-            ),
-            BudgetStatus.warning => _BudgetStatusViewData(
-              label: 'تنبيه',
-              message: 'قرّبت من الحد الشهري، فخلي بالك من المصاريف الجاية.',
-              icon: Icons.warning_amber_rounded,
-              color: colors.warning,
-            ),
-            BudgetStatus.exceeded => _BudgetStatusViewData(
-              label: 'تم التجاوز',
-              message: 'عدّيت الميزانية الحالية، ومحتاج تهدي الصرف شوية.',
-              icon: Icons.error_outline_rounded,
-              color: colors.error,
-            ),
-          };
+          final config = _statusViewData(context, status);
 
           return BudgetStatusCard(
             key: ValueKey(
@@ -333,6 +335,38 @@ class _BudgetStatusViewData {
   final String message;
   final IconData icon;
   final Color color;
+}
+
+_BudgetStatusViewData _statusViewData(
+  BuildContext context,
+  BudgetStatus status,
+) {
+  final colors = context.appColors;
+
+  return switch (status) {
+    BudgetStatus.safe => _BudgetStatusViewData(
+      label: 'آمن',
+      message: 'أنت لسه جوه الميزانية وماشي كويس.',
+      icon: Icons.verified_rounded,
+      color: colors.success,
+    ),
+    BudgetStatus.warning => _BudgetStatusViewData(
+      label: 'تنبيه',
+      message: 'قربت من حد الميزانية، فخلي بالك من الصرف الجاي.',
+      icon: Icons.warning_amber_rounded,
+      color: colors.warning,
+    ),
+    BudgetStatus.exceeded => _BudgetStatusViewData(
+      label: 'متجاوز',
+      message: 'عديت الميزانية الحالية، ومحتاج تهدي الصرف شوية.',
+      icon: Icons.error_outline_rounded,
+      color: colors.error,
+    ),
+  };
+}
+
+Widget _fadeTransition(Widget child, Animation<double> animation) {
+  return FadeTransition(opacity: animation, child: child);
 }
 
 String _formatMoney(BuildContext context, num minorUnits) {
@@ -381,11 +415,11 @@ String _remainingValue(BuildContext context, MonthlySummary summary) {
 
 String _remainingSubtitle(MonthlySummary summary) {
   if (!summary.hasBudget) {
-    return 'هيظهر بعد تحديد الميزانية';
+    return 'هيظهر بعد ما تحدد ميزانية';
   }
 
   return summary.remainingBudgetMinor >= 0
-      ? 'المتاح من الميزانية'
+      ? 'المتاح لسه من الميزانية'
       : 'زيادة عن الحد المحدد';
 }
 

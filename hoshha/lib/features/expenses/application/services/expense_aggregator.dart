@@ -76,6 +76,8 @@ class ExpenseAggregator {
       remainingMinor: remainingMinor,
       expenseCount: expenses.length,
       topCategoryId: dominantCategory?.categoryId,
+      topCategorySpentMinor: dominantCategory?.spentMinor ?? 0,
+      topCategoryExpenseCount: dominantCategory?.expenseCount ?? 0,
       averageDailySpentMinor: averageDailySpentMinor,
     );
   }

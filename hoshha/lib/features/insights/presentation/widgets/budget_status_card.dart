@@ -100,7 +100,7 @@ class BudgetStatusCard extends StatelessWidget {
                   SizedBox(height: spacing.md),
                   TweenAnimationBuilder<double>(
                     tween: Tween<double>(begin: 0, end: progress.clamp(0, 1)),
-                    duration: const Duration(milliseconds: 450),
+                    duration: const Duration(milliseconds: 420),
                     curve: Curves.easeOutCubic,
                     builder: (context, animatedValue, _) {
                       return ClipRRect(
@@ -163,29 +163,29 @@ class _BudgetStatusSkeleton extends StatelessWidget {
               ),
             ),
             SizedBox(width: spacing.sm),
-            const Expanded(child: _BudgetSkeletonLine(widthFactor: 0.32)),
+            const Expanded(child: _BudgetStatusLine(widthFactor: 0.32)),
             SizedBox(width: spacing.sm),
             const SizedBox(
               width: 84,
-              child: _BudgetSkeletonLine(widthFactor: 1, height: 30),
+              child: _BudgetStatusLine(widthFactor: 1, height: 30),
             ),
           ],
         ),
         SizedBox(height: spacing.md),
-        const _BudgetSkeletonLine(widthFactor: 0.88, height: 14),
+        const _BudgetStatusLine(widthFactor: 0.82, height: 14),
+        SizedBox(height: spacing.md),
+        const _BudgetStatusLine(widthFactor: 1, height: 10),
         SizedBox(height: spacing.sm),
-        const _BudgetSkeletonLine(widthFactor: 1, height: 10),
-        SizedBox(height: spacing.sm),
-        const _BudgetSkeletonLine(widthFactor: 0.52, height: 14),
+        const _BudgetStatusLine(widthFactor: 0.48, height: 14),
         SizedBox(height: spacing.xs),
-        const _BudgetSkeletonLine(widthFactor: 0.42, height: 14),
+        const _BudgetStatusLine(widthFactor: 0.44, height: 14),
       ],
     );
   }
 }
 
-class _BudgetSkeletonLine extends StatelessWidget {
-  const _BudgetSkeletonLine({required this.widthFactor, this.height = 16});
+class _BudgetStatusLine extends StatelessWidget {
+  const _BudgetStatusLine({required this.widthFactor, this.height = 16});
 
   final double widthFactor;
   final double height;

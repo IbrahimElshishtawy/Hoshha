@@ -188,6 +188,8 @@ class RecordExpense {
       remainingMinor: currentBudget == null ? 0 : budgetMinor - spentMinor,
       expenseCount: summary.expenseCount + 1,
       topCategoryId: summary.topCategoryId,
+      topCategorySpentMinor: summary.topCategorySpentMinor,
+      topCategoryExpenseCount: summary.topCategoryExpenseCount,
       averageDailySpentMinor: daysInMonth == 0 ? 0.0 : spentMinor / daysInMonth,
     );
   }

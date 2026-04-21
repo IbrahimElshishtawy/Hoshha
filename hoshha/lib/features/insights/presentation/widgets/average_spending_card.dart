@@ -55,7 +55,7 @@ class AverageSpendingCard extends StatelessWidget {
                       children: [
                         Text(title, style: theme.textTheme.titleMedium),
                         SizedBox(height: spacing.sm),
-                        Text(value, style: theme.textTheme.headlineMedium),
+                        Text(value, style: theme.textTheme.headlineSmall),
                         SizedBox(height: spacing.xs),
                         Text(
                           subtitle,
@@ -102,9 +102,9 @@ class _AverageSpendingSkeleton extends StatelessWidget {
             children: const [
               _AverageSkeletonLine(widthFactor: 0.34),
               SizedBox(height: 12),
-              _AverageSkeletonLine(widthFactor: 0.46, height: 26),
+              _AverageSkeletonLine(widthFactor: 0.44, height: 28),
               SizedBox(height: 8),
-              _AverageSkeletonLine(widthFactor: 0.72, height: 14),
+              _AverageSkeletonLine(widthFactor: 0.68, height: 14),
             ],
           ),
         ),
