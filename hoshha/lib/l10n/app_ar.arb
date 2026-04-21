@@ -1,6 +1,73 @@
 {
   "@@locale": "ar",
   "appTitle": "حوشها",
+  "homeGreetingTitle": "أهلًا بعودتك",
+  "homeGreetingSubtitle": "هذه نظرة سريعة على مصاريفك وتقدمك خلال هذا الشهر.",
+  "homeThisMonth": "هذا الشهر",
+  "homePrimaryActionAddExpense": "إضافة مصروف",
+  "homeBudgetSectionTitle": "ملخص الميزانية",
+  "homeGamificationSectionTitle": "ملخص التقدم",
+  "homeRecentExpensesSectionTitle": "أحدث المصروفات",
+  "homeViewAll": "عرض الكل",
+  "homeRetry": "إعادة المحاولة",
+  "homeComingSoonMessage": "سيتم توصيل هذه الواجهة في خطوة لاحقة.",
+  "homeSectionLoadFailure": "تعذر تحميل {section}",
+  "@homeSectionLoadFailure": {
+    "placeholders": {
+      "section": {}
+    }
+  },
+  "homeBudgetSpentLabel": "المصروف",
+  "homeBudgetRemainingLabel": "المتبقي",
+  "homeBudgetLimitLabel": "حد الميزانية {amount}",
+  "@homeBudgetLimitLabel": {
+    "placeholders": {
+      "amount": {}
+    }
+  },
+  "homeBudgetStatusSafe": "آمن",
+  "homeBudgetStatusWarning": "تنبيه",
+  "homeBudgetStatusExceeded": "تم التجاوز",
+  "homeBudgetNoBudgetTitle": "حدد ميزانية لهذا الشهر",
+  "homeBudgetNoBudgetMessage": "بمجرد تحديد حد شهري سنعرض لك المتبقي وحالة الميزانية هنا.",
+  "homeBudgetSetAction": "تحديد الميزانية",
+  "homeBudgetEditAction": "تعديل الميزانية",
+  "homeBudgetOverflowMessage": "تجاوزت الميزانية بمقدار {amount}",
+  "@homeBudgetOverflowMessage": {
+    "placeholders": {
+      "amount": {}
+    }
+  },
+  "homeGamificationXpLabel": "نقطة خبرة",
+  "homeGamificationLevelLabel": "المستوى {level}",
+  "@homeGamificationLevelLabel": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGamificationStreakLabel": "ستريك {days} أيام",
+  "@homeGamificationStreakLabel": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGamificationNextLevelLabel": "{percent}% إلى المستوى التالي",
+  "@homeGamificationNextLevelLabel": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGamificationEmptyMessage": "أول مصروف تسجله سيبدأ رحلة تقدمك.",
+  "homeGamificationActiveMessage": "استمر، كل مصروف تسجله يقربك أكثر.",
+  "homeRecentExpensesEmptyTitle": "لا توجد مصروفات بعد",
+  "homeRecentExpensesEmptyMessage": "أضف أول مصروف ليظهر هنا نشاطك الأخير.",
+  "homeExpenseNoCategory": "بدون تصنيف",
   "dashboardMonthlySpendTitle": "المصروف الشهري",
   "dashboardMonthlySpendSubtitle": "{count} عملية مسجلة",
   "@dashboardMonthlySpendSubtitle": {

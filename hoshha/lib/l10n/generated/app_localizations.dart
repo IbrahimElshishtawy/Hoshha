@@ -104,6 +104,192 @@ abstract class AppLocalizations {
   /// **'Hoshha'**
   String get appTitle;
 
+  /// No description provided for @homeGreetingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back'**
+  String get homeGreetingTitle;
+
+  /// No description provided for @homeGreetingSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Here is a quick look at your spending and progress this month.'**
+  String get homeGreetingSubtitle;
+
+  /// No description provided for @homeThisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'This month'**
+  String get homeThisMonth;
+
+  /// No description provided for @homePrimaryActionAddExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Add expense'**
+  String get homePrimaryActionAddExpense;
+
+  /// No description provided for @homeBudgetSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget summary'**
+  String get homeBudgetSectionTitle;
+
+  /// No description provided for @homeGamificationSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress summary'**
+  String get homeGamificationSectionTitle;
+
+  /// No description provided for @homeRecentExpensesSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent expenses'**
+  String get homeRecentExpensesSectionTitle;
+
+  /// No description provided for @homeViewAll.
+  ///
+  /// In en, this message translates to:
+  /// **'See all'**
+  String get homeViewAll;
+
+  /// No description provided for @homeRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get homeRetry;
+
+  /// No description provided for @homeComingSoonMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This flow will be wired in a later step.'**
+  String get homeComingSoonMessage;
+
+  /// No description provided for @homeSectionLoadFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load {section}'**
+  String homeSectionLoadFailure(Object section);
+
+  /// No description provided for @homeBudgetSpentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Spent'**
+  String get homeBudgetSpentLabel;
+
+  /// No description provided for @homeBudgetRemainingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Remaining'**
+  String get homeBudgetRemainingLabel;
+
+  /// No description provided for @homeBudgetLimitLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget cap {amount}'**
+  String homeBudgetLimitLabel(Object amount);
+
+  /// No description provided for @homeBudgetStatusSafe.
+  ///
+  /// In en, this message translates to:
+  /// **'Safe'**
+  String get homeBudgetStatusSafe;
+
+  /// No description provided for @homeBudgetStatusWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Warning'**
+  String get homeBudgetStatusWarning;
+
+  /// No description provided for @homeBudgetStatusExceeded.
+  ///
+  /// In en, this message translates to:
+  /// **'Exceeded'**
+  String get homeBudgetStatusExceeded;
+
+  /// No description provided for @homeBudgetNoBudgetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a budget for this month'**
+  String get homeBudgetNoBudgetTitle;
+
+  /// No description provided for @homeBudgetNoBudgetMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Once you set a monthly cap, we will show your remaining budget and status here.'**
+  String get homeBudgetNoBudgetMessage;
+
+  /// No description provided for @homeBudgetSetAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Set budget'**
+  String get homeBudgetSetAction;
+
+  /// No description provided for @homeBudgetEditAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit budget'**
+  String get homeBudgetEditAction;
+
+  /// No description provided for @homeBudgetOverflowMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You exceeded your budget by {amount}'**
+  String homeBudgetOverflowMessage(Object amount);
+
+  /// No description provided for @homeGamificationXpLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'XP'**
+  String get homeGamificationXpLabel;
+
+  /// No description provided for @homeGamificationLevelLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Level {level}'**
+  String homeGamificationLevelLabel(int level);
+
+  /// No description provided for @homeGamificationStreakLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} day streak'**
+  String homeGamificationStreakLabel(int days);
+
+  /// No description provided for @homeGamificationNextLevelLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% to the next level'**
+  String homeGamificationNextLevelLabel(int percent);
+
+  /// No description provided for @homeGamificationEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first logged expense will start your progress.'**
+  String get homeGamificationEmptyMessage;
+
+  /// No description provided for @homeGamificationActiveMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep going. Every expense you log moves you forward.'**
+  String get homeGamificationActiveMessage;
+
+  /// No description provided for @homeRecentExpensesEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No expenses yet'**
+  String get homeRecentExpensesEmptyTitle;
+
+  /// No description provided for @homeRecentExpensesEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first expense and your latest activity will appear here.'**
+  String get homeRecentExpensesEmptyMessage;
+
+  /// No description provided for @homeExpenseNoCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Uncategorized'**
+  String get homeExpenseNoCategory;
+
   /// No description provided for @dashboardMonthlySpendTitle.
   ///
   /// In en, this message translates to:

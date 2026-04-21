@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum AppThemeFamily { jade, sunset }
+enum AppThemeFamily { jade, sunset, onyx }
 
 enum AppThemeModePreference { system, light, dark }
 

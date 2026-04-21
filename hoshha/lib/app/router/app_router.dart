@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/dashboard/presentation/dashboard_screen.dart';
+import '../../features/home/presentation/screens/home_screen.dart';
 
 abstract final class AppRoutes {
   static const dashboard = '/';
@@ -13,7 +13,7 @@ final appRouterProvider = Provider<GoRouter>(
     routes: [
       GoRoute(
         path: AppRoutes.dashboard,
-        builder: (context, state) => const DashboardScreen(),
+        builder: (context, state) => const HomeScreen(),
       ),
     ],
   ),

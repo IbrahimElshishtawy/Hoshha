@@ -1,6 +1,73 @@
 {
   "@@locale": "en",
   "appTitle": "Hoshha",
+  "homeGreetingTitle": "Welcome back",
+  "homeGreetingSubtitle": "Here is a quick look at your spending and progress this month.",
+  "homeThisMonth": "This month",
+  "homePrimaryActionAddExpense": "Add expense",
+  "homeBudgetSectionTitle": "Budget summary",
+  "homeGamificationSectionTitle": "Progress summary",
+  "homeRecentExpensesSectionTitle": "Recent expenses",
+  "homeViewAll": "See all",
+  "homeRetry": "Retry",
+  "homeComingSoonMessage": "This flow will be wired in a later step.",
+  "homeSectionLoadFailure": "Failed to load {section}",
+  "@homeSectionLoadFailure": {
+    "placeholders": {
+      "section": {}
+    }
+  },
+  "homeBudgetSpentLabel": "Spent",
+  "homeBudgetRemainingLabel": "Remaining",
+  "homeBudgetLimitLabel": "Budget cap {amount}",
+  "@homeBudgetLimitLabel": {
+    "placeholders": {
+      "amount": {}
+    }
+  },
+  "homeBudgetStatusSafe": "Safe",
+  "homeBudgetStatusWarning": "Warning",
+  "homeBudgetStatusExceeded": "Exceeded",
+  "homeBudgetNoBudgetTitle": "Set a budget for this month",
+  "homeBudgetNoBudgetMessage": "Once you set a monthly cap, we will show your remaining budget and status here.",
+  "homeBudgetSetAction": "Set budget",
+  "homeBudgetEditAction": "Edit budget",
+  "homeBudgetOverflowMessage": "You exceeded your budget by {amount}",
+  "@homeBudgetOverflowMessage": {
+    "placeholders": {
+      "amount": {}
+    }
+  },
+  "homeGamificationXpLabel": "XP",
+  "homeGamificationLevelLabel": "Level {level}",
+  "@homeGamificationLevelLabel": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGamificationStreakLabel": "{days} day streak",
+  "@homeGamificationStreakLabel": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGamificationNextLevelLabel": "{percent}% to the next level",
+  "@homeGamificationNextLevelLabel": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGamificationEmptyMessage": "Your first logged expense will start your progress.",
+  "homeGamificationActiveMessage": "Keep going. Every expense you log moves you forward.",
+  "homeRecentExpensesEmptyTitle": "No expenses yet",
+  "homeRecentExpensesEmptyMessage": "Add your first expense and your latest activity will appear here.",
+  "homeExpenseNoCategory": "Uncategorized",
   "dashboardMonthlySpendTitle": "Monthly spend",
   "dashboardMonthlySpendSubtitle": "{count} tracked expenses",
   "@dashboardMonthlySpendSubtitle": {
