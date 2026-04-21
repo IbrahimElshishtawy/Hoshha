@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                       HomeRecentExpensesSection(
                         onAddExpensePressed: () =>
                             context.push(AppRoutes.addExpense),
-                        onSeeAllPressed: () => _showUnavailableMessage(context),
+                        onSeeAllPressed: () => context.push(AppRoutes.history),
                       ),
                     ],
                   ),
