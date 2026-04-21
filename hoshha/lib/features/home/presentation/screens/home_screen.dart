@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(height: spacing.lg),
                       HomeBudgetSummarySection(
                         onBudgetActionPressed: () =>
-                            _showUnavailableMessage(context),
+                            context.push(AppRoutes.budget),
                       ),
                       SizedBox(height: spacing.lg),
                       const HomeGamificationSummarySection(),
@@ -62,12 +62,5 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _showUnavailableMessage(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text(l10n.homeComingSoonMessage)));
   }
 }
