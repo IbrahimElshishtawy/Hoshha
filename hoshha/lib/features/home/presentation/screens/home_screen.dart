@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hoshha/l10n/generated/app_localizations.dart';
 
+import '../../../../app/router/app_router.dart';
 import '../../../../theme/theme_extensions.dart';
 import '../widgets/home_budget_summary_section.dart';
 import '../widgets/home_gamification_summary_section.dart';
@@ -18,7 +20,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _showUnavailableMessage(context),
+        onPressed: () => context.push(AppRoutes.addExpense),
         icon: const Icon(Icons.add_rounded),
         label: Text(l10n.homePrimaryActionAddExpense),
       ),
@@ -48,7 +50,7 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(height: spacing.lg),
                       HomeRecentExpensesSection(
                         onAddExpensePressed: () =>
-                            _showUnavailableMessage(context),
+                            context.push(AppRoutes.addExpense),
                         onSeeAllPressed: () => _showUnavailableMessage(context),
                       ),
                     ],
