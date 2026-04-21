@@ -58,6 +58,10 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   build_runner: ^2.5.4
 
+dependency_overrides:
+  isar_db_flutter_libs:
+    path: third_party/isar_db_flutter_libs
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
