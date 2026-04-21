@@ -11,9 +11,8 @@ class ExpensesLocalDataSource {
 
   Future<List<ExpenseRecord>> getAll() => collection.where().findAllAsync();
 
-  Stream<List<ExpenseRecord>> watchAll() async* {
-    yield await getAll();
-    yield* collection.watch().asyncMap((_) => getAll());
+  Stream<List<ExpenseRecord>> watchAll() {
+    return collection.where().watch(fireImmediately: true);
   }
 
   Future<ExpenseRecord?> findByEntityId(String expenseId) {

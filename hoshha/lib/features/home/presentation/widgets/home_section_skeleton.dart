@@ -35,20 +35,17 @@ class _CardSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final spacing = context.appSpacing;
+    final chartHeight = height > 120 ? height - 120 : 0.0;
 
     return Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const _SkeletonLine(widthFactor: 0.42, height: 18),
         SizedBox(height: spacing.md),
         const _SkeletonLine(widthFactor: 0.75, height: 54),
         SizedBox(height: spacing.md),
-        Expanded(
-          child: Align(
-            alignment: AlignmentDirectional.bottomStart,
-            child: _SkeletonBox(height: height - 120),
-          ),
-        ),
+        _SkeletonBox(height: chartHeight),
       ],
     );
   }
@@ -100,10 +97,20 @@ class _SkeletonLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FractionallySizedBox(
-      widthFactor: widthFactor,
-      alignment: AlignmentDirectional.centerStart,
-      child: _SkeletonBox(height: height),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.hasBoundedWidth
+            ? constraints.maxWidth * widthFactor
+            : 320.0 * widthFactor;
+
+        return Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: SizedBox(
+            width: width,
+            child: _SkeletonBox(height: height),
+          ),
+        );
+      },
     );
   }
 }

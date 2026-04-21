@@ -15,5 +15,8 @@ class AppFailure implements Exception {
   final Object? cause;
 
   @override
-  String toString() => 'AppFailure(type: $type, message: $message)';
+  String toString() {
+    final suffix = cause == null ? '' : ', cause: $cause';
+    return 'AppFailure(type: $type, message: $message$suffix)';
+  }
 }

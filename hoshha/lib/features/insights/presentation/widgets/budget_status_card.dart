@@ -194,16 +194,28 @@ class _BudgetStatusLine extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.appColors;
 
-    return FractionallySizedBox(
-      widthFactor: widthFactor,
-      alignment: AlignmentDirectional.centerStart,
-      child: Container(
-        height: height,
-        decoration: BoxDecoration(
-          color: colors.surfaceContainer,
-          borderRadius: BorderRadiusDirectional.circular(context.appRadius.sm),
-        ),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.hasBoundedWidth
+            ? constraints.maxWidth * widthFactor
+            : 320.0 * widthFactor;
+
+        return Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: SizedBox(
+            width: width,
+            child: Container(
+              height: height,
+              decoration: BoxDecoration(
+                color: colors.surfaceContainer,
+                borderRadius: BorderRadiusDirectional.circular(
+                  context.appRadius.sm,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

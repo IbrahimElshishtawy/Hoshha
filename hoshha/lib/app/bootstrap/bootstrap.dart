@@ -15,34 +15,35 @@ import 'app_bootstrap_controller.dart';
 import 'app_provider_observer.dart';
 
 Future<void> bootstrap(Widget app) async {
-  final environment = AppEnvironment.fromBuild();
-  final logger = DebugAppLogger();
-  final sharedPreferences = await SharedPreferences.getInstance();
-  final isar = await openAppDatabase();
-  final container = ProviderContainer(
-    observers: [AppProviderObserver(logger)],
-    overrides: [
-      appEnvironmentProvider.overrideWithValue(environment),
-      appLoggerProvider.overrideWithValue(logger),
-      clockProvider.overrideWithValue(const SystemClock()),
-      sharedPreferencesProvider.overrideWithValue(sharedPreferences),
-      isarProvider.overrideWithValue(isar),
-    ],
-  );
+  await runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
 
-  FlutterError.onError = (details) {
-    logger.error('Unhandled Flutter error', details.exception, details.stack);
-  };
-  WidgetsBinding.instance.platformDispatcher.onError = (error, stackTrace) {
-    logger.error('Unhandled platform error', error, stackTrace);
-    return true;
-  };
-  unawaited(container.read(appBootstrapControllerProvider.future));
+    final environment = AppEnvironment.fromBuild();
+    final logger = DebugAppLogger();
+    final sharedPreferences = await SharedPreferences.getInstance();
+    final isar = await openAppDatabase();
+    final container = ProviderContainer(
+      observers: [AppProviderObserver(logger)],
+      overrides: [
+        appEnvironmentProvider.overrideWithValue(environment),
+        appLoggerProvider.overrideWithValue(logger),
+        clockProvider.overrideWithValue(const SystemClock()),
+        sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+        isarProvider.overrideWithValue(isar),
+      ],
+    );
 
-  runZonedGuarded(
-    () => runApp(UncontrolledProviderScope(container: container, child: app)),
-    (error, stackTrace) {
-      logger.error('Unhandled zone error', error, stackTrace);
-    },
-  );
+    FlutterError.onError = (details) {
+      logger.error('Unhandled Flutter error', details.exception, details.stack);
+    };
+    WidgetsBinding.instance.platformDispatcher.onError = (error, stackTrace) {
+      logger.error('Unhandled platform error', error, stackTrace);
+      return true;
+    };
+    unawaited(container.read(appBootstrapControllerProvider.future));
+
+    runApp(UncontrolledProviderScope(container: container, child: app));
+  }, (error, stackTrace) {
+    DebugAppLogger().error('Unhandled zone error', error, stackTrace);
+  });
 }

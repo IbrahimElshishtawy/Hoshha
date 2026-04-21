@@ -13,9 +13,10 @@ class StreaksLocalDataSource {
     return collection.where().typeEqualTo(type).findFirstAsync();
   }
 
-  Stream<StreakRecord?> watchByType(String type) async* {
-    yield await findByType(type);
-    yield* collection.watch().asyncMap((_) => findByType(type));
+  Stream<StreakRecord?> watchByType(String type) {
+    return collection.where().typeEqualTo(type).watch(
+      fireImmediately: true,
+    ).map((records) => records.isEmpty ? null : records.first);
   }
 
   Future<void> putRecord(StreakRecord record) async {
