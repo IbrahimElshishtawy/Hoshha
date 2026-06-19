@@ -373,6 +373,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'off'**
   String get statusDisabled;
+
+  /// No description provided for @homeCurrentBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Balance'**
+  String get homeCurrentBalance;
+
+  /// No description provided for @homeExpensesToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s Expenses'**
+  String get homeExpensesToday;
+
+  /// No description provided for @homeExpensesMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Month\'s Expenses'**
+  String get homeExpensesMonth;
+
+  /// No description provided for @homeBudgetStatusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget Status'**
+  String get homeBudgetStatusTitle;
+
+  /// No description provided for @homeBudgetExcellent.
+  ///
+  /// In en, this message translates to:
+  /// **'Excellent'**
+  String get homeBudgetExcellent;
+
+  /// No description provided for @homeBudgetStablePerformance.
+  ///
+  /// In en, this message translates to:
+  /// **'Stable financial performance'**
+  String get homeBudgetStablePerformance;
+
+  /// No description provided for @homeSmartTipTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart Tip'**
+  String get homeSmartTipTitle;
+
+  /// No description provided for @homeSmartTipContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Your spending on restaurants increased by 15% this week. We recommend saving an extra 200 EGP to reach your monthly goal.'**
+  String get homeSmartTipContent;
+
+  /// No description provided for @homeQuickActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Actions'**
+  String get homeQuickActions;
+
+  /// No description provided for @homeAddExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Expense'**
+  String get homeAddExpense;
+
+  /// No description provided for @homeAddIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Income'**
+  String get homeAddIncome;
+
+  /// No description provided for @homeToSavings.
+  ///
+  /// In en, this message translates to:
+  /// **'To Savings'**
+  String get homeToSavings;
+
+  /// No description provided for @homeCreateGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a Goal'**
+  String get homeCreateGoal;
+
+  /// No description provided for @homeRecentTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Transactions'**
+  String get homeRecentTransactions;
+
+  /// No description provided for @homeBottomNavHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get homeBottomNavHome;
+
+  /// No description provided for @homeBottomNavJourney.
+  ///
+  /// In en, this message translates to:
+  /// **'Journey'**
+  String get homeBottomNavJourney;
+
+  /// No description provided for @homeBottomNavGoals.
+  ///
+  /// In en, this message translates to:
+  /// **'Goals'**
+  String get homeBottomNavGoals;
+
+  /// No description provided for @homeBottomNavIdentity.
+  ///
+  /// In en, this message translates to:
+  /// **'Identity'**
+  String get homeBottomNavIdentity;
+
+  /// No description provided for @homeCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'EGP'**
+  String get homeCurrency;
+
+  /// No description provided for @homeCurrencyAbbr.
+  ///
+  /// In en, this message translates to:
+  /// **'EGP'**
+  String get homeCurrencyAbbr;
+
+  /// No description provided for @homeToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get homeToday;
+
+  /// No description provided for @homeYesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get homeYesterday;
+
+  /// No description provided for @categoryFood.
+  ///
+  /// In en, this message translates to:
+  /// **'Food'**
+  String get categoryFood;
+
+  /// No description provided for @categorySalary.
+  ///
+  /// In en, this message translates to:
+  /// **'Salary'**
+  String get categorySalary;
+
+  /// No description provided for @categoryUtilities.
+  ///
+  /// In en, this message translates to:
+  /// **'Utilities'**
+  String get categoryUtilities;
+
+  /// No description provided for @categoryTransport.
+  ///
+  /// In en, this message translates to:
+  /// **'Transport'**
+  String get categoryTransport;
 }
 
 class _AppLocalizationsDelegate

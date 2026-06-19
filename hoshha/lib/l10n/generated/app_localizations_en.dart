@@ -181,4 +181,83 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get statusDisabled => 'off';
+
+  @override
+  String get homeCurrentBalance => 'Current Balance';
+
+  @override
+  String get homeExpensesToday => 'Today\'s Expenses';
+
+  @override
+  String get homeExpensesMonth => 'Month\'s Expenses';
+
+  @override
+  String get homeBudgetStatusTitle => 'Budget Status';
+
+  @override
+  String get homeBudgetExcellent => 'Excellent';
+
+  @override
+  String get homeBudgetStablePerformance => 'Stable financial performance';
+
+  @override
+  String get homeSmartTipTitle => 'Smart Tip';
+
+  @override
+  String get homeSmartTipContent =>
+      'Your spending on restaurants increased by 15% this week. We recommend saving an extra 200 EGP to reach your monthly goal.';
+
+  @override
+  String get homeQuickActions => 'Quick Actions';
+
+  @override
+  String get homeAddExpense => 'Add Expense';
+
+  @override
+  String get homeAddIncome => 'Add Income';
+
+  @override
+  String get homeToSavings => 'To Savings';
+
+  @override
+  String get homeCreateGoal => 'Create a Goal';
+
+  @override
+  String get homeRecentTransactions => 'Recent Transactions';
+
+  @override
+  String get homeBottomNavHome => 'Home';
+
+  @override
+  String get homeBottomNavJourney => 'Journey';
+
+  @override
+  String get homeBottomNavGoals => 'Goals';
+
+  @override
+  String get homeBottomNavIdentity => 'Identity';
+
+  @override
+  String get homeCurrency => 'EGP';
+
+  @override
+  String get homeCurrencyAbbr => 'EGP';
+
+  @override
+  String get homeToday => 'Today';
+
+  @override
+  String get homeYesterday => 'Yesterday';
+
+  @override
+  String get categoryFood => 'Food';
+
+  @override
+  String get categorySalary => 'Salary';
+
+  @override
+  String get categoryUtilities => 'Utilities';
+
+  @override
+  String get categoryTransport => 'Transport';
 }

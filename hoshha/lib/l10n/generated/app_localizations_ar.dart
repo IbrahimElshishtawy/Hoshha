@@ -180,4 +180,83 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get statusDisabled => 'متوقف';
+
+  @override
+  String get homeCurrentBalance => 'الرصيد الحالي';
+
+  @override
+  String get homeExpensesToday => 'مصاريف اليوم';
+
+  @override
+  String get homeExpensesMonth => 'مصاريف الشهر';
+
+  @override
+  String get homeBudgetStatusTitle => 'حالة الميزانية';
+
+  @override
+  String get homeBudgetExcellent => 'ممتاز';
+
+  @override
+  String get homeBudgetStablePerformance => 'أداء مالي مستقر';
+
+  @override
+  String get homeSmartTipTitle => 'نصيحة ذكية';
+
+  @override
+  String get homeSmartTipContent =>
+      'زاد إنفاقك على المطاعم بنسبة 15% هذا الأسبوع. ننصحك بتوفير 200 جنيه إضافية لتصل لهدفك الشهري.';
+
+  @override
+  String get homeQuickActions => 'إجراءات سريعة';
+
+  @override
+  String get homeAddExpense => 'أضف مصروف';
+
+  @override
+  String get homeAddIncome => 'أضف دخل';
+
+  @override
+  String get homeToSavings => 'إلى الحصالة';
+
+  @override
+  String get homeCreateGoal => 'أنشئ هدفاً';
+
+  @override
+  String get homeRecentTransactions => 'آخر المعاملات';
+
+  @override
+  String get homeBottomNavHome => 'الرئيسية';
+
+  @override
+  String get homeBottomNavJourney => 'الرحلة';
+
+  @override
+  String get homeBottomNavGoals => 'الأهداف';
+
+  @override
+  String get homeBottomNavIdentity => 'الهوية';
+
+  @override
+  String get homeCurrency => 'جنيه';
+
+  @override
+  String get homeCurrencyAbbr => 'ج.م';
+
+  @override
+  String get homeToday => 'اليوم';
+
+  @override
+  String get homeYesterday => 'أمس';
+
+  @override
+  String get categoryFood => 'طعام';
+
+  @override
+  String get categorySalary => 'راتب';
+
+  @override
+  String get categoryUtilities => 'فواتير';
+
+  @override
+  String get categoryTransport => 'مواصلات';
 }
