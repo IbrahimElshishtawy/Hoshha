@@ -259,4 +259,74 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get categoryTransport => 'مواصلات';
+
+  @override
+  String get journeyTitle => 'رحلتي المالية';
+
+  @override
+  String get journeySubtitle => 'نظرة عن كثب على ما حققته في حوشة منذ انضمامك.';
+
+  @override
+  String get journeyTotalSavings => 'إجمالي التوفير';
+
+  @override
+  String get journeyTotalIncome => 'إجمالي الدخل';
+
+  @override
+  String get journeyTotalExpenses => 'إجمالي الصرف';
+
+  @override
+  String get journeySavingsMotivation => 'خطوات ثابتة نحو الاستقلال';
+
+  @override
+  String journeyGoalsAchieved(Object count) {
+    return '$count أهداف محققة';
+  }
+
+  @override
+  String journeyGoalsMotivation(Object percent) {
+    return 'لقد أنجزت $percent٪ من خطتك السنوية!';
+  }
+
+  @override
+  String get journeyMilestones => 'محطات الأداء';
+
+  @override
+  String get journeyBestSavingsMonth => 'أفضل شهر توفير';
+
+  @override
+  String journeySavedPercent(Object amount, Object percent) {
+    return 'وفرت $amount ($percent٪ من دخلك)';
+  }
+
+  @override
+  String get journeyLowestSavingsMonth => 'أقل شهر توفير';
+
+  @override
+  String journeySpentPercent(Object percent, Object reason) {
+    return 'صرفت $percent٪ بسبب \"$reason\"';
+  }
+
+  @override
+  String get journeyGrowthTree => 'شجرة نموك المالي';
+
+  @override
+  String get journeyGrowthTreeRank => 'رتبة: أسطورة التوفير';
+
+  @override
+  String get journeyGrowthTreeText =>
+      'شجرتك الآن في مرحلة \"النضوج\". استمر في ريها بالادخار لتصل إلى مرحلة \"الازدهار الكامل\".';
+
+  @override
+  String get journeyTimeline => 'خطتك الزمنية';
+
+  @override
+  String get journeyWhatNext => 'ماذا بعد؟';
+
+  @override
+  String get journeyWhatNextText =>
+      'رحلتك مستمرة، والهدف القادم \"صندوق الطوارئ\" ينتظر لمستك.';
+
+  @override
+  String get journeyDefineNewGoal => 'تحديد هدف جديد';
 }

@@ -260,4 +260,75 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get categoryTransport => 'Transport';
+
+  @override
+  String get journeyTitle => 'My Financial Journey';
+
+  @override
+  String get journeySubtitle =>
+      'A close look at what you achieved in Hawsha since you joined.';
+
+  @override
+  String get journeyTotalSavings => 'Total Savings';
+
+  @override
+  String get journeyTotalIncome => 'Total Income';
+
+  @override
+  String get journeyTotalExpenses => 'Total Expenses';
+
+  @override
+  String get journeySavingsMotivation => 'Steady steps towards independence';
+
+  @override
+  String journeyGoalsAchieved(Object count) {
+    return '$count Goals Achieved';
+  }
+
+  @override
+  String journeyGoalsMotivation(Object percent) {
+    return 'You have achieved $percent% of your annual plan!';
+  }
+
+  @override
+  String get journeyMilestones => 'Performance Milestones';
+
+  @override
+  String get journeyBestSavingsMonth => 'Best Savings Month';
+
+  @override
+  String journeySavedPercent(Object amount, Object percent) {
+    return 'Saved $amount ($percent% of your income)';
+  }
+
+  @override
+  String get journeyLowestSavingsMonth => 'Lowest Savings Month';
+
+  @override
+  String journeySpentPercent(Object percent, Object reason) {
+    return 'Spent $percent% due to \"$reason\"';
+  }
+
+  @override
+  String get journeyGrowthTree => 'Your Financial Growth Tree';
+
+  @override
+  String get journeyGrowthTreeRank => 'Rank: Savings Legend';
+
+  @override
+  String get journeyGrowthTreeText =>
+      'Your tree is now in the \"maturity\" stage. Continue watering it with savings to reach the \"full bloom\" stage.';
+
+  @override
+  String get journeyTimeline => 'Your Timeline';
+
+  @override
+  String get journeyWhatNext => 'What\'s Next?';
+
+  @override
+  String get journeyWhatNextText =>
+      'Your journey continues, and the next goal \"Emergency Fund\" awaits your touch.';
+
+  @override
+  String get journeyDefineNewGoal => 'Define New Goal';
 }

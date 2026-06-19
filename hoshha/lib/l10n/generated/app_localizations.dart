@@ -529,6 +529,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Transport'**
   String get categoryTransport;
+
+  /// No description provided for @journeyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Financial Journey'**
+  String get journeyTitle;
+
+  /// No description provided for @journeySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A close look at what you achieved in Hawsha since you joined.'**
+  String get journeySubtitle;
+
+  /// No description provided for @journeyTotalSavings.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Savings'**
+  String get journeyTotalSavings;
+
+  /// No description provided for @journeyTotalIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Income'**
+  String get journeyTotalIncome;
+
+  /// No description provided for @journeyTotalExpenses.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Expenses'**
+  String get journeyTotalExpenses;
+
+  /// No description provided for @journeySavingsMotivation.
+  ///
+  /// In en, this message translates to:
+  /// **'Steady steps towards independence'**
+  String get journeySavingsMotivation;
+
+  /// No description provided for @journeyGoalsAchieved.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Goals Achieved'**
+  String journeyGoalsAchieved(Object count);
+
+  /// No description provided for @journeyGoalsMotivation.
+  ///
+  /// In en, this message translates to:
+  /// **'You have achieved {percent}% of your annual plan!'**
+  String journeyGoalsMotivation(Object percent);
+
+  /// No description provided for @journeyMilestones.
+  ///
+  /// In en, this message translates to:
+  /// **'Performance Milestones'**
+  String get journeyMilestones;
+
+  /// No description provided for @journeyBestSavingsMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Best Savings Month'**
+  String get journeyBestSavingsMonth;
+
+  /// No description provided for @journeySavedPercent.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved {amount} ({percent}% of your income)'**
+  String journeySavedPercent(Object amount, Object percent);
+
+  /// No description provided for @journeyLowestSavingsMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Lowest Savings Month'**
+  String get journeyLowestSavingsMonth;
+
+  /// No description provided for @journeySpentPercent.
+  ///
+  /// In en, this message translates to:
+  /// **'Spent {percent}% due to \"{reason}\"'**
+  String journeySpentPercent(Object percent, Object reason);
+
+  /// No description provided for @journeyGrowthTree.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Financial Growth Tree'**
+  String get journeyGrowthTree;
+
+  /// No description provided for @journeyGrowthTreeRank.
+  ///
+  /// In en, this message translates to:
+  /// **'Rank: Savings Legend'**
+  String get journeyGrowthTreeRank;
+
+  /// No description provided for @journeyGrowthTreeText.
+  ///
+  /// In en, this message translates to:
+  /// **'Your tree is now in the \"maturity\" stage. Continue watering it with savings to reach the \"full bloom\" stage.'**
+  String get journeyGrowthTreeText;
+
+  /// No description provided for @journeyTimeline.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Timeline'**
+  String get journeyTimeline;
+
+  /// No description provided for @journeyWhatNext.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s Next?'**
+  String get journeyWhatNext;
+
+  /// No description provided for @journeyWhatNextText.
+  ///
+  /// In en, this message translates to:
+  /// **'Your journey continues, and the next goal \"Emergency Fund\" awaits your touch.'**
+  String get journeyWhatNextText;
+
+  /// No description provided for @journeyDefineNewGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Define New Goal'**
+  String get journeyDefineNewGoal;
 }
 
 class _AppLocalizationsDelegate
