@@ -4,7 +4,7 @@ import 'package:intl/intl.dart' hide TextDirection;
 import 'package:hoshha/l10n/generated/app_localizations.dart';
 import 'package:hoshha/theme/theme_extensions.dart';
 import '../controllers/journey_controller.dart';
-import '../domain/entities/journey_milestone.dart';
+import '../../domain/entities/journey_milestone.dart';
 import '../../home/presentation/widgets/bottom_nav_bar.dart';
 
 class HistoryScreen extends ConsumerWidget {
@@ -684,7 +684,6 @@ class HistoryScreen extends ConsumerWidget {
 
   Widget _buildTimelineSection(BuildContext context, List<JourneyMilestone> milestones, bool isRtl) {
     final colors = context.appColors;
-    final spacing = context.appSpacing;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

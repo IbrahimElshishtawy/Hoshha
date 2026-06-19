@@ -46,7 +46,7 @@ class HomeScreen extends ConsumerWidget {
                   IconButton(
                     icon: Icon(
                       Icons.notifications_none_outlined,
-                      color: colors.onSurface.withValues(alpha: 0.7),
+                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                       size: 26,
                     ),
                     onPressed: () {

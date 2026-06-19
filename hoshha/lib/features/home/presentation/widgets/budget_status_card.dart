@@ -45,7 +45,7 @@ class BudgetStatusCard extends StatelessWidget {
           Text(
             l10n.homeBudgetStatusTitle,
             style: TextStyle(
-              color: colors.onSurface.withValues(alpha: 0.8),
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
               fontSize: 15,
               fontWeight: FontWeight.bold,
             ),
@@ -76,8 +76,8 @@ class BudgetStatusCard extends StatelessWidget {
                     children: [
                       Text(
                         '${budgetPercentage.toInt()}%',
-                        style: const TextStyle(
-                          color: colors.onSurface,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
                           fontSize: 28,
                           fontWeight: FontWeight.w800,
                           height: 1.1,

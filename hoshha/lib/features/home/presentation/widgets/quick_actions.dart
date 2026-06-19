@@ -11,8 +11,6 @@ class QuickActions extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final colors = context.appColors;
-    final spacing = context.appSpacing;
-    final radius = context.appRadius;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
