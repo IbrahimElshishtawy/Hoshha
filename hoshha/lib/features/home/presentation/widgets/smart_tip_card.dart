@@ -72,7 +72,7 @@ class SmartTipCard extends StatelessWidget {
                     Text(
                       smartTip,
                       style: TextStyle(
-                        color: colors.onSurface.withValues(alpha: 0.75),
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.75),
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
                         height: 1.4,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 import 'package:hoshha/l10n/generated/app_localizations.dart';
 import 'package:hoshha/theme/theme_extensions.dart';
 import '../../domain/entities/home_transaction.dart';
@@ -18,7 +18,6 @@ class RecentTransactionsList extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final colors = context.appColors;
-    final spacing = context.appSpacing;
     final radius = context.appRadius;
 
     final isRtl = Directionality.of(context) == TextDirection.rtl;
@@ -26,12 +25,12 @@ class RecentTransactionsList extends StatelessWidget {
     return Column(
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.between,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               l10n.homeRecentExpensesSectionTitle,
               style: TextStyle(
-                color: colors.onSurface.withValues(alpha: 0.8),
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
@@ -129,7 +128,7 @@ class RecentTransactionsList extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(
-                    color: colors.onSurface,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                   ),

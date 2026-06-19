@@ -20,7 +20,7 @@ class QuickActions extends ConsumerWidget {
         Text(
           l10n.homeQuickActions,
           style: TextStyle(
-            color: colors.onSurface.withValues(alpha: 0.8),
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
@@ -126,11 +126,11 @@ class QuickActions extends ConsumerWidget {
                 Text(
                   label,
                   style: TextStyle(
-                    color: colors.onSurface.withValues(alpha: 0.8),
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                   ),
-                  textAlign: Center,
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),

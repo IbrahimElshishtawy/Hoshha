@@ -159,5 +159,47 @@
   "categoryFood": "طعام",
   "categorySalary": "راتب",
   "categoryUtilities": "فواتير",
-  "categoryTransport": "مواصلات"
+  "categoryTransport": "مواصلات",
+  "journeyTitle": "رحلتي المالية",
+  "journeySubtitle": "نظرة عن كثب على ما حققته في حوشة منذ انضمامك.",
+  "journeyTotalSavings": "إجمالي التوفير",
+  "journeyTotalIncome": "إجمالي الدخل",
+  "journeyTotalExpenses": "إجمالي الصرف",
+  "journeySavingsMotivation": "خطوات ثابتة نحو الاستقلال",
+  "journeyGoalsAchieved": "{count} أهداف محققة",
+  "@journeyGoalsAchieved": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "journeyGoalsMotivation": "لقد أنجزت {percent}٪ من خطتك السنوية!",
+  "@journeyGoalsMotivation": {
+    "placeholders": {
+      "percent": {}
+    }
+  },
+  "journeyMilestones": "محطات الأداء",
+  "journeyBestSavingsMonth": "أفضل شهر توفير",
+  "journeySavedPercent": "وفرت {amount} ({percent}٪ من دخلك)",
+  "@journeySavedPercent": {
+    "placeholders": {
+      "amount": {},
+      "percent": {}
+    }
+  },
+  "journeyLowestSavingsMonth": "أقل شهر توفير",
+  "journeySpentPercent": "صرفت {percent}٪ بسبب \"{reason}\"",
+  "@journeySpentPercent": {
+    "placeholders": {
+      "percent": {},
+      "reason": {}
+    }
+  },
+  "journeyGrowthTree": "شجرة نموك المالي",
+  "journeyGrowthTreeRank": "رتبة: أسطورة التوفير",
+  "journeyGrowthTreeText": "شجرتك الآن في مرحلة \"النضوج\". استمر في ريها بالادخار لتصل إلى مرحلة \"الازدهار الكامل\".",
+  "journeyTimeline": "خطتك الزمنية",
+  "journeyWhatNext": "ماذا بعد؟",
+  "journeyWhatNextText": "رحلتك مستمرة، والهدف القادم \"صندوق الطوارئ\" ينتظر لمستك.",
+  "journeyDefineNewGoal": "تحديد هدف جديد"
 }

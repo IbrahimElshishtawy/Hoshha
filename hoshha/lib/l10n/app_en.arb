@@ -159,5 +159,47 @@
   "categoryFood": "Food",
   "categorySalary": "Salary",
   "categoryUtilities": "Utilities",
-  "categoryTransport": "Transport"
+  "categoryTransport": "Transport",
+  "journeyTitle": "My Financial Journey",
+  "journeySubtitle": "A close look at what you achieved in Hawsha since you joined.",
+  "journeyTotalSavings": "Total Savings",
+  "journeyTotalIncome": "Total Income",
+  "journeyTotalExpenses": "Total Expenses",
+  "journeySavingsMotivation": "Steady steps towards independence",
+  "journeyGoalsAchieved": "{count} Goals Achieved",
+  "@journeyGoalsAchieved": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "journeyGoalsMotivation": "You have achieved {percent}% of your annual plan!",
+  "@journeyGoalsMotivation": {
+    "placeholders": {
+      "percent": {}
+    }
+  },
+  "journeyMilestones": "Performance Milestones",
+  "journeyBestSavingsMonth": "Best Savings Month",
+  "journeySavedPercent": "Saved {amount} ({percent}% of your income)",
+  "@journeySavedPercent": {
+    "placeholders": {
+      "amount": {},
+      "percent": {}
+    }
+  },
+  "journeyLowestSavingsMonth": "Lowest Savings Month",
+  "journeySpentPercent": "Spent {percent}% due to \"{reason}\"",
+  "@journeySpentPercent": {
+    "placeholders": {
+      "percent": {},
+      "reason": {}
+    }
+  },
+  "journeyGrowthTree": "Your Financial Growth Tree",
+  "journeyGrowthTreeRank": "Rank: Savings Legend",
+  "journeyGrowthTreeText": "Your tree is now in the \"maturity\" stage. Continue watering it with savings to reach the \"full bloom\" stage.",
+  "journeyTimeline": "Your Timeline",
+  "journeyWhatNext": "What's Next?",
+  "journeyWhatNextText": "Your journey continues, and the next goal \"Emergency Fund\" awaits your touch.",
+  "journeyDefineNewGoal": "Define New Goal"
 }
