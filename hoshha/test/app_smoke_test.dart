@@ -4,22 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hoshha/app/app_providers.dart';
 import 'package:hoshha/app/hoshha_app.dart';
 import 'package:hoshha/core/time/clock.dart';
-import 'package:hoshha/features/budgets/budget_providers.dart';
-import 'package:hoshha/features/budgets/domain/budget.dart';
-import 'package:hoshha/features/budgets/domain/budget_repository.dart';
-import 'package:hoshha/features/expenses/application/models/date_range.dart';
-import 'package:hoshha/features/expenses/application/models/expense_query.dart';
-import 'package:hoshha/features/expenses/domain/expense.dart';
-import 'package:hoshha/features/expenses/domain/expense_repository.dart';
-import 'package:hoshha/features/expenses/expenses_providers.dart';
-import 'package:hoshha/features/gamification/domain/achievement_progress.dart';
-import 'package:hoshha/features/gamification/domain/achievements_repository.dart';
-import 'package:hoshha/features/gamification/domain/streak.dart';
-import 'package:hoshha/features/gamification/domain/streak_repository.dart';
-import 'package:hoshha/features/gamification/domain/user_stats.dart';
-import 'package:hoshha/features/gamification/domain/user_stats_repository.dart';
-import 'package:hoshha/features/gamification/gamification_providers.dart';
-import 'package:hoshha/infrastructure/storage/storage_providers.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
