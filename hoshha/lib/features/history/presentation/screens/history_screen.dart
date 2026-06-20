@@ -5,7 +5,7 @@ import 'package:hoshha/l10n/generated/app_localizations.dart';
 import 'package:hoshha/theme/theme_extensions.dart';
 import '../controllers/journey_controller.dart';
 import '../../domain/entities/journey_milestone.dart';
-import '../../home/presentation/widgets/bottom_nav_bar.dart';
+import '../../../home/presentation/widgets/bottom_nav_bar.dart';
 
 class HistoryScreen extends ConsumerWidget {
   const HistoryScreen({super.key});
@@ -15,7 +15,6 @@ class HistoryScreen extends ConsumerWidget {
     final stateAsync = ref.watch(journeyControllerProvider);
     final colors = context.appColors;
     final spacing = context.appSpacing;
-    final radius = context.appRadius;
 
     final isRtl = Directionality.of(context) == TextDirection.rtl;
 
@@ -44,7 +43,7 @@ class HistoryScreen extends ConsumerWidget {
                   IconButton(
                     icon: Icon(
                       Icons.notifications_none_outlined,
-                      color: colors.onSurface.withValues(alpha: 0.7),
+                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                       size: 26,
                     ),
                     onPressed: () {},
@@ -296,7 +295,7 @@ class HistoryScreen extends ConsumerWidget {
               shape: BoxShape.circle,
             ),
             child: Icon(
-              Icons.piggy_bank_outlined,
+              Icons.savings_outlined,
               color: colors.primary,
               size: 32,
             ),
@@ -399,7 +398,6 @@ class HistoryScreen extends ConsumerWidget {
     final spacing = context.appSpacing;
 
     const goldColor = Color(0xFF8B6F15);
-    final lightGoldBg = goldColor.withValues(alpha: 0.08);
 
     return Container(
       width: double.infinity,
