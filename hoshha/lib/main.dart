@@ -1,6 +1,9 @@
-import 'app/bootstrap/bootstrap.dart';
-import 'app/hoshha_app.dart';
+import 'package:hoshha/app.dart';
+import 'package:flutter/material.dart';
+import 'package:hoshha/injection_container.dart' as di;
 
-Future<void> main() async {
-  await bootstrap(const HoshhaApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
+  runApp(const HoshhaApp());
 }
