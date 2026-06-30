@@ -56,13 +56,13 @@ class SettingsPage extends StatelessWidget {
                     _buildSettingsContainer([
                       SettingsToggleTile(
                         title: 'الوضع الداكن (Dark Mode)',
-                        value: state.darkMode,
+                        value: state.user.darkMode,
                         onChanged: (val) => cubit.toggleDarkMode(val),
                       ),
                       const Divider(height: 1.0),
                       _buildDropdownRow(
                         title: 'العملة المفضلة',
-                        value: state.selectedCurrency,
+                        value: state.user.selectedCurrency,
                         items: const [
                           DropdownMenuItem(value: 'SAR', child: Text('ريال سعودي (SAR)')),
                           DropdownMenuItem(value: 'USD', child: Text('دولار أمريكي (USD)')),
@@ -77,7 +77,7 @@ class SettingsPage extends StatelessWidget {
                       const Divider(height: 1.0),
                       _buildDropdownRow(
                         title: 'اللغة الحالية',
-                        value: state.selectedLanguage,
+                        value: state.user.selectedLanguage,
                         items: const [
                           DropdownMenuItem(value: 'ar', child: Text('العربية (Arabic)')),
                           DropdownMenuItem(value: 'en', child: Text('الإنجليزية (English)')),
@@ -95,7 +95,7 @@ class SettingsPage extends StatelessWidget {
                     _buildSettingsContainer([
                       SettingsToggleTile(
                         title: 'إشعارات الدفع والإنفاق',
-                        value: state.pushNotifications,
+                        value: state.user.pushNotifications,
                         onChanged: (val) => cubit.toggleNotifications(val),
                       ),
                       const Divider(height: 1.0),

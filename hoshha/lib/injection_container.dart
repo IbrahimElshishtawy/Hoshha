@@ -26,6 +26,7 @@ import 'features/notifications/presentation/cubit/notifications_cubit.dart';
 import 'features/debt/presentation/cubit/debt_cubit.dart';
 import 'features/bills/presentation/cubit/bills_cubit.dart';
 import 'features/analytics/presentation/cubit/analytics_cubit.dart';
+import 'features/budget/presentation/cubit/budget_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -113,4 +114,7 @@ Future<void> init() async {
 
   // ==================== Features - Analytics ====================
   sl.registerFactory(() => AnalyticsCubit());
+
+  // ==================== Features - Budget ====================
+  sl.registerFactory(() => BudgetCubit());
 }

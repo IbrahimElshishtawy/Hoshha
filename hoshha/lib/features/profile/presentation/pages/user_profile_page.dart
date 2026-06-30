@@ -49,8 +49,8 @@ class UserProfilePage extends StatelessWidget {
                   children: [
                     // User Header Info
                     ProfileHeaderCard(
-                      name: state.name,
-                      email: state.email,
+                      name: state.user.name,
+                      email: state.user.email,
                     ),
                     const SizedBox(height: 32.0),
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
-import '../pages/budget_management_page.dart';
+import '../../domain/entities/budget_limit.dart';
 
 class BudgetLimitCard extends StatelessWidget {
-  final BudgetLimitData budget;
+  final BudgetLimit budget;
 
   const BudgetLimitCard({
     super.key,
