@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
-import '../pages/analytics_dashboard_page.dart';
+import '../../domain/entities/category_spend.dart';
 
 class AnalyticsCategoryItem extends StatelessWidget {
-  final CategorySpendData category;
+  final CategorySpend category;
 
   const AnalyticsCategoryItem({
     super.key,

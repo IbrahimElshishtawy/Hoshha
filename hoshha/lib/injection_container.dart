@@ -18,6 +18,14 @@ import 'features/transaction/domain/repositories/transaction_repository.dart';
 import 'features/transaction/domain/usecases/add_transaction_usecase.dart';
 import 'features/transaction/presentation/cubit/transaction_cubit.dart';
 import 'features/ai_assistant/presentation/cubit/ai_assistant_cubit.dart';
+import 'features/wallet/presentation/cubit/wallet_cubit.dart';
+import 'features/savings_goals/presentation/cubit/savings_goals_cubit.dart';
+import 'features/profile/presentation/cubit/profile_cubit.dart';
+import 'features/onboarding/presentation/cubit/onboarding_cubit.dart';
+import 'features/notifications/presentation/cubit/notifications_cubit.dart';
+import 'features/debt/presentation/cubit/debt_cubit.dart';
+import 'features/bills/presentation/cubit/bills_cubit.dart';
+import 'features/analytics/presentation/cubit/analytics_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -81,4 +89,28 @@ Future<void> init() async {
   // ==================== Features - AI Assistant ====================
   // Cubit
   sl.registerFactory(() => AiAssistantCubit());
+
+  // ==================== Features - Wallet ====================
+  sl.registerFactory(() => WalletCubit());
+
+  // ==================== Features - Savings Goals ====================
+  sl.registerFactory(() => SavingsGoalsCubit());
+
+  // ==================== Features - Profile ====================
+  sl.registerFactory(() => ProfileCubit());
+
+  // ==================== Features - Onboarding ====================
+  sl.registerFactory(() => OnboardingCubit());
+
+  // ==================== Features - Notifications ====================
+  sl.registerFactory(() => NotificationsCubit());
+
+  // ==================== Features - Debt ====================
+  sl.registerFactory(() => DebtCubit());
+
+  // ==================== Features - Bills ====================
+  sl.registerFactory(() => BillsCubit());
+
+  // ==================== Features - Analytics ====================
+  sl.registerFactory(() => AnalyticsCubit());
 }
