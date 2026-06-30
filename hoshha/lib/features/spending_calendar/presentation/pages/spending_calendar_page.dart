@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import '../cubit/spending_calendar_cubit.dart';
 import '../cubit/spending_calendar_state.dart';
-import 'widgets/calendar_widget.dart';
+import '../widgets/calendar_widget.dart';
 import '../../../transaction/presentation/widgets/transaction_history_list.dart';
 
 class SpendingCalendarPage extends StatefulWidget {

@@ -1,4 +1,4 @@
-import '../../../../transaction/domain/entities/transaction_entity.dart';
+import '../../../transaction/domain/entities/transaction_entity.dart';
 
 class CalendarEvent {
   final DateTime date;

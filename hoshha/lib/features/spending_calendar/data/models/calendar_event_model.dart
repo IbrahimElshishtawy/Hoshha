@@ -1,6 +1,6 @@
 import '../../domain/entities/calendar_event.dart';
-import '../../../../transaction/data/models/transaction_model.dart';
-import '../../../../transaction/domain/entities/transaction_entity.dart';
+import '../../../transaction/data/models/transaction_model.dart';
+import '../../../transaction/domain/entities/transaction_entity.dart';
 
 class CalendarEventModel extends CalendarEvent {
   const CalendarEventModel({

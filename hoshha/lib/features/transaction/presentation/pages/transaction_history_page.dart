@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/transaction_cubit.dart';
 import '../cubit/transaction_state.dart';
-import 'widgets/transaction_history_list.dart';
-import 'widgets/transaction_filter_chip.dart';
+import '../widgets/transaction_history_list.dart';
+import '../widgets/transaction_filter_chip.dart';
 import '../../domain/entities/transaction_entity.dart';
 
 class TransactionHistoryPage extends StatefulWidget {
