@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../widgets/analytics_category_item.dart';
+import '../widgets/analytics_radial_chart.dart';
 
 class AnalyticsDashboardPage extends StatelessWidget {
   const AnalyticsDashboardPage({super.key});
@@ -95,78 +97,7 @@ class AnalyticsDashboardPage extends StatelessWidget {
             const SizedBox(height: 24.0),
 
             // Spend breakdown chart card
-            Container(
-              padding: const EdgeInsets.all(24.0),
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.7),
-                borderRadius: BorderRadius.circular(AppTheme.radiusCard),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 15.0,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    'توزيع المصاريف حسب التصنيف',
-                    style: theme.textTheme.headlineSmall?.copyWith(
-                      color: AppTheme.onSurface,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 24.0),
-                  // Mock radial chart
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      SizedBox(
-                        width: 140,
-                        height: 140,
-                        child: CircularProgressIndicator(
-                          value: 0.75,
-                          strokeWidth: 16.0,
-                          backgroundColor: AppTheme.surfaceVariant,
-                          valueColor: const AlwaysStoppedAnimation<Color>(AppTheme.primary),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 108,
-                        height: 108,
-                        child: CircularProgressIndicator(
-                          value: 0.58,
-                          strokeWidth: 12.0,
-                          backgroundColor: AppTheme.surfaceVariant,
-                          valueColor: const AlwaysStoppedAnimation<Color>(AppTheme.secondary),
-                        ),
-                      ),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'المجموع',
-                            style: theme.textTheme.labelSmall?.copyWith(
-                              color: AppTheme.onSurfaceVariant,
-                            ),
-                          ),
-                          const Text(
-                            '3,000 ريال',
-                            style: TextStyle(
-                              color: AppTheme.primary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            const AnalyticsRadialChart(),
             const SizedBox(height: 24.0),
 
             // Category detail list
@@ -190,79 +121,9 @@ class AnalyticsDashboardPage extends StatelessWidget {
             const SizedBox(height: 8.0),
 
             ...categories.map((cat) {
-              final isExceeded = cat.spent > cat.limit;
-              final percent = cat.spent / cat.limit;
-
-              return Container(
-                margin: const EdgeInsets.only(bottom: 12.0),
-                padding: const EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.7),
-                  borderRadius: BorderRadius.circular(AppTheme.radiusCard),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 10.0,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '${cat.spent.toStringAsFixed(0)} / ${cat.limit.toStringAsFixed(0)} ريال',
-                          style: TextStyle(
-                            color: isExceeded ? AppTheme.error : AppTheme.onSurface,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13.0,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              cat.name,
-                              style: const TextStyle(
-                                color: AppTheme.onSurface,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14.0,
-                              ),
-                            ),
-                            const SizedBox(width: 12.0),
-                            Container(
-                              width: 36.0,
-                              height: 36.0,
-                              decoration: BoxDecoration(
-                                color: cat.color.withValues(alpha: 0.1),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                cat.icon,
-                                color: cat.color,
-                                size: 20.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12.0),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(AppTheme.radiusFull),
-                      child: LinearProgressIndicator(
-                        value: percent > 1.0 ? 1.0 : percent,
-                        minHeight: 8.0,
-                        backgroundColor: AppTheme.surfaceVariant,
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          isExceeded ? AppTheme.error : cat.color,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: AnalyticsCategoryItem(category: cat),
               );
             }),
           ],

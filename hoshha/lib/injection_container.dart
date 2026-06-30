@@ -17,6 +17,7 @@ import 'features/transaction/data/repositories/transaction_repository_impl.dart'
 import 'features/transaction/domain/repositories/transaction_repository.dart';
 import 'features/transaction/domain/usecases/add_transaction_usecase.dart';
 import 'features/transaction/presentation/cubit/transaction_cubit.dart';
+import 'features/ai_assistant/presentation/cubit/ai_assistant_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -76,4 +77,8 @@ Future<void> init() async {
   sl.registerLazySingleton<TransactionRemoteDataSource>(
     () => TransactionRemoteDataSourceImpl(),
   );
+
+  // ==================== Features - AI Assistant ====================
+  // Cubit
+  sl.registerFactory(() => AiAssistantCubit());
 }
