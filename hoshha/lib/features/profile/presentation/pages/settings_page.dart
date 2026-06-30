@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../widgets/settings_toggle_tile.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -44,7 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
             // Settings Cards
             _buildSettingsHeader('عام'),
             _buildSettingsContainer([
-              _buildSwitchRow(
+              SettingsToggleTile(
                 title: 'الوضع الداكن (Dark Mode)',
                 value: _darkMode,
                 onChanged: (val) {
@@ -91,7 +92,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
             _buildSettingsHeader('الإشعارات والتنبيهات'),
             _buildSettingsContainer([
-              _buildSwitchRow(
+              SettingsToggleTile(
                 title: 'إشعارات الدفع والإنفاق',
                 value: _pushNotifications,
                 onChanged: (val) {
@@ -159,25 +160,6 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       child: Column(
         children: children,
-      ),
-    );
-  }
-
-  Widget _buildSwitchRow({
-    required String title,
-    required bool value,
-    required ValueChanged<bool> onChanged,
-  }) {
-    return ListTile(
-      title: Text(
-        title,
-        style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14.0),
-        textAlign: TextAlign.end,
-      ),
-      leading: Switch(
-        value: value,
-        onChanged: onChanged,
-        activeTrackColor: AppTheme.primary,
       ),
     );
   }

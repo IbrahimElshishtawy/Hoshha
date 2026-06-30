@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../widgets/net_worth_card.dart';
+import '../widgets/wallet_credit_card.dart';
 
 class WalletManagementPage extends StatelessWidget {
   const WalletManagementPage({super.key});
@@ -8,38 +10,32 @@ class WalletManagementPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    // Mock data for wallets
-    final wallets = [
-      const WalletItemData(
-        name: 'البنك الأهلي السعودي',
-        balance: 32450.00,
-        type: 'حساب بنكي',
-        cardNumber: '**** **** **** 1024',
-        gradientColors: [Color(0xFF004AC6), Color(0xFF2563EB)],
-        logo: Icons.account_balance,
+    // Mock accounts list
+    final accounts = [
+      const WalletAccountData(
+        accountName: 'حساب الرواتب الراجحي',
+        accountType: 'حساب جاري',
+        balance: 32400.0,
+        gradientColors: [AppTheme.primary, AppTheme.secondary],
       ),
-      const WalletItemData(
-        name: 'بطاقة السفر الائتمانية',
-        balance: 4800.00,
-        type: 'بطاقة ائتمان',
-        cardNumber: '**** **** **** 5098',
-        gradientColors: [Color(0xFF006C49), Color(0xFF4EDE9C)],
-        logo: Icons.credit_card,
+      const WalletAccountData(
+        accountName: 'بطاقة الفرسان الائتمانية',
+        accountType: 'بطاقة ائتمان',
+        balance: 12500.0,
+        gradientColors: [AppTheme.tertiary, Colors.blueGrey],
       ),
-      const WalletItemData(
-        name: 'المحفظة النقدية',
-        balance: 8000.00,
-        type: 'نقد (كاش)',
-        cardNumber: 'نقدي شخصي',
-        gradientColors: [Color(0xFFAB0B1C), Color(0xFFFF8E95)],
-        logo: Icons.payments,
+      const WalletAccountData(
+        accountName: 'المحفظة النقدية الكاش',
+        accountType: 'كاش يدوي',
+        balance: 330.0,
+        gradientColors: [AppTheme.secondary, Colors.teal],
       ),
     ];
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'المحفظة والحسابات',
+          'إدارة المحفظة والحسابات',
           style: theme.textTheme.headlineSmall?.copyWith(
             color: AppTheme.primary,
             fontWeight: FontWeight.bold,
@@ -52,214 +48,110 @@ class WalletManagementPage extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(AppTheme.containerMargin),
+        padding: const EdgeInsets.only(bottom: 32.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Net Worth Summary Card
-            Container(
-              padding: const EdgeInsets.all(24.0),
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.7),
-                borderRadius: BorderRadius.circular(AppTheme.radiusCard),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 15.0,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    'صافي الثروة المتاحة',
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: AppTheme.onSurfaceVariant,
-                    ),
-                  ),
-                  const SizedBox(height: 6.0),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                    textBaseline: TextBaseline.alphabetic,
-                    children: [
-                      Text(
-                        'ريال',
-                        style: TextStyle(
-                          color: AppTheme.primary,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0,
-                        ),
-                      ),
-                      SizedBox(width: 6.0),
-                      Text(
-                        '45,250.00',
-                        style: TextStyle(
-                          color: AppTheme.primary,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 32.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Divider(height: 24.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'الالتزامات',
-                            style: theme.textTheme.labelSmall?.copyWith(
-                              color: AppTheme.onSurfaceVariant,
-                            ),
-                          ),
-                          const SizedBox(height: 4.0),
-                          const Text(
-                            '12,000 ريال',
-                            style: TextStyle(
-                              color: AppTheme.error,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            'الأصول الإجمالية',
-                            style: theme.textTheme.labelSmall?.copyWith(
-                              color: AppTheme.onSurfaceVariant,
-                            ),
-                          ),
-                          const SizedBox(height: 4.0),
-                          const Text(
-                            '57,250 ريال',
-                            style: TextStyle(
-                              color: AppTheme.secondary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+            // Net worth header card
+            const Padding(
+              padding: EdgeInsets.all(AppTheme.containerMargin),
+              child: NetWorthCard(),
+            ),
+            const SizedBox(height: 16.0),
+
+            // Horizontal Accounts list
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppTheme.containerMargin),
+              child: Text(
+                'حساباتك المصرفية والبطاقات',
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  color: AppTheme.onSurface,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.end,
               ),
             ),
-            const SizedBox(height: 24.0),
+            const SizedBox(height: 16.0),
 
-            // Header for Wallets
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.add_circle_outline, color: AppTheme.primary),
-                  onPressed: () {},
-                ),
-                Text(
-                  'الحسابات والمحافظ المفعلة',
-                  style: theme.textTheme.headlineSmall?.copyWith(
-                    color: AppTheme.onSurface,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+            SizedBox(
+              height: 160.0,
+              child: ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: AppTheme.containerMargin),
+                scrollDirection: Axis.horizontal,
+                reverse: true, // RTL horizontal list
+                itemCount: accounts.length,
+                itemBuilder: (context, index) {
+                  final account = accounts[index];
+                  return WalletCreditCard(account: account);
+                },
+              ),
             ),
-            const SizedBox(height: 8.0),
+            const SizedBox(height: 32.0),
 
-            // Wallets list
-            ...wallets.map((wallet) {
-              return Container(
-                margin: const EdgeInsets.only(bottom: 16.0),
+            // Bank Accounts Connections Section
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppTheme.containerMargin),
+              child: Text(
+                'الربط البنكي والمزامنة',
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  color: AppTheme.onSurface,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.end,
+              ),
+            ),
+            const SizedBox(height: 12.0),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppTheme.containerMargin),
+              child: Container(
                 padding: const EdgeInsets.all(20.0),
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: wallet.gradientColors,
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                  ),
-                  borderRadius: BorderRadius.circular(20.0),
-                  boxShadow: [
+                  color: Colors.white.withValues(alpha: 0.7),
+                  borderRadius: BorderRadius.circular(AppTheme.radiusCard),
+                  boxShadow: const [
                     BoxShadow(
-                      color: wallet.gradientColors[0].withValues(alpha: 0.3),
-                      blurRadius: 12.0,
-                      offset: const Offset(0, 4),
+                      color: Colors.black12,
+                      blurRadius: 10.0,
+                      offset: Offset(0, 2),
                     ),
                   ],
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(
-                          wallet.logo,
-                          color: Colors.white.withValues(alpha: 0.8),
-                          size: 28.0,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              wallet.name,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16.0,
-                              ),
-                            ),
-                            Text(
-                              wallet.type,
-                              style: TextStyle(
-                                color: Colors.white.withValues(alpha: 0.7),
-                                fontSize: 11.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 24.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
-                      textBaseline: TextBaseline.alphabetic,
-                      children: [
-                        Text(
-                          wallet.cardNumber,
-                          style: TextStyle(
-                            color: Colors.white.withValues(alpha: 0.7),
-                            fontSize: 12.0,
-                            letterSpacing: 1.0,
-                          ),
+                        const Text(
+                          'تحديث تلقائي',
+                          style: TextStyle(color: AppTheme.secondary, fontWeight: FontWeight.bold, fontSize: 11.0),
                         ),
                         Row(
                           children: [
-                            const Text(
-                              'ريال',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14.0,
-                              ),
+                            const Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  'مصرف الراجحي',
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                                ),
+                                Text(
+                                  'آخر مزامنة: منذ ساعتين',
+                                  style: TextStyle(color: AppTheme.onSurfaceVariant, fontSize: 11.0),
+                                ),
+                              ],
                             ),
-                            const SizedBox(width: 4.0),
-                            Text(
-                              wallet.balance.toStringAsFixed(2),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24.0,
+                            const SizedBox(width: 16.0),
+                            Container(
+                              width: 40.0,
+                              height: 40.0,
+                              decoration: BoxDecoration(
+                                color: AppTheme.primary.withValues(alpha: 0.1),
+                                shape: BoxShape.circle,
                               ),
+                              child: const Icon(Icons.sync, color: AppTheme.primary),
                             ),
                           ],
                         ),
@@ -267,40 +159,25 @@ class WalletManagementPage extends StatelessWidget {
                     ),
                   ],
                 ),
-              );
-            }),
+              ),
+            ),
+            const SizedBox(height: 24.0),
 
-            const SizedBox(height: 16.0),
-
-            // Quick Operations Row
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: () => Navigator.pushNamed(context, '/bills'),
-                    icon: const Icon(Icons.receipt_long, color: AppTheme.primary),
-                    label: const Text('منبه الفواتير', style: TextStyle(color: AppTheme.primary)),
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      side: const BorderSide(color: AppTheme.outlineVariant),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-                    ),
+            // Sync account button
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppTheme.containerMargin),
+              child: ElevatedButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.add, color: Colors.white),
+                label: const Text('ربط حساب بنكي جديد', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppTheme.primary,
+                  minimumSize: const Size.fromHeight(56.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(AppTheme.radiusCard),
                   ),
                 ),
-                const SizedBox(width: 16.0),
-                Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: () => Navigator.pushNamed(context, '/debt'),
-                    icon: const Icon(Icons.handshake, color: AppTheme.primary),
-                    label: const Text('مجدول الديون', style: TextStyle(color: AppTheme.primary)),
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      side: const BorderSide(color: AppTheme.outlineVariant),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ],
         ),
@@ -309,20 +186,16 @@ class WalletManagementPage extends StatelessWidget {
   }
 }
 
-class WalletItemData {
-  final String name;
+class WalletAccountData {
+  final String accountName;
+  final String accountType;
   final double balance;
-  final String type;
-  final String cardNumber;
   final List<Color> gradientColors;
-  final IconData logo;
 
-  const WalletItemData({
-    required this.name,
+  const WalletAccountData({
+    required this.accountName,
+    required this.accountType,
     required this.balance,
-    required this.type,
-    required this.cardNumber,
     required this.gradientColors,
-    required this.logo,
   });
 }
