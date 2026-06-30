@@ -1,6 +1,8 @@
+// ignore_for_file: unnecessary_non_null_assertion
+
 import 'package:flutter/material.dart';
+import 'package:hoshha/l10n/generated/app_localizations.dart';
 import '../../../../core/theme/app_theme.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuthHeader extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onSkipPressed;

@@ -63,7 +63,7 @@ class _AiAssistantPageState extends State<AiAssistantPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white.withOpacity(0.7),
+        backgroundColor: Colors.white.withValues(alpha: 0.7),
         elevation: 2.0,
         shadowColor: Colors.black12,
         actions: [
@@ -128,7 +128,7 @@ class _AiAssistantPageState extends State<AiAssistantPage> {
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppTheme.primary.withOpacity(0.02),
+                  color: AppTheme.primary.withValues(alpha: 0.02),
                 ),
               ),
             ),
@@ -184,7 +184,7 @@ class _AiAssistantPageState extends State<AiAssistantPage> {
               Container(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 24.0),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.7),
+                  color: Colors.white.withValues(alpha: 0.7),
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(32.0)),
                   boxShadow: const [
                     BoxShadow(
@@ -234,7 +234,7 @@ class _AiAssistantPageState extends State<AiAssistantPage> {
                                 borderRadius: BorderRadius.circular(16.0),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: (_isListening ? AppTheme.tertiary : AppTheme.primary).withOpacity(0.25),
+                                    color: (_isListening ? AppTheme.tertiary : AppTheme.primary).withValues(alpha: 0.25),
                                     blurRadius: 15.0,
                                     offset: const Offset(0, 5),
                                   ),
@@ -255,7 +255,7 @@ class _AiAssistantPageState extends State<AiAssistantPage> {
                               padding: const EdgeInsets.symmetric(horizontal: 12.0),
                               decoration: BoxDecoration(
                                 color: AppTheme.surfaceContainerLow,
-                                border: Border.all(color: AppTheme.outlineVariant.withOpacity(0.3)),
+                                border: Border.all(color: AppTheme.outlineVariant.withValues(alpha: 0.3)),
                                 borderRadius: BorderRadius.circular(16.0),
                               ),
                               child: Row(
@@ -337,7 +337,7 @@ class _AiAssistantPageState extends State<AiAssistantPage> {
               child: Container(
                 padding: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
-                  color: isUser ? AppTheme.primary : Colors.white.withOpacity(0.7),
+                  color: isUser ? AppTheme.primary : Colors.white.withValues(alpha: 0.7),
                   borderRadius: BorderRadius.only(
                     topLeft: const Radius.circular(20.0),
                     topRight: const Radius.circular(20.0),
