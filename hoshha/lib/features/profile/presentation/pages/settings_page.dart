@@ -177,7 +177,7 @@ class _SettingsPageState extends State<SettingsPage> {
       leading: Switch(
         value: value,
         onChanged: onChanged,
-        activeColor: AppTheme.primary,
+        activeTrackColor: AppTheme.primary,
       ),
     );
   }

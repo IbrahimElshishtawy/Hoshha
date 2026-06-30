@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../injection_container.dart';
+import 'package:hoshha/features/wallet/presentation/pages/wallet_management_page.dart';
+import 'package:hoshha/features/analytics/presentation/pages/analytics_dashboard_page.dart';
+import 'package:hoshha/features/savings_goals/presentation/pages/savings_goals_page.dart';
+import 'package:hoshha/features/profile/presentation/pages/user_profile_page.dart';
 import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
 import '../widgets/ai_insight_card.dart';
@@ -29,7 +33,7 @@ class _HomeDashboardPageState extends State<HomeDashboardPage> {
     return BlocProvider(
       create: (_) => sl<HomeCubit>()..loadHomeData(),
       child: Scaffold(
-        appBar: const DashboardHeader(),
+        appBar: _currentIndex == 0 ? const DashboardHeader() : null,
         body: Stack(
           children: [
             // Background decorations
@@ -62,100 +66,118 @@ class _HomeDashboardPageState extends State<HomeDashboardPage> {
               ),
             ),
 
-            // Scrollable body
+            // Stack switcher
             SafeArea(
-              child: BlocBuilder<HomeCubit, HomeState>(
-                builder: (context, state) {
-                  if (state is HomeLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(AppTheme.primary),
-                      ),
-                    );
-                  }
-
-                  if (state is HomeFailure) {
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'حدث خطأ: ${state.message}',
-                            style: const TextStyle(color: AppTheme.error),
+              child: IndexedStack(
+                index: _currentIndex,
+                children: [
+                  // Tab 0: Home Dashboard
+                  BlocBuilder<HomeCubit, HomeState>(
+                    builder: (context, state) {
+                      if (state is HomeLoading) {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(AppTheme.primary),
                           ),
-                          const SizedBox(height: 16.0),
-                          ElevatedButton(
-                            onPressed: () => context.read<HomeCubit>().loadHomeData(),
-                            child: const Text('إعادة المحاولة'),
+                        );
+                      }
+
+                      if (state is HomeFailure) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'حدث خطأ: ${state.message}',
+                                style: const TextStyle(color: AppTheme.error),
+                              ),
+                              const SizedBox(height: 16.0),
+                              ElevatedButton(
+                                onPressed: () => context.read<HomeCubit>().loadHomeData(),
+                                child: const Text('إعادة المحاولة'),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    );
-                  }
+                        );
+                      }
 
-                  if (state is HomeLoaded) {
-                    final data = state.homeData;
+                      if (state is HomeLoaded) {
+                        final data = state.homeData;
 
-                    return SingleChildScrollView(
-                      padding: const EdgeInsets.only(
-                        left: AppTheme.containerMargin,
-                        right: AppTheme.containerMargin,
-                        top: 20.0,
-                        bottom: 100.0, // Space for BottomNavBar
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          // Balance Card
-                          BalanceCard(
-                            balance: data.currentBalance,
-                            trend: data.balanceTrend,
+                        return SingleChildScrollView(
+                          padding: const EdgeInsets.only(
+                            left: AppTheme.containerMargin,
+                            right: AppTheme.containerMargin,
+                            top: 20.0,
+                            bottom: 100.0, // Space for BottomNavBar
                           ),
-                          const SizedBox(height: 24.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              // Balance Card
+                              BalanceCard(
+                                balance: data.currentBalance,
+                                trend: data.balanceTrend,
+                              ),
+                              const SizedBox(height: 24.0),
 
-                          // Summary Stats Row
-                          SummaryStatsRow(
-                            income: data.income,
-                            expenses: data.expenses,
-                            savings: data.savings,
+                              // Summary Stats Row
+                              SummaryStatsRow(
+                                income: data.income,
+                                expenses: data.expenses,
+                                savings: data.savings,
+                              ),
+                              const SizedBox(height: 16.0),
+
+                              // Quick Actions Grid
+                              const QuickActions(),
+                              const SizedBox(height: 24.0),
+
+                              // Bento Widgets
+                              BentoWidgets(
+                                healthScore: data.healthScore,
+                                savingsGoalTitle: data.savingsGoalTitle,
+                                savingsGoalCurrent: data.savingsGoalCurrent,
+                                savingsGoalTarget: data.savingsGoalTarget,
+                              ),
+                              const SizedBox(height: 24.0),
+
+                              // AI Insight Card
+                              AiInsightCard(
+                                insight: data.aiInsight,
+                              ),
+                              const SizedBox(height: 24.0),
+
+                              // Spending Chart
+                              const SpendingChart(),
+                              const SizedBox(height: 24.0),
+
+                              // Recent Transactions
+                              RecentTransactions(
+                                transactions: data.recentTransactions,
+                              ),
+                              const SizedBox(height: 24.0),
+                            ],
                           ),
-                          const SizedBox(height: 16.0),
+                        );
+                      }
 
-                          // Quick Actions Grid
-                          const QuickActions(),
-                          const SizedBox(height: 24.0),
+                      return const SizedBox.shrink();
+                    },
+                  ),
 
-                          // Bento Widgets
-                          BentoWidgets(
-                            healthScore: data.healthScore,
-                            savingsGoalTitle: data.savingsGoalTitle,
-                            savingsGoalCurrent: data.savingsGoalCurrent,
-                            savingsGoalTarget: data.savingsGoalTarget,
-                          ),
-                          const SizedBox(height: 24.0),
+                  // Tab 1: Wallet Management
+                  const WalletManagementPage(),
 
-                          // AI Insight Card
-                          AiInsightCard(
-                            insight: data.aiInsight,
-                          ),
-                          const SizedBox(height: 24.0),
+                  // Tab 2: Analytics Dashboard
+                  const AnalyticsDashboardPage(),
 
-                          // Spending Chart
-                          const SpendingChart(),
-                          const SizedBox(height: 24.0),
+                  // Tab 3: Savings Goals
+                  const SavingsGoalsPage(),
 
-                          // Recent Transactions
-                          RecentTransactions(
-                            transactions: data.recentTransactions,
-                          ),
-                          const SizedBox(height: 24.0),
-                        ],
-                      ),
-                    );
-                  }
-
-                  return const SizedBox.shrink();
-                },
+                  // Tab 4: User Profile
+                  const UserProfilePage(),
+                ],
               ),
             ),
 
