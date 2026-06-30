@@ -21,6 +21,9 @@ import 'features/ai_assistant/presentation/cubit/ai_assistant_cubit.dart';
 import 'features/wallet/presentation/cubit/wallet_cubit.dart';
 import 'features/savings_goals/presentation/cubit/savings_goals_cubit.dart';
 import 'features/profile/presentation/cubit/profile_cubit.dart';
+import 'features/settings/presentation/cubit/settings_cubit.dart';
+import 'features/spending_calendar/presentation/cubit/spending_calendar_cubit.dart';
+import 'features/financial_reports/presentation/cubit/financial_reports_cubit.dart';
 import 'features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import 'features/notifications/presentation/cubit/notifications_cubit.dart';
 import 'features/debt/presentation/cubit/debt_cubit.dart';
@@ -99,6 +102,15 @@ Future<void> init() async {
 
   // ==================== Features - Profile ====================
   sl.registerFactory(() => ProfileCubit());
+
+  // Settings
+  sl.registerFactory(() => SettingsCubit());
+
+  // Spending Calendar
+  sl.registerFactory(() => SpendingCalendarCubit());
+
+  // Financial Reports
+  sl.registerFactory(() => FinancialReportsCubit());
 
   // ==================== Features - Onboarding ====================
   sl.registerFactory(() => OnboardingCubit());
