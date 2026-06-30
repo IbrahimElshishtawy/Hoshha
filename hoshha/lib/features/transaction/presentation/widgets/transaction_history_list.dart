@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 import '../../domain/entities/transaction_entity.dart';
 import 'package:intl/intl.dart';
 
@@ -102,7 +103,7 @@ class TransactionHistoryList extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   color: isIncome ? Colors.green.shade700 : Colors.red.shade700,
                 ),
-                textDirection: TextDirection.ltr,
+                textDirection: ui.TextDirection.ltr,
               ),
               Text(
                 transaction.time,

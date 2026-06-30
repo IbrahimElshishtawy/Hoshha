@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/settings_cubit.dart';
 import '../cubit/settings_state.dart';
-import 'widgets/settings_section.dart';
-import 'widgets/settings_item.dart';
+import '../widgets/settings_section.dart';
+import '../widgets/settings_item.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
