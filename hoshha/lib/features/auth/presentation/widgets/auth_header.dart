@@ -51,7 +51,7 @@ class AuthHeader extends StatelessWidget implements PreferredSizeWidget {
               localizations.appTitle,
               style: theme.textTheme.headlineMedium?.copyWith(
                 color: AppTheme.primary,
-                fontWeight: FontWeight.black,
+                fontWeight: FontWeight.w900,
               ),
             ),
             TextButton(
