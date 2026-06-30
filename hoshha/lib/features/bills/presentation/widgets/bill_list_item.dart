@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
-import '../pages/bills_reminder_page.dart';
+import '../../domain/entities/bill.dart';
 
 class BillListItem extends StatelessWidget {
-  final BillItemData bill;
+  final Bill bill;
 
   const BillListItem({
     super.key,
