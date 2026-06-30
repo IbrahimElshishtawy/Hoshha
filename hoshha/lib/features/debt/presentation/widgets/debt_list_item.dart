@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
-import '../pages/debt_tracker_page.dart';
+import '../../domain/entities/debt_item.dart';
 
 class DebtListItem extends StatelessWidget {
-  final DebtItemData debt;
+  final DebtItem debt;
   final String activeTab;
 
   const DebtListItem({

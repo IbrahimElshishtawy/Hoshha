@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
-import '../pages/notifications_page.dart';
+import '../../domain/entities/notification_item.dart';
 
 class NotificationListItem extends StatelessWidget {
-  final NotificationData item;
+  final NotificationItem item;
 
   const NotificationListItem({
     super.key,

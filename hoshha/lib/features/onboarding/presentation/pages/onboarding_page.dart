@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../injection_container.dart';
+import '../cubit/onboarding_cubit.dart';
+import '../cubit/onboarding_state.dart';
 import '../widgets/onboarding_controls.dart';
 import '../widgets/onboarding_slide_view.dart';
 
@@ -9,9 +13,9 @@ class OnboardingPage extends StatefulWidget {
   @override
   State<OnboardingPage> createState() => _OnboardingPageState();
 }
+
 class _OnboardingPageState extends State<OnboardingPage> {
   final PageController _pageController = PageController();
-  int _currentPage = 0;
 
   @override
   void dispose() {
@@ -43,85 +47,92 @@ class _OnboardingPageState extends State<OnboardingPage> {
       ),
     ];
 
-    return Scaffold(
-      body: Stack(
-        children: [
-          // Visual ambient backdrop circles
-          Positioned(
-            top: -100,
-            left: -100,
-            width: 300,
-            height: 300,
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: slides[_currentPage].color.withValues(alpha: 0.03),
-              ),
-            ),
-          ),
+    return BlocProvider(
+      create: (_) => sl<OnboardingCubit>(),
+      child: BlocBuilder<OnboardingCubit, OnboardingState>(
+        builder: (context, state) {
+          final currentPage = state is OnboardingPageChanged ? state.currentPage : 0;
 
-          SafeArea(
-            child: Column(
+          return Scaffold(
+            body: Stack(
               children: [
-                // Top logo / Skip area
-                Padding(
-                  padding: const EdgeInsets.all(AppTheme.containerMargin),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                // Visual ambient backdrop circles
+                Positioned(
+                  top: -100,
+                  left: -100,
+                  width: 300,
+                  height: 300,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: slides[currentPage].color.withValues(alpha: 0.03),
+                    ),
+                  ),
+                ),
+
+                SafeArea(
+                  child: Column(
                     children: [
-                      Text(
-                        'هُوشة المالية',
-                        style: TextStyle(
-                          color: slides[_currentPage].color,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0,
-                          letterSpacing: 0.5,
+                      // Top logo / Skip area
+                      Padding(
+                        padding: const EdgeInsets.all(AppTheme.containerMargin),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'هُوشة المالية',
+                              style: TextStyle(
+                                color: slides[currentPage].color,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ],
                         ),
+                      ),
+
+                      // Slider PageView
+                      Expanded(
+                        child: PageView.builder(
+                          controller: _pageController,
+                          onPageChanged: (index) {
+                            context.read<OnboardingCubit>().setPage(index);
+                          },
+                          itemCount: slides.length,
+                          itemBuilder: (context, index) {
+                            return OnboardingSlideView(slide: slides[index]);
+                          },
+                        ),
+                      ),
+
+                      // Lower control row (Next button, Skip button, Dot indicators)
+                      OnboardingControls(
+                        pageCount: slides.length,
+                        currentPage: currentPage,
+                        onSkip: () {
+                          // Navigate to Login Page
+                          Navigator.pushReplacementNamed(context, '/');
+                        },
+                        onNext: () {
+                          if (currentPage < slides.length - 1) {
+                            _pageController.nextPage(
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeInOut,
+                            );
+                          } else {
+                            // Final page, go to Login
+                            Navigator.pushReplacementNamed(context, '/');
+                          }
+                        },
                       ),
                     ],
                   ),
                 ),
-
-                // Slider PageView
-                Expanded(
-                  child: PageView.builder(
-                    controller: _pageController,
-                    onPageChanged: (index) {
-                      setState(() {
-                        _currentPage = index;
-                      });
-                    },
-                    itemCount: slides.length,
-                    itemBuilder: (context, index) {
-                      return OnboardingSlideView(slide: slides[index]);
-                    },
-                  ),
-                ),
-
-                // Lower control row (Next button, Skip button, Dot indicators)
-                OnboardingControls(
-                  pageCount: slides.length,
-                  currentPage: _currentPage,
-                  onSkip: () {
-                    // Navigate to Login Page
-                    Navigator.pushReplacementNamed(context, '/');
-                  },
-                  onNext: () {
-                    if (_currentPage < slides.length - 1) {
-                      _pageController.nextPage(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                      );
-                    } else {
-                      // Final page, go to Login
-                      Navigator.pushReplacementNamed(context, '/');
-                    }
-                  },
-                ),
               ],
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
