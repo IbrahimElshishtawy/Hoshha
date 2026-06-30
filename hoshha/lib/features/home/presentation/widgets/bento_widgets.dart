@@ -2,7 +2,18 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
 
 class BentoWidgets extends StatelessWidget {
-  const BentoWidgets({super.key});
+  final int healthScore;
+  final String savingsGoalTitle;
+  final double savingsGoalCurrent;
+  final double savingsGoalTarget;
+
+  const BentoWidgets({
+    super.key,
+    required this.healthScore,
+    required this.savingsGoalTitle,
+    required this.savingsGoalCurrent,
+    required this.savingsGoalTarget,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +34,7 @@ class BentoWidgets extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.7),
+        color: Colors.white.withValues(alpha: 0.7),
         borderRadius: BorderRadius.circular(AppTheme.radiusCard),
         boxShadow: const [
           BoxShadow(
@@ -36,7 +47,7 @@ class BentoWidgets extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Radial progress on the left (RTL swap makes it right/left)
+          // Radial progress on the left
           Stack(
             alignment: Alignment.center,
             children: [
@@ -44,14 +55,14 @@ class BentoWidgets extends StatelessWidget {
                 width: 80.0,
                 height: 80.0,
                 child: CircularProgressIndicator(
-                  value: 0.85,
+                  value: healthScore / 100.0,
                   strokeWidth: 8.0,
                   backgroundColor: AppTheme.surfaceVariant,
                   valueColor: const AlwaysStoppedAnimation<Color>(AppTheme.primary),
                 ),
               ),
               Text(
-                '85',
+                '$healthScore',
                 style: theme.textTheme.headlineMedium?.copyWith(
                   color: AppTheme.primary,
                   fontWeight: FontWeight.bold,
@@ -74,7 +85,7 @@ class BentoWidgets extends StatelessWidget {
                 ),
                 const SizedBox(height: 4.0),
                 Text(
-                  'ممتاز',
+                  healthScore >= 80 ? 'ممتاز' : 'جيد',
                   style: theme.textTheme.bodyLarge?.copyWith(
                     color: AppTheme.onSurfaceVariant,
                     fontWeight: FontWeight.w600,
@@ -82,7 +93,7 @@ class BentoWidgets extends StatelessWidget {
                 ),
                 const SizedBox(height: 4.0),
                 Text(
-                  'أنت أفضل من 85% من المستخدمين',
+                  'أنت أفضل من $healthScore% من المستخدمين',
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: AppTheme.secondary,
                     fontSize: 11.0,
@@ -100,11 +111,13 @@ class BentoWidgets extends StatelessWidget {
 
   Widget _buildSavingsGoalCard(BuildContext context) {
     final theme = Theme.of(context);
+    final ratio = savingsGoalTarget > 0 ? (savingsGoalCurrent / savingsGoalTarget) : 0.0;
+    final percent = (ratio * 100).toStringAsFixed(0);
 
     return Container(
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.7),
+        color: Colors.white.withValues(alpha: 0.7),
         borderRadius: BorderRadius.circular(AppTheme.radiusCard),
         boxShadow: const [
           BoxShadow(
@@ -120,9 +133,9 @@ class BentoWidgets extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'سيارة جديدة',
-                style: TextStyle(
+              Text(
+                savingsGoalTitle,
+                style: const TextStyle(
                   color: AppTheme.primary,
                   fontWeight: FontWeight.bold,
                   fontSize: 12.0,
@@ -143,14 +156,14 @@ class BentoWidgets extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '75,000 ريال',
+                '${savingsGoalCurrent.toStringAsFixed(0)} ريال',
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: AppTheme.onSurface,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                '120,000 ريال',
+                '${savingsGoalTarget.toStringAsFixed(0)} ريال',
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: AppTheme.onSurfaceVariant,
                 ),
@@ -160,16 +173,16 @@ class BentoWidgets extends StatelessWidget {
           const SizedBox(height: 8.0),
           ClipRRect(
             borderRadius: BorderRadius.circular(AppTheme.radiusFull),
-            child: const LinearProgressIndicator(
-              value: 0.62,
+            child: LinearProgressIndicator(
+              value: ratio,
               minHeight: 12.0,
               backgroundColor: AppTheme.surfaceVariant,
-              valueColor: AlwaysStoppedAnimation<Color>(AppTheme.primary),
+              valueColor: const AlwaysStoppedAnimation<Color>(AppTheme.primary),
             ),
           ),
           const SizedBox(height: 8.0),
           Text(
-            'تم إنجاز 62% من الهدف',
+            'تم إنجاز $percent% من الهدف',
             style: theme.textTheme.bodyMedium?.copyWith(
               color: AppTheme.onSurfaceVariant,
             ),

@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
 
 class SummaryStatsRow extends StatelessWidget {
-  const SummaryStatsRow({super.key});
+  final double income;
+  final double expenses;
+  final double savings;
+
+  const SummaryStatsRow({
+    super.key,
+    required this.income,
+    required this.expenses,
+    required this.savings,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,21 +24,21 @@ class SummaryStatsRow extends StatelessWidget {
           children: [
             _buildStatCard(
               title: 'الادخار',
-              value: '10,800',
+              value: savings.toStringAsFixed(0),
               color: AppTheme.primary,
               context: context,
             ),
             const SizedBox(width: 16.0),
             _buildStatCard(
               title: 'المصاريف',
-              value: '4,200',
+              value: expenses.toStringAsFixed(0),
               color: AppTheme.error,
               context: context,
             ),
             const SizedBox(width: 16.0),
             _buildStatCard(
               title: 'الدخل',
-              value: '15,000',
+              value: income.toStringAsFixed(0),
               color: AppTheme.secondary,
               context: context,
             ),
@@ -51,7 +60,7 @@ class SummaryStatsRow extends StatelessWidget {
       width: 144.0,
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.7),
+        color: Colors.white.withValues(alpha: 0.7),
         borderRadius: BorderRadius.circular(AppTheme.radiusCard),
         border: Border(
           right: BorderSide(color: color, width: 4.0),
