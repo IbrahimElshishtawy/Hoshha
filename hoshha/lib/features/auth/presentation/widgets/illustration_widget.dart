@@ -19,10 +19,10 @@ class IllustrationWidget extends StatelessWidget {
               height: 200.0,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppTheme.primary.withOpacity(0.12),
+                color: AppTheme.primary.withValues(alpha: 0.12),
                 boxShadow: [
                   BoxShadow(
-                    color: AppTheme.primary.withOpacity(0.2),
+                    color: AppTheme.primary.withValues(alpha: 0.2),
                     blurRadius: 60.0,
                     spreadRadius: 30.0,
                   ),

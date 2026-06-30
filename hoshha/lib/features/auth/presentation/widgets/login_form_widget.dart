@@ -195,7 +195,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                     borderRadius: BorderRadius.circular(AppTheme.radiusCard),
                   ),
                   elevation: 6.0,
-                  shadowColor: AppTheme.primary.withOpacity(0.3),
+                  shadowColor: AppTheme.primary.withValues(alpha: 0.3),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

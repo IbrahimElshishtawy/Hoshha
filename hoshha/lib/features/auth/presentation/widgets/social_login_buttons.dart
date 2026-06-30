@@ -40,7 +40,7 @@ class SocialLoginButtons extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppTheme.radiusCard),
               ),
-              backgroundColor: Colors.white.withOpacity(0.7),
+              backgroundColor: Colors.white.withValues(alpha: 0.7),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

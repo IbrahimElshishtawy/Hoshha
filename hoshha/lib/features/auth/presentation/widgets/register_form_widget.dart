@@ -202,7 +202,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                   height: 4.0,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: AppTheme.outlineVariant.withOpacity(0.3),
+                    color: AppTheme.outlineVariant.withValues(alpha: 0.3),
                     borderRadius: BorderRadius.circular(AppTheme.radiusFull),
                   ),
                   child: FractionallySizedBox(
