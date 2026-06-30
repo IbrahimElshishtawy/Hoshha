@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
 
 class NetWorthCard extends StatelessWidget {
-  const NetWorthCard({super.key});
+  final double netWorth;
+  final double assets;
+  final double liabilities;
+
+  const NetWorthCard({
+    super.key,
+    required this.netWorth,
+    required this.assets,
+    required this.liabilities,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,41 +28,41 @@ class NetWorthCard extends StatelessWidget {
           ),
         ],
       ),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
+          const Text(
             'صافي الثروة التقديري',
             style: TextStyle(color: AppTheme.onSurfaceVariant, fontSize: 12.0),
             textAlign: TextAlign.end,
           ),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           Text(
-            '45,230 ريال',
-            style: TextStyle(
+            '${netWorth.toStringAsFixed(0)} ريال',
+            style: const TextStyle(
               color: AppTheme.primary,
               fontSize: 28.0,
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.end,
           ),
-          SizedBox(height: 16.0),
-          Divider(),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 16.0),
+          const Divider(),
+          const SizedBox(height: 8.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'الالتزامات والديون',
                     style: TextStyle(color: AppTheme.onSurfaceVariant, fontSize: 11.0),
                   ),
-                  SizedBox(height: 4.0),
+                  const SizedBox(height: 4.0),
                   Text(
-                    '3,850 ريال',
-                    style: TextStyle(
+                    '${liabilities.toStringAsFixed(0)} ريال',
+                    style: const TextStyle(
                       color: AppTheme.error,
                       fontWeight: FontWeight.bold,
                       fontSize: 13.0,
@@ -64,14 +73,14 @@ class NetWorthCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
+                  const Text(
                     'إجمالي الأصول والمدخرات',
                     style: TextStyle(color: AppTheme.onSurfaceVariant, fontSize: 11.0),
                   ),
-                  SizedBox(height: 4.0),
+                  const SizedBox(height: 4.0),
                   Text(
-                    '49,080 ريال',
-                    style: TextStyle(
+                    '${assets.toStringAsFixed(0)} ريال',
+                    style: const TextStyle(
                       color: AppTheme.secondary,
                       fontWeight: FontWeight.bold,
                       fontSize: 13.0,

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
-import '../pages/savings_goals_page.dart';
+import '../../domain/entities/savings_goal.dart';
 
 class GoalProgressCard extends StatelessWidget {
-  final GoalData goal;
+  final SavingsGoal goal;
 
   const GoalProgressCard({
     super.key,

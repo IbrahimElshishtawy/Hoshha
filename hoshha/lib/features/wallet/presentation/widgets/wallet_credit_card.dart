@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
-import '../pages/wallet_management_page.dart';
+import '../../domain/entities/wallet_account.dart';
 
 class WalletCreditCard extends StatelessWidget {
-  final WalletAccountData account;
+  final WalletAccount account;
 
   const WalletCreditCard({
     super.key,
