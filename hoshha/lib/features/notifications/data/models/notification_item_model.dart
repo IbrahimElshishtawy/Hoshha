@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/utils/icon_helper.dart';
 import '../../domain/entities/notification_item.dart';
 
 class NotificationItemModel extends NotificationItem {
@@ -16,7 +17,7 @@ class NotificationItemModel extends NotificationItem {
       title: json['title'] as String,
       body: json['body'] as String,
       time: json['time'] as String,
-      icon: IconData(json['iconCodePoint'] as int, fontFamily: 'MaterialIcons'),
+      icon: IconHelper.getIcon(json['iconKey'] as String),
       iconColor: Color(json['iconColorValue'] as int),
       isRead: json['isRead'] as bool,
     );
@@ -27,8 +28,8 @@ class NotificationItemModel extends NotificationItem {
       'title': title,
       'body': body,
       'time': time,
-      'iconCodePoint': icon.codePoint,
-      'iconColorValue': iconColor.value,
+      'iconKey': IconHelper.getKey(icon),
+      'iconColorValue': iconColor.toARGB32(),
       'isRead': isRead,
     };
   }

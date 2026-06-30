@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import '../../../../core/utils/icon_helper.dart';
 import '../../domain/entities/bill.dart';
 
 class BillModel extends Bill {
@@ -16,10 +16,7 @@ class BillModel extends Bill {
       amount: (json['amount'] as num).toDouble(),
       dueDate: json['dueDate'] as String,
       isOverdue: json['isOverdue'] as bool,
-      icon: IconData(
-        json['iconCodePoint'] as int,
-        fontFamily: json['iconFontFamily'] as String? ?? 'MaterialIcons',
-      ),
+      icon: IconHelper.getIcon(json['iconKey'] as String),
     );
   }
 
@@ -29,8 +26,7 @@ class BillModel extends Bill {
       'amount': amount,
       'dueDate': dueDate,
       'isOverdue': isOverdue,
-      'iconCodePoint': icon.codePoint,
-      'iconFontFamily': icon.fontFamily,
+      'iconKey': IconHelper.getKey(icon),
     };
   }
 }

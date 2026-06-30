@@ -28,7 +28,7 @@ class WalletAccountModel extends WalletAccount {
       'accountName': accountName,
       'accountType': accountType,
       'balance': balance,
-      'gradientColors': gradientColors.map((c) => c.value).toList(),
+      'gradientColors': gradientColors.map((c) => c.toARGB32()).toList(),
     };
   }
 }
