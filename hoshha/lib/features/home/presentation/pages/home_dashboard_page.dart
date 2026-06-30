@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../injection_container.dart';
+import '../cubit/home_cubit.dart';
+import '../cubit/home_state.dart';
 import '../widgets/ai_insight_card.dart';
 import '../widgets/balance_card.dart';
 import '../widgets/bento_widgets.dart';
@@ -22,122 +26,174 @@ class _HomeDashboardPageState extends State<HomeDashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const DashboardHeader(),
-      body: Stack(
-        children: [
-          // Background decorations
-          Positioned(
-            top: 0,
-            right: 0,
-            width: 256.0,
-            height: 256.0,
-            child: IgnorePointer(
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppTheme.primary.withOpacity(0.04),
+    return BlocProvider(
+      create: (_) => sl<HomeCubit>()..loadHomeData(),
+      child: Scaffold(
+        appBar: const DashboardHeader(),
+        body: Stack(
+          children: [
+            // Background decorations
+            Positioned(
+              top: 0,
+              right: 0,
+              width: 256.0,
+              height: 256.0,
+              child: IgnorePointer(
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppTheme.primary.withValues(alpha: 0.04),
+                  ),
                 ),
               ),
             ),
-          ),
-          Positioned(
-            bottom: 80.0,
-            left: 0,
-            width: 320.0,
-            height: 320.0,
-            child: IgnorePointer(
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppTheme.secondary.withOpacity(0.04),
+            Positioned(
+              bottom: 80.0,
+              left: 0,
+              width: 320.0,
+              height: 320.0,
+              child: IgnorePointer(
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppTheme.secondary.withValues(alpha: 0.04),
+                  ),
                 ),
               ),
             ),
-          ),
 
-          // Scrollable body
-          SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.only(
-                left: AppTheme.containerMargin,
-                right: AppTheme.containerMargin,
-                top: 20.0,
-                bottom: 100.0, // Space for BottomNavBar
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  // Balance Card
-                  const BalanceCard(),
-                  const SizedBox(height: 24.0),
+            // Scrollable body
+            SafeArea(
+              child: BlocBuilder<HomeCubit, HomeState>(
+                builder: (context, state) {
+                  if (state is HomeLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(AppTheme.primary),
+                      ),
+                    );
+                  }
 
-                  // Summary Stats Row
-                  const SummaryStatsRow(),
-                  const SizedBox(height: 16.0),
+                  if (state is HomeFailure) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'حدث خطأ: ${state.message}',
+                            style: const TextStyle(color: AppTheme.error),
+                          ),
+                          const SizedBox(height: 16.0),
+                          ElevatedButton(
+                            onPressed: () => context.read<HomeCubit>().loadHomeData(),
+                            child: const Text('إعادة المحاولة'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
 
-                  // Quick Actions Grid
-                  const QuickActions(),
-                  const SizedBox(height: 24.0),
+                  if (state is HomeLoaded) {
+                    final data = state.homeData;
 
-                  // Bento Widgets
-                  const BentoWidgets(),
-                  const SizedBox(height: 24.0),
+                    return SingleChildScrollView(
+                      padding: const EdgeInsets.only(
+                        left: AppTheme.containerMargin,
+                        right: AppTheme.containerMargin,
+                        top: 20.0,
+                        bottom: 100.0, // Space for BottomNavBar
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          // Balance Card
+                          BalanceCard(
+                            balance: data.currentBalance,
+                            trend: data.balanceTrend,
+                          ),
+                          const SizedBox(height: 24.0),
 
-                  // AI Insight Card
-                  const AiInsightCard(),
-                  const SizedBox(height: 24.0),
+                          // Summary Stats Row
+                          SummaryStatsRow(
+                            income: data.income,
+                            expenses: data.expenses,
+                            savings: data.savings,
+                          ),
+                          const SizedBox(height: 16.0),
 
-                  // Spending Chart
-                  const SpendingChart(),
-                  const SizedBox(height: 24.0),
+                          // Quick Actions Grid
+                          const QuickActions(),
+                          const SizedBox(height: 24.0),
 
-                  // Recent Transactions
-                  const RecentTransactions(),
-                  const SizedBox(height: 24.0),
-                ],
+                          // Bento Widgets
+                          BentoWidgets(
+                            healthScore: data.healthScore,
+                            savingsGoalTitle: data.savingsGoalTitle,
+                            savingsGoalCurrent: data.savingsGoalCurrent,
+                            savingsGoalTarget: data.savingsGoalTarget,
+                          ),
+                          const SizedBox(height: 24.0),
+
+                          // AI Insight Card
+                          AiInsightCard(
+                            insight: data.aiInsight,
+                          ),
+                          const SizedBox(height: 24.0),
+
+                          // Spending Chart
+                          const SpendingChart(),
+                          const SizedBox(height: 24.0),
+
+                          // Recent Transactions
+                          RecentTransactions(
+                            transactions: data.recentTransactions,
+                          ),
+                          const SizedBox(height: 24.0),
+                        ],
+                      ),
+                    );
+                  }
+
+                  return const SizedBox.shrink();
+                },
               ),
             ),
-          ),
 
-          // Glassmorphic Bottom Navigation Bar at the bottom of stack
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: BottomNavBar(
-              currentIndex: _currentIndex,
-              onTap: (index) {
-                setState(() {
-                  _currentIndex = index;
-                });
-                if (index == 2) {
-                  // E.g. Navigate to analytics
-                }
-              },
+            // Glassmorphic Bottom Navigation Bar at the bottom of stack
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: BottomNavBar(
+                currentIndex: _currentIndex,
+                onTap: (index) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                },
+              ),
             ),
-          ),
-        ],
-      ),
-      // Floating Action Button for Hawsha AI Assistant (sparkles)
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 76.0), // Above bottom navigation bar
-        child: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/ai_assistant');
-          },
-          backgroundColor: AppTheme.primary,
-          foregroundColor: Colors.white,
-          elevation: 8.0,
-          shape: const CircleBorder(),
-          child: const Icon(
-            Icons.auto_awesome,
-            size: 28.0,
+          ],
+        ),
+        // Floating Action Button for Hawsha AI Assistant (sparkles)
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 76.0), // Above bottom navigation bar
+          child: FloatingActionButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/ai_assistant');
+            },
+            backgroundColor: AppTheme.primary,
+            foregroundColor: Colors.white,
+            elevation: 8.0,
+            shape: const CircleBorder(),
+            child: const Icon(
+              Icons.auto_awesome,
+              size: 28.0,
+            ),
           ),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       ),
-      // In RTL, Floating Action Button floats on bottom-left, which is perfect!
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
 }

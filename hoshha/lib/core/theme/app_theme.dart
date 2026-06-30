@@ -88,11 +88,8 @@ class AppTheme {
         onError: onError,
         errorContainer: errorContainer,
         onErrorContainer: onErrorContainer,
-        background: background,
-        onBackground: onBackground,
         surface: surface,
         onSurface: onSurface,
-        surfaceVariant: surfaceVariant,
         onSurfaceVariant: onSurfaceVariant,
         outline: outline,
         outlineVariant: outlineVariant,
@@ -102,7 +99,7 @@ class AppTheme {
         inversePrimary: inversePrimary,
         surfaceTint: surfaceTint,
       ),
-      scaffoldBackgroundColor: background,
+      scaffoldBackgroundColor: surface,
       textTheme: TextTheme(
         displayLarge: GoogleFonts.beVietnamPro(
           fontSize: 32,

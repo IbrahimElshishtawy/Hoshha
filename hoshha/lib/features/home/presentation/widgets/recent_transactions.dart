@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../transaction/domain/entities/transaction_entity.dart';
 
 class RecentTransactions extends StatelessWidget {
-  const RecentTransactions({super.key});
+  final List<TransactionEntity> transactions;
+
+  const RecentTransactions({
+    super.key,
+    required this.transactions,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,39 +44,55 @@ class RecentTransactions extends StatelessWidget {
         ),
         const SizedBox(height: 8.0),
 
-        // List
-        _buildTransactionItem(
-          title: 'أمازون',
-          date: 'اليوم، 2:30 م',
-          amount: '-250.00 ريال',
-          isIncome: false,
-          icon: Icons.shopping_bag,
-          iconBgColor: AppTheme.surfaceContainer,
-          iconColor: AppTheme.primary,
-          context: context,
-        ),
-        const SizedBox(height: 12.0),
-        _buildTransactionItem(
-          title: 'الراتب الشهري',
-          date: '25 أكتوبر',
-          amount: '+15,000 ريال',
-          isIncome: true,
-          icon: Icons.payments,
-          iconBgColor: AppTheme.secondaryContainer.withOpacity(0.2),
-          iconColor: AppTheme.secondary,
-          context: context,
-        ),
-        const SizedBox(height: 12.0),
-        _buildTransactionItem(
-          title: 'إيجار السكن',
-          date: '24 أكتوبر',
-          amount: '-3,000 ريال',
-          isIncome: false,
-          icon: Icons.home_work,
-          iconBgColor: AppTheme.surfaceContainer,
-          iconColor: AppTheme.primary,
-          context: context,
-        ),
+        if (transactions.isEmpty)
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Text(
+                'لا توجد معاملات بعد',
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: AppTheme.onSurfaceVariant,
+                ),
+              ),
+            ),
+          )
+        else
+          ...transactions.map((tx) {
+            final isIncome = tx.type == 'income';
+            final amountText = '${isIncome ? "+" : "-"}${tx.amount.toStringAsFixed(0)} ريال';
+
+            IconData categoryIcon = Icons.receipt_long;
+            Color iconColor = AppTheme.primary;
+            Color iconBgColor = AppTheme.surfaceContainer;
+
+            if (tx.category == 'shopping_bag') {
+              categoryIcon = Icons.shopping_bag;
+              iconColor = AppTheme.primary;
+              iconBgColor = AppTheme.surfaceContainer;
+            } else if (tx.category == 'payments') {
+              categoryIcon = Icons.payments;
+              iconColor = AppTheme.secondary;
+              iconBgColor = AppTheme.secondaryContainer.withValues(alpha: 0.2);
+            } else if (tx.category == 'home_work') {
+              categoryIcon = Icons.home_work;
+              iconColor = AppTheme.primary;
+              iconBgColor = AppTheme.surfaceContainer;
+            }
+
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: _buildTransactionItem(
+                title: tx.title,
+                date: tx.date,
+                amount: amountText,
+                isIncome: isIncome,
+                icon: categoryIcon,
+                iconBgColor: iconBgColor,
+                iconColor: iconColor,
+                context: context,
+              ),
+            );
+          }),
       ],
     );
   }
@@ -90,7 +112,7 @@ class RecentTransactions extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.7),
+        color: Colors.white.withValues(alpha: 0.7),
         borderRadius: BorderRadius.circular(AppTheme.radiusCard),
         boxShadow: const [
           BoxShadow(

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../injection_container.dart';
+import '../cubit/transaction_cubit.dart';
+import '../cubit/transaction_state.dart';
 
 class AddTransactionPage extends StatefulWidget {
   const AddTransactionPage({super.key});
@@ -11,339 +15,416 @@ class AddTransactionPage extends StatefulWidget {
 class _AddTransactionPageState extends State<AddTransactionPage> {
   String _activeType = 'expense'; // 'expense', 'income', 'transfer'
   final _amountController = TextEditingController(text: '0.00');
+  final _notesController = TextEditingController();
+
+  // Mock selected values for simplicity
+  final String _selectedCategory = 'shopping_bag';
+  final String _selectedWallet = 'محفظتي الشخصية';
+  final String _selectedDate = 'اليوم';
+  final String _selectedTime = '10:45 ص';
 
   @override
   void dispose() {
     _amountController.dispose();
+    _notesController.dispose();
     super.dispose();
+  }
+
+  void _submit(BuildContext context) {
+    final amount = double.tryParse(_amountController.text) ?? 0.0;
+    if (amount <= 0.0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('يرجى إدخال مبلغ صحيح أكبر من الصفر'),
+          backgroundColor: AppTheme.error,
+        ),
+      );
+      return;
+    }
+
+    context.read<TransactionCubit>().saveTransaction(
+          title: _activeType == 'income' ? 'إيداع دخل' : (_activeType == 'transfer' ? 'تحويل مالي' : 'مشتريات'),
+          amount: amount,
+          type: _activeType,
+          category: _selectedCategory,
+          date: _selectedDate,
+          time: _selectedTime,
+          notes: _notesController.text,
+        );
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white.withOpacity(0.7),
-        elevation: 2.0,
-        shadowColor: Colors.black12,
-        title: Text(
-          'إضافة معاملة',
-          style: theme.textTheme.headlineSmall?.copyWith(
-            color: AppTheme.primary,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.close, color: AppTheme.onSurfaceVariant),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
-      body: Stack(
-        children: [
-          // Background glows
-          Positioned(
-            top: 0,
-            right: 0,
-            width: 256,
-            height: 256,
-            child: IgnorePointer(
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppTheme.primary.withOpacity(0.03),
-                ),
-              ),
+    return BlocProvider(
+      create: (_) => sl<TransactionCubit>(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white.withValues(alpha: 0.7),
+          elevation: 2.0,
+          shadowColor: Colors.black12,
+          title: Text(
+            'إضافة معاملة',
+            style: theme.textTheme.headlineSmall?.copyWith(
+              color: AppTheme.primary,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          Positioned(
-            bottom: 100,
-            left: 0,
-            width: 320,
-            height: 320,
-            child: IgnorePointer(
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppTheme.secondary.withOpacity(0.03),
-                ),
-              ),
-            ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(Icons.close, color: AppTheme.onSurfaceVariant),
+            onPressed: () => Navigator.pop(context),
           ),
-
-          // Scrollable fields
-          SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.only(
-                left: AppTheme.containerMargin,
-                right: AppTheme.containerMargin,
-                top: 20.0,
-                bottom: 100.0, // Space for fixed save button
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  // Segmented control
-                  Container(
-                    padding: const EdgeInsets.all(4.0),
+        ),
+        body: BlocListener<TransactionCubit, TransactionState>(
+          listener: (context, state) {
+            if (state is TransactionSuccess) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('تم حفظ المعاملة بنجاح!'),
+                  backgroundColor: AppTheme.secondary,
+                ),
+              );
+              Navigator.pop(context);
+            } else if (state is TransactionFailure) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('فشل حفظ المعاملة: ${state.message}'),
+                  backgroundColor: AppTheme.error,
+                ),
+              );
+            }
+          },
+          child: Stack(
+            children: [
+              // Background glows
+              Positioned(
+                top: 0,
+                right: 0,
+                width: 256,
+                height: 256,
+                child: IgnorePointer(
+                  child: Container(
                     decoration: BoxDecoration(
-                      color: AppTheme.surfaceContainer,
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    child: Row(
-                      children: [
-                        _buildSegmentButton(
-                          title: 'تحويل',
-                          type: 'transfer',
-                        ),
-                        _buildSegmentButton(
-                          title: 'دخل',
-                          type: 'income',
-                        ),
-                        _buildSegmentButton(
-                          title: 'مصروف',
-                          type: 'expense',
-                        ),
-                      ],
+                      shape: BoxShape.circle,
+                      color: AppTheme.primary.withValues(alpha: 0.03),
                     ),
                   ),
-                  const SizedBox(height: 32.0),
+                ),
+              ),
+              Positioned(
+                bottom: 100,
+                left: 0,
+                width: 320,
+                height: 320,
+                child: IgnorePointer(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppTheme.secondary.withValues(alpha: 0.03),
+                    ),
+                  ),
+                ),
+              ),
 
-                  // Amount Input
-                  Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          'أدخل المبلغ',
-                          style: theme.textTheme.labelSmall?.copyWith(
-                            color: AppTheme.onSurfaceVariant,
-                          ),
+              // Scrollable fields
+              SafeArea(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.only(
+                    left: AppTheme.containerMargin,
+                    right: AppTheme.containerMargin,
+                    top: 20.0,
+                    bottom: 100.0, // Space for fixed save button
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // Segmented control
+                      Container(
+                        padding: const EdgeInsets.all(4.0),
+                        decoration: BoxDecoration(
+                          color: AppTheme.surfaceContainer,
+                          borderRadius: BorderRadius.circular(12.0),
                         ),
-                        const SizedBox(height: 8.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.baseline,
-                          textBaseline: TextBaseline.alphabetic,
+                        child: Row(
+                          children: [
+                            _buildSegmentButton(
+                              title: 'تحويل',
+                              type: 'transfer',
+                            ),
+                            _buildSegmentButton(
+                              title: 'دخل',
+                              type: 'income',
+                            ),
+                            _buildSegmentButton(
+                              title: 'مصروف',
+                              type: 'expense',
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 32.0),
+
+                      // Amount Input
+                      Center(
+                        child: Column(
                           children: [
                             Text(
-                              'ريال',
-                              style: theme.textTheme.headlineMedium?.copyWith(
-                                color: AppTheme.primaryContainer,
-                                fontWeight: FontWeight.bold,
+                              'أدخل المبلغ',
+                              style: theme.textTheme.labelSmall?.copyWith(
+                                color: AppTheme.onSurfaceVariant,
                               ),
                             ),
-                            const SizedBox(width: 8.0),
-                            SizedBox(
-                              width: 180,
-                              child: TextField(
-                                controller: _amountController,
-                                keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontSize: 36.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppTheme.onSurface,
+                            const SizedBox(height: 8.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.baseline,
+                              textBaseline: TextBaseline.alphabetic,
+                              children: [
+                                Text(
+                                  'ريال',
+                                  style: theme.textTheme.headlineMedium?.copyWith(
+                                    color: AppTheme.primaryContainer,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  hintText: '0.00',
-                                  filled: false,
-                                  contentPadding: EdgeInsets.zero,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 32.0),
-
-                  // Category Selector (with AI suggestion)
-                  _buildLabel('تصنيف'),
-                  _buildSelectorCard(
-                    icon: Icons.category,
-                    iconBgColor: AppTheme.primaryContainer.withOpacity(0.1),
-                    iconColor: AppTheme.primaryContainer,
-                    title: 'اختر التصنيف',
-                    trailing: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                      decoration: BoxDecoration(
-                        color: AppTheme.primaryContainer.withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: Text(
-                        'AI Suggestion',
-                        style: theme.textTheme.labelSmall?.copyWith(
-                          color: AppTheme.primaryContainer,
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16.0),
-
-                  // Wallet Selector
-                  _buildLabel('المحفظة'),
-                  _buildSelectorCard(
-                    icon: Icons.account_balance_wallet,
-                    iconBgColor: AppTheme.secondaryContainer.withOpacity(0.2),
-                    iconColor: AppTheme.secondary,
-                    title: 'محفظتي الشخصية',
-                  ),
-                  const SizedBox(height: 16.0),
-
-                  // Date & Time Row
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            _buildLabel('الوقت'),
-                            Container(
-                              padding: const EdgeInsets.all(16.0),
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.7),
-                                borderRadius: BorderRadius.circular(AppTheme.radiusCard),
-                                border: Border.all(color: Colors.white.withOpacity(0.3)),
-                              ),
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    '10:45 ص',
-                                    style: TextStyle(
+                                const SizedBox(width: 8.0),
+                                SizedBox(
+                                  width: 180,
+                                  child: TextField(
+                                    controller: _amountController,
+                                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontSize: 36.0,
+                                      fontWeight: FontWeight.bold,
                                       color: AppTheme.onSurface,
-                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    decoration: const InputDecoration(
+                                      border: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                      hintText: '0.00',
+                                      filled: false,
+                                      contentPadding: EdgeInsets.zero,
                                     ),
                                   ),
-                                  SizedBox(width: 8.0),
-                                  Icon(Icons.schedule, color: AppTheme.outline),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(width: 16.0),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            _buildLabel('التاريخ'),
-                            Container(
-                              padding: const EdgeInsets.all(16.0),
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.7),
-                                borderRadius: BorderRadius.circular(AppTheme.radiusCard),
-                                border: Border.all(color: Colors.white.withOpacity(0.3)),
-                              ),
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    'اليوم',
-                                    style: TextStyle(
-                                      color: AppTheme.onSurface,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                      const SizedBox(height: 32.0),
+
+                      // Category Selector (with AI suggestion)
+                      _buildLabel('تصنيف'),
+                      _buildSelectorCard(
+                        icon: Icons.category,
+                        iconBgColor: AppTheme.primaryContainer.withValues(alpha: 0.1),
+                        iconColor: AppTheme.primaryContainer,
+                        title: 'اختر التصنيف',
+                        trailing: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                          decoration: BoxDecoration(
+                            color: AppTheme.primaryContainer.withValues(alpha: 0.15),
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: Text(
+                            'AI Suggestion',
+                            style: theme.textTheme.labelSmall?.copyWith(
+                              color: AppTheme.primaryContainer,
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+
+                      // Wallet Selector
+                      _buildLabel('المحفظة'),
+                      _buildSelectorCard(
+                        icon: Icons.account_balance_wallet,
+                        iconBgColor: AppTheme.secondaryContainer.withValues(alpha: 0.2),
+                        iconColor: AppTheme.secondary,
+                        title: _selectedWallet,
+                      ),
+                      const SizedBox(height: 16.0),
+
+                      // Date & Time Row
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                _buildLabel('الوقت'),
+                                Container(
+                                  padding: const EdgeInsets.all(16.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withValues(alpha: 0.7),
+                                    borderRadius: BorderRadius.circular(AppTheme.radiusCard),
+                                    border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
                                   ),
-                                  SizedBox(width: 8.0),
-                                  Icon(Icons.calendar_today, color: AppTheme.outline),
-                                ],
-                              ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        _selectedTime,
+                                        style: const TextStyle(
+                                          color: AppTheme.onSurface,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8.0),
+                                      const Icon(Icons.schedule, color: AppTheme.outline),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
+                          const SizedBox(width: 16.0),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                _buildLabel('التاريخ'),
+                                Container(
+                                  padding: const EdgeInsets.all(16.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withValues(alpha: 0.7),
+                                    borderRadius: BorderRadius.circular(AppTheme.radiusCard),
+                                    border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        _selectedDate,
+                                        style: const TextStyle(
+                                          color: AppTheme.onSurface,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8.0),
+                                      const Icon(Icons.calendar_today, color: AppTheme.outline),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16.0),
+
+                      // Notes text input
+                      _buildLabel('ملاحظات'),
+                      Container(
+                        padding: const EdgeInsets.all(16.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.7),
+                          borderRadius: BorderRadius.circular(AppTheme.radiusCard),
+                          border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
+                        ),
+                        child: TextField(
+                          controller: _notesController,
+                          maxLines: 2,
+                          textAlign: TextAlign.right,
+                          decoration: const InputDecoration(
+                            hintText: 'أضف ملاحظاتك هنا...',
+                            border: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            filled: false,
+                            contentPadding: EdgeInsets.zero,
+                          ),
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 16.0),
+                      const SizedBox(height: 24.0),
 
-                  // Notes text input
-                  _buildLabel('ملاحظات'),
-                  Container(
-                    padding: const EdgeInsets.all(16.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.7),
-                      borderRadius: BorderRadius.circular(AppTheme.radiusCard),
-                      border: Border.all(color: Colors.white.withOpacity(0.3)),
-                    ),
-                    child: const TextField(
-                      maxLines: 2,
-                      textAlign: TextAlign.right,
-                      decoration: InputDecoration(
-                        hintText: 'أضف ملاحظاتك هنا...',
-                        border: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        filled: false,
-                        contentPadding: EdgeInsets.zero,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24.0),
-
-                  // Quick Actions Row (Mic, Camera, Location)
-                  Row(
-                    children: [
-                      _buildQuickActionButton(
-                        icon: Icons.location_on,
-                        label: 'الموقع',
-                      ),
-                      const SizedBox(width: 16.0),
-                      _buildQuickActionButton(
-                        icon: Icons.photo_camera,
-                        label: 'إرفاق إيصال',
-                      ),
-                      const SizedBox(width: 16.0),
-                      _buildQuickActionButton(
-                        icon: Icons.mic,
-                        label: 'إدخال صوتي',
+                      // Quick Actions Row (Mic, Camera, Location)
+                      Row(
+                        children: [
+                          _buildQuickActionButton(
+                            icon: Icons.location_on,
+                            label: 'الموقع',
+                          ),
+                          const SizedBox(width: 16.0),
+                          _buildQuickActionButton(
+                            icon: Icons.photo_camera,
+                            label: 'إرفاق إيصال',
+                          ),
+                          const SizedBox(width: 16.0),
+                          _buildQuickActionButton(
+                            icon: Icons.mic,
+                            label: 'إدخال صوتي',
+                          ),
+                        ],
                       ),
                     ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          // Fixed Save Button at the bottom
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              padding: const EdgeInsets.all(AppTheme.containerMargin),
-              color: Colors.white.withOpacity(0.7),
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('تم حفظ المعاملة بنجاح!'),
-                      backgroundColor: AppTheme.secondary,
-                    ),
-                  );
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.check_circle, color: Colors.white),
-                label: const Text('حفظ المعاملة', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppTheme.primary,
-                  minimumSize: const Size.fromHeight(56.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppTheme.radiusCard),
                   ),
                 ),
               ),
-            ),
+
+              // Fixed Save Button at the bottom
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Builder(
+                  builder: (context) {
+                    return Container(
+                      padding: const EdgeInsets.all(AppTheme.containerMargin),
+                      color: Colors.white.withValues(alpha: 0.7),
+                      child: BlocBuilder<TransactionCubit, TransactionState>(
+                        builder: (context, state) {
+                          final isSubmitting = state is TransactionSubmitting;
+
+                          return ElevatedButton(
+                            onPressed: isSubmitting ? null : () => _submit(context),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppTheme.primary,
+                              minimumSize: const Size.fromHeight(56.0),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(AppTheme.radiusCard),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                if (isSubmitting)
+                                  const SizedBox(
+                                    width: 20,
+                                    height: 20,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2.0,
+                                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                    ),
+                                  )
+                                else ...[
+                                  const Icon(Icons.check_circle, color: Colors.white),
+                                  const SizedBox(width: 8.0),
+                                  const Text(
+                                    'حفظ المعاملة',
+                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                  ),
+                                ]
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -409,9 +490,9 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.7),
+        color: Colors.white.withValues(alpha: 0.7),
         borderRadius: BorderRadius.circular(AppTheme.radiusCard),
-        border: Border.all(color: Colors.white.withOpacity(0.3)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -456,9 +537,9 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.7),
+          color: Colors.white.withValues(alpha: 0.7),
           borderRadius: BorderRadius.circular(AppTheme.radiusCard),
-          border: Border.all(color: Colors.white.withOpacity(0.3)),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
         ),
         child: Column(
           children: [

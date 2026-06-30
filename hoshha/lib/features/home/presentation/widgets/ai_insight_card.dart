@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
 
 class AiInsightCard extends StatelessWidget {
-  const AiInsightCard({super.key});
+  final String insight;
+
+  const AiInsightCard({
+    super.key,
+    required this.insight,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +20,7 @@ class AiInsightCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppTheme.radiusCard),
         boxShadow: [
           BoxShadow(
-            color: AppTheme.primaryContainer.withOpacity(0.3),
+            color: AppTheme.primaryContainer.withValues(alpha: 0.3),
             blurRadius: 15.0,
             offset: const Offset(0, 8),
           ),
@@ -32,7 +37,7 @@ class AiInsightCard extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white.withOpacity(0.1),
+                color: Colors.white.withValues(alpha: 0.1),
               ),
             ),
           ),
@@ -54,7 +59,7 @@ class AiInsightCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 6.0),
                     Text(
-                      'يمكنك توفير 500 ريال إضافية هذا الشهر من خلال تقليل مصاريف المقاهي. هل تود تحديد ميزانية مخصصة؟',
+                      insight,
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: AppTheme.onPrimaryContainer,
                         height: 1.5,
@@ -71,7 +76,7 @@ class AiInsightCard extends StatelessWidget {
                 height: 48.0,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white.withOpacity(0.2),
+                  color: Colors.white.withValues(alpha: 0.2),
                 ),
                 child: const Icon(
                   Icons.psychology,
