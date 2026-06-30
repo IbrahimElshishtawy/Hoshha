@@ -1,0 +1,17 @@
+{
+  "@@locale": "en",
+  "appTitle": "Hawsha",
+  "login": "Login",
+  "register": "Register",
+  "email": "Email",
+  "password": "Password",
+  "forgotPassword": "Forgot Password?",
+  "dontHaveAccount": "Don't have an account?",
+  "signIn": "Sign In",
+  "signUp": "Sign Up",
+  "orSignInWith": "Or sign in with",
+  "emailRequired": "Email is required",
+  "invalidEmail": "Invalid email address",
+  "passwordRequired": "Password is required",
+  "passwordTooShort": "Password must be at least 6 characters"
+}

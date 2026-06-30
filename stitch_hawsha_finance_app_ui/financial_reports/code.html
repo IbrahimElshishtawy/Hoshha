@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="light" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hawsha - التقارير</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#e7e7f3",
+                    "surface-tint": "#0053db",
+                    "surface-container": "#ededf9",
+                    "surface": "#faf8ff",
+                    "surface-container-low": "#f3f3fe",
+                    "error": "#ba1a1a",
+                    "on-surface-variant": "#434655",
+                    "surface-container-lowest": "#ffffff",
+                    "outline": "#737686",
+                    "secondary": "#006c49",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#6cf8bb",
+                    "secondary-fixed-dim": "#4edea3",
+                    "surface-container-highest": "#e1e2ed",
+                    "surface-bright": "#faf8ff",
+                    "surface-dim": "#d9d9e5",
+                    "primary-fixed": "#dbe1ff",
+                    "tertiary-fixed-dim": "#ffb3ad",
+                    "background": "#faf8ff",
+                    "on-tertiary-fixed-variant": "#930013",
+                    "on-secondary-container": "#00714d",
+                    "on-tertiary-container": "#ffecea",
+                    "tertiary-container": "#cf2c30",
+                    "primary-container": "#2563eb",
+                    "on-surface": "#191b23",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-tertiary-fixed": "#410004",
+                    "on-primary-container": "#eeefff",
+                    "surface-variant": "#e1e2ed",
+                    "on-background": "#191b23",
+                    "on-secondary-fixed": "#002113",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "on-error": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "primary": "#004ac6",
+                    "inverse-primary": "#b4c5ff",
+                    "outline-variant": "#c3c6d7",
+                    "tertiary-fixed": "#ffdad7",
+                    "tertiary": "#ab0b1c",
+                    "inverse-on-surface": "#f0f0fb",
+                    "on-primary-fixed": "#00174b",
+                    "inverse-surface": "#2e3039",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-padding": "24px",
+                    "container-margin": "20px",
+                    "inline-gap": "12px",
+                    "stack-gap": "16px",
+                    "radius-card": "20px"
+            },
+            "fontFamily": {
+                    "body-lg": ["IBM Plex Sans Arabic", "sans-serif"],
+                    "display-lg": ["Be Vietnam Pro", "sans-serif"],
+                    "body-md": ["IBM Plex Sans Arabic", "sans-serif"],
+                    "headline-md": ["Be Vietnam Pro", "sans-serif"],
+                    "display-lg-mobile": ["Be Vietnam Pro", "sans-serif"],
+                    "label-sm": ["IBM Plex Sans Arabic", "sans-serif"],
+                    "headline-sm": ["Be Vietnam Pro", "sans-serif"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "display-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'IBM Plex Sans Arabic', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface antialiased pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-xl shadow-sm h-16 flex flex-row justify-between items-center px-container-margin">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container shadow-inner">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a sophisticated Middle Eastern man with a neat beard, wearing a high-end tailored suit. The background is a soft, out-of-focus modern office space with clean lines and premium materials. Lighting is warm and directional, emphasizing a persona of financial wisdom and serenity. The overall aesthetic is clean, minimalist, and high-fidelity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBntZkJI3BB3SpHhhyllaFS4OwQ4tqm3OGlkmwoOwq5aCGblpZ_CE_xBMNny-Ek8nWQ4xfN6J0KqhBKP6QyrD31R61fHBCy_oF7OjoxVMgbOHQkqDVOeAuefXxZ_y2p9RH6eQTBuYcRjfpe4xeEgeYmq36HcIYj2dVjtGIxqz74EE9DoeAVQ4JHxg16e2704TlsRieep5v_zQIfs99TDtJzRty4ZPnvDtTAsfiTPAwoMVaajyTb1czWygcMNScal0xt96y57G6UPU-z"/>
+</div>
+<h1 class="font-headline-sm text-headline-sm text-primary">التقارير</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<main class="pt-20 px-container-margin space-y-stack-gap">
+<!-- Segmented Control / Tabs -->
+<div class="bg-surface-container-low p-1 rounded-xl flex items-center justify-between">
+<button class="flex-1 py-2 text-center font-label-sm text-label-sm text-on-surface-variant transition-all hover:bg-surface-container-high rounded-lg">سنوي</button>
+<button class="flex-1 py-2 text-center font-label-sm text-label-sm bg-primary-container text-on-primary-container shadow-sm rounded-lg">شهري</button>
+<button class="flex-1 py-2 text-center font-label-sm text-label-sm text-on-surface-variant transition-all hover:bg-surface-container-high rounded-lg">أسبوعي</button>
+</div>
+<!-- Main Report Card (Bento-like internal layout) -->
+<section class="glass-card rounded-radius-card p-5 shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-white/40">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">تقرير شهر نوفمبر 2023</h2>
+<p class="text-on-surface-variant text-label-sm font-label-sm">نظرة عامة على أدائك المالي</p>
+</div>
+<div class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm">
+                    +12.4% متوازن
+                </div>
+</div>
+<!-- Summary Section Grid -->
+<div class="grid grid-cols-3 gap-3 mb-8">
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm text-center">
+<p class="text-on-surface-variant text-label-sm font-label-sm mb-1">صافي التوفير</p>
+<p class="text-primary font-bold text-lg">SAR 4,200</p>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm text-center">
+<p class="text-on-surface-variant text-label-sm font-label-sm mb-1">إجمالي المصاريف</p>
+<p class="text-error font-bold text-lg">SAR 8,500</p>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm text-center">
+<p class="text-on-surface-variant text-label-sm font-label-sm mb-1">إجمالي الدخل</p>
+<p class="text-secondary font-bold text-lg">SAR 12,700</p>
+</div>
+</div>
+<!-- Trend Visualization Area -->
+<div class="relative h-48 w-full bg-surface-container-low rounded-xl overflow-hidden mb-8">
+<div class="absolute inset-0 p-4 flex flex-col justify-between">
+<div class="flex justify-between items-end h-32 gap-2">
+<!-- Simple bar visualization for RTL (filling from right to left) -->
+<div class="flex-1 bg-surface-variant rounded-t-sm h-1/2"></div>
+<div class="flex-1 bg-surface-variant rounded-t-sm h-3/4"></div>
+<div class="flex-1 bg-primary-container rounded-t-sm h-full shadow-lg shadow-primary/20"></div>
+<div class="flex-1 bg-surface-variant rounded-t-sm h-2/3"></div>
+<div class="flex-1 bg-surface-variant rounded-t-sm h-4/5"></div>
+<div class="flex-1 bg-surface-variant rounded-t-sm h-1/3"></div>
+<div class="flex-1 bg-surface-variant rounded-t-sm h-3/5"></div>
+</div>
+<div class="flex justify-between text-[10px] text-outline px-1">
+<span>1</span><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span><span>30</span>
+</div>
+</div>
+</div>
+<!-- Category Breakdown -->
+<div class="space-y-4">
+<h3 class="font-body-lg text-body-lg text-on-surface">الفئات الأكثر إنفاقاً</h3>
+<div class="space-y-3">
+<!-- Category Item -->
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined filled-icon">shopping_bag</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-1">
+<span class="font-label-sm text-label-sm text-on-surface">التسوق والترفيه</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">45%</span>
+</div>
+<div class="h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 45%;"></div>
+</div>
+</div>
+</div>
+<!-- Category Item -->
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined filled-icon">restaurant</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-1">
+<span class="font-label-sm text-label-sm text-on-surface">المطاعم والكافيهات</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">30%</span>
+</div>
+<div class="h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 30%;"></div>
+</div>
+</div>
+</div>
+<!-- Category Item -->
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined filled-icon">home_repair_service</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-1">
+<span class="font-label-sm text-label-sm text-on-surface">فواتير وخدمات</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">25%</span>
+</div>
+<div class="h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-tertiary rounded-full" style="width: 25%;"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Action Section -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+<button class="flex items-center justify-center gap-3 bg-white p-4 rounded-xl shadow-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary">picture_as_pdf</span>
+<span class="font-body-md text-body-md">تصدير كملف PDF</span>
+</button>
+<button class="flex items-center justify-center gap-3 bg-white p-4 rounded-xl shadow-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-secondary">description</span>
+<span class="font-body-md text-body-md">تصدير كملف Excel</span>
+</button>
+<button class="flex items-center justify-center gap-3 bg-primary text-white p-4 rounded-xl shadow-md active:scale-95 transition-transform">
+<span class="material-symbols-outlined">share</span>
+<span class="font-body-md text-body-md">مشاركة التقرير</span>
+</button>
+</div>
+<!-- Previous Reports List -->
+<section class="space-y-4">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">التقارير السابقة</h3>
+<button class="text-primary text-label-sm font-label-sm">عرض الكل</button>
+</div>
+<div class="space-y-3">
+<!-- Report Item -->
+<div class="bg-surface-container-lowest flex items-center justify-between p-4 rounded-xl shadow-sm border border-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">calendar_today</span>
+</div>
+<div>
+<p class="font-body-lg text-body-lg text-on-surface">تقرير شهر أكتوبر 2023</p>
+<p class="text-label-sm text-on-surface-variant">تم التوليد في 1 نوفمبر</p>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-primary rounded-full hover:bg-primary-fixed-dim transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<!-- Report Item -->
+<div class="bg-surface-container-lowest flex items-center justify-between p-4 rounded-xl shadow-sm border border-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">calendar_today</span>
+</div>
+<div>
+<p class="font-body-lg text-body-lg text-on-surface">تقرير شهر سبتمبر 2023</p>
+<p class="text-label-sm text-on-surface-variant">تم التوليد في 1 أكتوبر</p>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-primary rounded-full hover:bg-primary-fixed-dim transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<!-- Report Item -->
+<div class="bg-surface-container-lowest flex items-center justify-between p-4 rounded-xl shadow-sm border border-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">calendar_today</span>
+</div>
+<div>
+<p class="font-body-lg text-body-lg text-on-surface">تقرير شهر أغسطس 2023</p>
+<p class="text-label-sm text-on-surface-variant">تم التوليد في 1 سبتمبر</p>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-primary rounded-full hover:bg-primary-fixed-dim transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface/70 dark:bg-surface-container-highest/70 backdrop-blur-xl rounded-t-radius-card shadow-[0px_-4px_20px_rgba(0,0,0,0.05)] h-20 px-4 pb-safe flex flex-row-reverse justify-around items-center">
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded-xl transition-colors active:scale-90 px-3" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">حسابي</span>
+</a>
+<!-- Analytics (Active) -->
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim relative after:content-[''] after:absolute after:-bottom-1 after:w-1 after:h-1 after:bg-primary after:rounded-full hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded-xl transition-colors active:scale-90 px-3" href="#">
+<span class="material-symbols-outlined filled-icon" data-icon="query_stats">query_stats</span>
+<span class="font-label-sm text-label-sm">التقارير</span>
+</a>
+<!-- Goals -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded-xl transition-colors active:scale-90 px-3" href="#">
+<span class="material-symbols-outlined" data-icon="track_changes">track_changes</span>
+<span class="font-label-sm text-label-sm">الأهداف</span>
+</a>
+<!-- Wallet -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded-xl transition-colors active:scale-90 px-3" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label-sm text-label-sm">المحفظة</span>
+</a>
+<!-- Home -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded-xl transition-colors active:scale-90 px-3" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">الرئيسية</span>
+</a>
+</nav>
+<!-- Micro-interactions Script -->
+<script>
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('click', (e) => {
+                const ripple = document.createElement('div');
+                ripple.className = 'absolute bg-primary/10 rounded-full pointer-events-none transform -translate-x-1/2 -translate-y-1/2 animate-ping';
+                ripple.style.width = '100px';
+                ripple.style.height = '100px';
+                ripple.style.left = `${e.clientX}px`;
+                ripple.style.top = `${e.clientY}px`;
+                document.body.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+    </script>
+</body></html>

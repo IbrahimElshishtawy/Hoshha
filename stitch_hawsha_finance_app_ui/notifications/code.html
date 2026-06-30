@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --be-vietnam: 'Be Vietnam Pro', sans-serif;
+            --ibm-plex: 'IBM+Plex+Sans+Arabic', sans-serif;
+        }
+        body {
+            font-family: var(--ibm-plex);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .font-display { font-family: var(--be-vietnam); }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .timeline-line {
+            position: absolute;
+            right: 31px; /* Center of the 24px icon + 20px margin area */
+            top: 40px;
+            bottom: -20px;
+            width: 2px;
+            background: linear-gradient(to bottom, #e1e2ed 0%, transparent 100%);
+        }
+        .timeline-item:last-child .timeline-line {
+            display: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#00174b",
+                        "on-primary-container": "#eeefff",
+                        "surface-container-low": "#f3f3fe",
+                        "secondary": "#006c49",
+                        "secondary-fixed-dim": "#4edea3",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "primary-fixed": "#dbe1ff",
+                        "outline": "#737686",
+                        "tertiary-fixed": "#ffdad7",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "on-background": "#191b23",
+                        "on-tertiary-container": "#ffecea",
+                        "on-secondary-container": "#00714d",
+                        "on-tertiary-fixed-variant": "#930013",
+                        "surface-container-highest": "#e1e2ed",
+                        "surface-tint": "#0053db",
+                        "secondary-container": "#6cf8bb",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#cf2c30",
+                        "inverse-surface": "#2e3039",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d9d9e5",
+                        "inverse-on-surface": "#f0f0fb",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "tertiary": "#ab0b1c",
+                        "primary-container": "#2563eb",
+                        "background": "#faf8ff",
+                        "surface-container": "#ededf9",
+                        "surface-bright": "#faf8ff",
+                        "on-surface": "#191b23",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e7e7f3",
+                        "secondary-fixed": "#6ffbbe",
+                        "tertiary-fixed-dim": "#ffb3ad",
+                        "inverse-primary": "#b4c5ff",
+                        "on-tertiary-fixed": "#410004",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#434655",
+                        "surface-variant": "#e1e2ed",
+                        "surface": "#faf8ff",
+                        "primary": "#004ac6",
+                        "outline-variant": "#c3c6d7"
+                    },
+                    "spacing": {
+                        "radius-card": "20px",
+                        "container-margin": "20px",
+                        "stack-gap": "16px",
+                        "section-padding": "24px",
+                        "inline-gap": "12px"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["Be Vietnam Pro"],
+                        "label-sm": ["IBM Plex Sans Arabic"],
+                        "headline-sm": ["Be Vietnam Pro"],
+                        "body-md": ["IBM Plex Sans Arabic"],
+                        "headline-md": ["Be Vietnam Pro"],
+                        "body-lg": ["IBM Plex Sans Arabic"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-24">
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-surface/70 dark:bg-surface-dim/70 backdrop-blur-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] flex items-center justify-between px-container-margin h-16 w-full rtl">
+<div class="flex items-center gap-3">
+<button class="active:scale-95 transition-transform duration-200 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">arrow_forward</span>
+</button>
+<h1 class="font-headline-sm-mobile text-headline-sm-mobile text-primary dark:text-primary-fixed-dim">الإشعارات</h1>
+</div>
+<button class="active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</nav>
+<!-- Main Content Area -->
+<main class="pt-20 px-container-margin space-y-8">
+<!-- Group: Today -->
+<section class="space-y-4">
+<h2 class="font-label-sm text-label-sm text-on-surface-variant opacity-60">اليوم</h2>
+<div class="space-y-4">
+<!-- Notification: Budget Exceeded -->
+<div class="relative timeline-item">
+<div class="timeline-line"></div>
+<div class="glass-card rounded-radius-card p-4 shadow-[0px_4px_20px_rgba(0,0,0,0.05)] flex gap-4 items-start relative z-10 border-r-4 border-error">
+<div class="bg-error-container p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="flex-1 space-y-2">
+<p class="font-body-md text-body-md text-on-surface">تجاوزت ميزانية المطاعم!</p>
+<button class="text-primary font-label-sm text-label-sm hover:underline">عرض التفاصيل</button>
+</div>
+<span class="font-label-sm text-label-sm text-outline-variant">١٠:٣٠ ص</span>
+</div>
+</div>
+<!-- Notification: AI Smart Tip -->
+<div class="relative timeline-item">
+<div class="timeline-line"></div>
+<div class="glass-card rounded-radius-card p-4 shadow-[0px_4px_20px_rgba(0,0,0,0.05)] flex gap-4 items-start relative z-10 overflow-hidden">
+<!-- AI Glow Effect -->
+<div class="absolute inset-0 bg-gradient-to-l from-primary/5 to-transparent pointer-events-none"></div>
+<div class="bg-primary-container p-2 rounded-full flex items-center justify-center relative">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="flex-1 space-y-1 relative">
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">نصيحة ذكية: يمكنك توفير ٢٠٠ ريال هذا الشهر.</p>
+</div>
+<span class="font-label-sm text-label-sm text-outline-variant">٨:١٥ ص</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Group: Yesterday -->
+<section class="space-y-4">
+<h2 class="font-label-sm text-label-sm text-on-surface-variant opacity-60">أمس</h2>
+<div class="space-y-4">
+<!-- Notification: Bill Reminder -->
+<div class="relative timeline-item">
+<div class="timeline-line"></div>
+<div class="glass-card rounded-radius-card p-4 shadow-[0px_4px_20px_rgba(0,0,0,0.05)] flex gap-4 items-start relative z-10 border-r-4 border-orange-500">
+<div class="bg-orange-100 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-orange-600">bolt</span>
+</div>
+<div class="flex-1 space-y-2">
+<p class="font-body-md text-body-md text-on-surface">فاتورة الكهرباء مستحقة غداً.</p>
+<button class="bg-primary text-white font-label-sm text-label-sm px-4 py-2 rounded-lg active:scale-95 transition-transform">ادفع الآن</button>
+</div>
+<span class="font-label-sm text-label-sm text-outline-variant">٠٩:٠٠ م</span>
+</div>
+</div>
+<!-- Notification: Savings Milestone -->
+<div class="relative timeline-item">
+<div class="timeline-line"></div>
+<div class="glass-card rounded-radius-card p-4 shadow-[0px_4px_20px_rgba(0,0,0,0.05)] flex gap-4 items-start relative z-10 border-r-4 border-secondary">
+<div class="bg-secondary-container p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container" style="font-variation-settings: 'FILL' 1;">savings</span>
+</div>
+<div class="flex-1 space-y-1">
+<p class="font-body-md text-body-md text-on-surface">مبروك! حققت ٥٠٪ من هدف سيارة الأحلام.</p>
+<!-- Progress Bar -->
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-2">
+<div class="bg-secondary h-full rounded-full w-1/2"></div>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-outline-variant">٠٤:٢٠ م</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Group: This Week -->
+<section class="space-y-4">
+<h2 class="font-label-sm text-label-sm text-on-surface-variant opacity-60">هذا الأسبوع</h2>
+<div class="space-y-4">
+<!-- Notification: Large Purchase -->
+<div class="relative timeline-item">
+<div class="glass-card rounded-radius-card p-4 shadow-[0px_4px_20px_rgba(0,0,0,0.05)] flex gap-4 items-start relative z-10 border-r-4 border-primary-fixed">
+<div class="bg-surface-container-high p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">shopping_bag</span>
+</div>
+<div class="flex-1 space-y-1">
+<p class="font-body-md text-body-md text-on-surface">عملية شراء كبيرة في أمازون.</p>
+<p class="text-label-sm font-label-sm text-outline">تم خصم ١,٢٥٠ ريال</p>
+</div>
+<span class="font-label-sm text-label-sm text-outline-variant">الأحد</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/70 dark:bg-surface-dim/70 backdrop-blur-xl shadow-[0px_-4px_20px_rgba(0,0,0,0.05)] flex justify-around items-center px-container-margin h-20 w-full rtl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary/80 transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">الرئيسية</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary/80 transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-sm text-label-sm">الميزانية</span>
+</a>
+<!-- Active Tab: Notifications -->
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim after:content-[''] after:w-1 after:h-1 after:bg-primary after:rounded-full after:mt-1 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">notifications</span>
+<span class="font-label-sm text-label-sm">الإشعارات</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary/80 transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">savings</span>
+<span class="font-label-sm text-label-sm">المدخرات</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary/80 transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">الحساب</span>
+</a>
+</nav>
+<!-- FAB (Hidden for this screen as per suppression rules) -->
+<script>
+        // Micro-interactions
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.add('scale-[0.98]');
+                setTimeout(() => card.classList.remove('scale-[0.98]'), 150);
+            });
+        });
+
+        // Dynamic Header Blur Increase on Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 10) {
+                nav.style.backdropFilter = 'blur(40px)';
+                nav.classList.add('shadow-md');
+            } else {
+                nav.style.backdropFilter = 'blur(20px)';
+                nav.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body></html>

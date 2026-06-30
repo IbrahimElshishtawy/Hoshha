@@ -1,0 +1,17 @@
+{
+  "@@locale": "ar",
+  "appTitle": "حوشة",
+  "login": "تسجيل الدخول",
+  "register": "إنشاء حساب",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "forgotPassword": "هل نسيت كلمة المرور؟",
+  "dontHaveAccount": "ليس لديك حساب؟",
+  "signIn": "دخول",
+  "signUp": "تسجيل",
+  "orSignInWith": "أو سجل دخولك بواسطة",
+  "emailRequired": "البريد الإلكتروني مطلوب",
+  "invalidEmail": "البريد الإلكتروني غير صالح",
+  "passwordRequired": "كلمة المرور مطلوبة",
+  "passwordTooShort": "يجب أن تكون كلمة المرور 6 أحرف على الأقل"
+}

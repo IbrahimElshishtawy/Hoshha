@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hawsha - تذكير الفواتير</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;family=Be+Vietnam+Pro:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#eeefff",
+                    "secondary-fixed-dim": "#4edea3",
+                    "on-secondary-container": "#00714d",
+                    "on-error": "#ffffff",
+                    "inverse-primary": "#b4c5ff",
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#2e3039",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "surface-container": "#ededf9",
+                    "primary": "#004ac6",
+                    "on-primary-fixed": "#00174b",
+                    "primary-container": "#2563eb",
+                    "surface-variant": "#e1e2ed",
+                    "surface-container-highest": "#e1e2ed",
+                    "inverse-on-surface": "#f0f0fb",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#faf8ff",
+                    "on-surface": "#191b23",
+                    "error": "#ba1a1a",
+                    "tertiary": "#ab0b1c",
+                    "on-tertiary-container": "#ffecea",
+                    "surface-tint": "#0053db",
+                    "on-error-container": "#93000a",
+                    "outline": "#737686",
+                    "outline-variant": "#c3c6d7",
+                    "secondary-container": "#6cf8bb",
+                    "secondary-fixed": "#6ffbbe",
+                    "primary-fixed": "#dbe1ff",
+                    "on-tertiary-fixed": "#410004",
+                    "tertiary-container": "#cf2c30",
+                    "surface-dim": "#d9d9e5",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f3f3fe",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#191b23",
+                    "surface-container-high": "#e7e7f3",
+                    "on-tertiary-fixed-variant": "#930013",
+                    "on-primary": "#ffffff",
+                    "background": "#faf8ff",
+                    "surface": "#faf8ff",
+                    "tertiary-fixed-dim": "#ffb3ad",
+                    "on-secondary-fixed": "#002113",
+                    "tertiary-fixed": "#ffdad7",
+                    "secondary": "#006c49",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "on-surface-variant": "#434655",
+                    "on-secondary-fixed-variant": "#005236"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-margin": "20px",
+                    "radius-card": "20px",
+                    "stack-gap": "16px",
+                    "inline-gap": "12px",
+                    "section-padding": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["IBM Plex Sans Arabic", "sans-serif"],
+                    "display-lg-mobile": ["Be Vietnam Pro", "sans-serif"],
+                    "label-sm": ["IBM Plex Sans Arabic", "sans-serif"],
+                    "headline-sm": ["Be Vietnam Pro", "sans-serif"],
+                    "headline-md": ["Be Vietnam Pro", "sans-serif"],
+                    "body-lg": ["IBM Plex Sans Arabic", "sans-serif"],
+                    "display-lg": ["Be Vietnam Pro", "sans-serif"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "display-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .toggle-switch:checked + .toggle-bg {
+            background-color: #2563eb;
+        }
+        .toggle-switch:checked + .toggle-bg .toggle-dot {
+            transform: translateX(-100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen pb-24">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/70 dark:bg-surface-container/70 backdrop-blur-xl shadow-sm flex flex-row-reverse items-center justify-between px-container-margin py-4">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a sophisticated young entrepreneur with a warm smile, wearing modern minimalist business casual attire. The background is a soft, blurred high-end office interior with clean lines and premium materials. High-key, bright lighting creates a serene and trustworthy financial concierge atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1458dP66czYpkmUUwylu_yFtzHzjqrFhcDGyWXX7GHdtkSx8vw1K2h95Yiw3KXMN-_SjwDg-9ujJRnPRTSVM9m0l-RINVZUtYSmrG5Y5LylKelDN_pMr1djg5phqigmMw4ob-8rmfd9xX5GOebXQf9ffgPByyQ0J5Z0bk9xXISvK-jbfS3EnZ0A9S-TbW23IGPC1C_yzIiQovVi-MYskxJ_FfsETysf4ChH90MbkkNtH45MpE-2aCJwAX3OF4q8xg2jrEz05Zccbj"/>
+</div>
+<h1 class="font-headline-md text-headline-md text-primary">Hawsha</h1>
+<button class="text-on-surface-variant hover:bg-surface-container-high/50 p-2 rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<main class="pt-24 px-container-margin space-y-stack-gap">
+<!-- Summary Card -->
+<div class="relative overflow-hidden p-6 rounded-radius-card bg-primary-container text-on-primary-container shadow-lg">
+
+<div class="relative z-10">
+<p class="font-label-sm text-label-sm opacity-90">إجمالي الفواتير غير المدفوعة</p>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-display-lg-mobile text-display-lg-mobile">١,٤٥٠</span>
+<span class="font-body-md text-body-md opacity-80">ر.س</span>
+</div>
+<div class="mt-4 flex items-center gap-2 bg-white/10 w-max px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="font-label-sm text-label-sm">٤ فواتير معلقة</span>
+</div>
+</div>
+</div>
+<!-- Section Title -->
+<div class="flex items-center justify-between pt-4">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">الفواتير القادمة</h2>
+<button class="text-primary font-label-sm text-label-sm hover:underline">عرض الكل</button>
+</div>
+<!-- Bills List -->
+<div class="grid grid-cols-1 gap-4">
+<!-- Electricity -->
+<div class="glass-card rounded-radius-card p-4 flex items-center gap-inline-gap transition-transform active:scale-[0.98]">
+<div class="w-12 h-12 rounded-xl bg-yellow-100 flex items-center justify-center text-yellow-700">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div class="flex-1">
+<h3 class="font-body-lg text-body-lg text-on-surface">الكهرباء</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">تاريخ الاستحقاق: ٥ ديسمبر</p>
+</div>
+<div class="flex flex-col items-end gap-2">
+<span class="bg-error-container text-on-error-container px-3 py-1 rounded-full font-label-sm text-label-sm">غير مدفوع</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-switch" type="checkbox"/>
+<div class="w-9 h-5 bg-outline-variant rounded-full toggle-bg transition-colors flex items-center px-0.5">
+<div class="toggle-dot bg-white w-4 h-4 rounded-full shadow-sm transition-transform"></div>
+</div>
+</label>
+</div>
+</div>
+<!-- Internet -->
+<div class="glass-card rounded-radius-card p-4 flex items-center gap-inline-gap transition-transform active:scale-[0.98]">
+<div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center text-blue-700">
+<span class="material-symbols-outlined">wifi</span>
+</div>
+<div class="flex-1">
+<h3 class="font-body-lg text-body-lg text-on-surface">الإنترنت</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">تاريخ الاستحقاق: ١٠ ديسمبر</p>
+</div>
+<div class="flex flex-col items-end gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm">مدفوع</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only toggle-switch" type="checkbox"/>
+<div class="w-9 h-5 bg-outline-variant rounded-full toggle-bg transition-colors flex items-center px-0.5">
+<div class="toggle-dot bg-white w-4 h-4 rounded-full shadow-sm transition-transform"></div>
+</div>
+</label>
+</div>
+</div>
+<!-- Water -->
+<div class="glass-card rounded-radius-card p-4 flex items-center gap-inline-gap transition-transform active:scale-[0.98]">
+<div class="w-12 h-12 rounded-xl bg-cyan-100 flex items-center justify-center text-cyan-700">
+<span class="material-symbols-outlined">water_drop</span>
+</div>
+<div class="flex-1">
+<h3 class="font-body-lg text-body-lg text-on-surface">المياه</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">تاريخ الاستحقاق: ١٥ ديسمبر</p>
+</div>
+<div class="flex flex-col items-end gap-2">
+<span class="bg-error-container text-on-error-container px-3 py-1 rounded-full font-label-sm text-label-sm">غير مدفوع</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-switch" type="checkbox"/>
+<div class="w-9 h-5 bg-outline-variant rounded-full toggle-bg transition-colors flex items-center px-0.5">
+<div class="toggle-dot bg-white w-4 h-4 rounded-full shadow-sm transition-transform"></div>
+</div>
+</label>
+</div>
+</div>
+<!-- Gas -->
+<div class="glass-card rounded-radius-card p-4 flex items-center gap-inline-gap transition-transform active:scale-[0.98]">
+<div class="w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center text-orange-700">
+<span class="material-symbols-outlined">mode_fan</span>
+</div>
+<div class="flex-1">
+<h3 class="font-body-lg text-body-lg text-on-surface">الغاز</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">تاريخ الاستحقاق: ٢٠ ديسمبر</p>
+</div>
+<div class="flex flex-col items-end gap-2">
+<span class="bg-error-container text-on-error-container px-3 py-1 rounded-full font-label-sm text-label-sm">غير مدفوع</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-switch" type="checkbox"/>
+<div class="w-9 h-5 bg-outline-variant rounded-full toggle-bg transition-colors flex items-center px-0.5">
+<div class="toggle-dot bg-white w-4 h-4 rounded-full shadow-sm transition-transform"></div>
+</div>
+</label>
+</div>
+</div>
+<!-- Netflix -->
+<div class="glass-card rounded-radius-card p-4 flex items-center gap-inline-gap transition-transform active:scale-[0.98]">
+<div class="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center text-red-700">
+<span class="material-symbols-outlined">movie</span>
+</div>
+<div class="flex-1">
+<h3 class="font-body-lg text-body-lg text-on-surface">نتفليكس</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">تاريخ الاستحقاق: ٢٥ ديسمبر</p>
+</div>
+<div class="flex flex-col items-end gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm">مدفوع</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-switch" type="checkbox"/>
+<div class="w-9 h-5 bg-outline-variant rounded-full toggle-bg transition-colors flex items-center px-0.5">
+<div class="toggle-dot bg-white w-4 h-4 rounded-full shadow-sm transition-transform"></div>
+</div>
+</label>
+</div>
+</div>
+<!-- Spotify -->
+<div class="glass-card rounded-radius-card p-4 flex items-center gap-inline-gap transition-transform active:scale-[0.98]">
+<div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center text-green-700">
+<span class="material-symbols-outlined">music_note</span>
+</div>
+<div class="flex-1">
+<h3 class="font-body-lg text-body-lg text-on-surface">سبوتيفاي</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">تاريخ الاستحقاق: ٢٨ ديسمبر</p>
+</div>
+<div class="flex flex-col items-end gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm">مدفوع</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only toggle-switch" type="checkbox"/>
+<div class="w-9 h-5 bg-outline-variant rounded-full toggle-bg transition-colors flex items-center px-0.5">
+<div class="toggle-dot bg-white w-4 h-4 rounded-full shadow-sm transition-transform"></div>
+</div>
+</label>
+</div>
+</div>
+</div>
+<!-- Add Bill Button Placeholder -->
+<button class="w-full h-14 border-2 border-dashed border-outline-variant rounded-radius-card flex items-center justify-center gap-2 text-outline hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">add</span>
+<span class="font-body-lg text-body-lg">إضافة فاتورة جديدة</span>
+</button>
+</main>
+<!-- FAB for quick action -->
+<button class="fixed bottom-24 left-6 w-14 h-14 bg-primary text-white rounded-2xl shadow-[0px_10px_30px_rgba(37,99,235,0.15)] flex items-center justify-center active:scale-90 transition-transform z-40">
+<span class="material-symbols-outlined">payments</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/70 dark:bg-surface-container-lowest/70 backdrop-blur-xl shadow-[0px_-4px_20px_rgba(0,0,0,0.05)] flex flex-row-reverse justify-around items-center h-16 px-4 pb-safe">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:opacity-80 transition-opacity active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">الرئيسية</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim after:content-[''] after:w-1 after:h-1 after:bg-primary after:rounded-full after:mt-1 hover:opacity-80 transition-opacity active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="font-label-sm text-label-sm">المحفظة</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:opacity-80 transition-opacity active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-sm text-label-sm">الذكاء الاصطناعي</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:opacity-80 transition-opacity active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm">الإعدادات</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions for bill cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if(e.target.closest('label')) return; // Don't trigger if toggle clicked
+                // Could open detail view here
+                console.log('Bill details requested');
+            });
+        });
+
+        // Toggle sound/vibration simulation
+        document.querySelectorAll('.toggle-switch').forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                if (this.checked) {
+                    console.log('Reminder enabled');
+                } else {
+                    console.log('Reminder disabled');
+                }
+            });
+        });
+    </script>
+</body></html>

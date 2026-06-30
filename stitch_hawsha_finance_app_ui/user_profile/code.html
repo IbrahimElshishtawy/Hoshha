@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hawsha - Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-secondary": "#ffffff",
+                "outline-variant": "#c3c6d7",
+                "surface-container-lowest": "#ffffff",
+                "on-tertiary": "#ffffff",
+                "on-secondary-fixed-variant": "#005236",
+                "error": "#ba1a1a",
+                "on-tertiary-fixed": "#410004",
+                "on-secondary-container": "#00714d",
+                "on-tertiary-container": "#ffecea",
+                "inverse-on-surface": "#f0f0fb",
+                "surface-dim": "#d9d9e5",
+                "surface-container-high": "#e7e7f3",
+                "on-error-container": "#93000a",
+                "tertiary": "#ab0b1c",
+                "primary-container": "#2563eb",
+                "on-error": "#ffffff",
+                "on-background": "#191b23",
+                "surface-bright": "#faf8ff",
+                "on-primary-container": "#eeefff",
+                "inverse-surface": "#2e3039",
+                "secondary-fixed": "#6ffbbe",
+                "surface-container": "#ededf9",
+                "inverse-primary": "#b4c5ff",
+                "on-surface": "#191b23",
+                "on-primary": "#ffffff",
+                "background": "#faf8ff",
+                "surface-variant": "#e1e2ed",
+                "surface": "#faf8ff",
+                "secondary-fixed-dim": "#4edea3",
+                "secondary": "#006c49",
+                "tertiary-fixed-dim": "#ffb3ad",
+                "tertiary-container": "#cf2c30",
+                "outline": "#737686",
+                "primary-fixed-dim": "#b4c5ff",
+                "on-primary-fixed-variant": "#003ea8",
+                "primary": "#004ac6",
+                "secondary-container": "#6cf8bb",
+                "on-tertiary-fixed-variant": "#930013",
+                "on-primary-fixed": "#00174b",
+                "surface-tint": "#0053db",
+                "error-container": "#ffdad6",
+                "tertiary-fixed": "#ffdad7",
+                "surface-container-low": "#f3f3fe",
+                "surface-container-highest": "#e1e2ed",
+                "primary-fixed": "#dbe1ff",
+                "on-secondary-fixed": "#002113",
+                "on-surface-variant": "#434655"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "container-margin": "20px",
+                "section-padding": "24px",
+                "radius-card": "20px",
+                "inline-gap": "12px",
+                "stack-gap": "16px"
+            },
+            "fontFamily": {
+                "display-lg-mobile": ["Be Vietnam Pro", "IBM Plex Sans Arabic"],
+                "label-sm": ["IBM Plex Sans Arabic"],
+                "headline-sm": ["Be Vietnam Pro", "IBM Plex Sans Arabic"],
+                "headline-md": ["Be Vietnam Pro", "IBM Plex Sans Arabic"],
+                "display-lg": ["Be Vietnam Pro", "IBM Plex Sans Arabic"],
+                "body-lg": ["IBM Plex Sans Arabic"],
+                "body-md": ["IBM Plex Sans Arabic"]
+            },
+            "fontSize": {
+                "display-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #faf8ff;
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .gauge-svg {
+            transform: rotate(-90deg);
+        }
+        .progress-circle {
+            stroke-dasharray: 251.32;
+            stroke-dashoffset: calc(251.32 - (251.32 * 85) / 100);
+            transition: stroke-dashoffset 1s ease-out;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface pb-32">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky bg-surface/70 backdrop-blur-xl shadow-sm z-50 flex justify-between items-center px-container-margin py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a sophisticated Middle Eastern man with a neat beard, wearing a modern minimalist white shirt against a soft, out-of-focus high-end fintech office background. The lighting is soft and cinematic, emphasizing a warm and trustworthy persona. High-fidelity photography style with a shallow depth of field, consistent with a luxury brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtxlvBAWXMezFYsXnp_NqdsjauBN57fHv-4ivRm0QEpgUA3uW-DFxBqLrPzyD6HXTcJUg9Q4lCCkgYR0H0e53pjzZ8_wPJZTeP4G46X78J8RAk2ZKT8ofBq3OZf2pv5b-EHciaCbDWaD9UTFrC7qQVAq2SSPsCJKNH87zXq4q2jawPhchI7EnVWPKIzBRJk9p3yYvk96e4ZUwAz5go8ftV37zb9WQeMesMHYBhLVcNQ7CHCiWy0BUMPC9wM4Br9blfI81w9y11yeSW"/>
+</div>
+<h1 class="font-display-lg text-display-lg text-primary">Hawsha</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-surface-variant/50 transition-all duration-300 active:scale-95">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<main class="px-container-margin mt-6 space-y-stack-gap">
+<!-- Profile Header Section -->
+<section class="flex flex-col items-center py-6">
+<div class="relative mb-4 group">
+<div class="w-32 h-32 rounded-full p-1 bg-gradient-to-tr from-primary to-secondary-fixed shadow-lg">
+<div class="w-full h-full rounded-full overflow-hidden border-4 border-white">
+<img class="w-full h-full object-cover" data-alt="A detailed closeup of a charismatic man in his early 30s with a kind expression. He has short dark hair and a groomed beard, looking directly into the camera. The image uses a premium, bright lighting setup with soft blue and white tones in the background to match the Financial Serenity theme. Clean, crisp, high-resolution portrait." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJz21PDn4ApXDNvgBqsoi1XNaNlAFERpj3JFwf9WkgshzvVHeH_OUuysnl5ToRF9zjqk3z9WS4bBseITGj9uCN3jm34xbHkYl09Z20QMPnblEcxL8Y8nnzJ8Wo7F4i9fhguPlHb1BJI8AlZ4xeQFtQMoX-iN-2hScqBc4Ztj2aK3slwWk1Bf7Y8kiOmXYaOaAKvPNOFhy1HGMQqtfMsr0RG8m2wiGfAiNc_J7rR4HbQGkFk4u3GBAaxSCKjpkXKGZzJztndTJWHt2v"/>
+</div>
+</div>
+<div class="absolute bottom-1 left-1 bg-primary text-white p-1 rounded-full border-2 border-white">
+<span class="material-symbols-outlined text-[18px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">إبراهيم محمد</h2>
+<div class="mt-2 inline-flex items-center gap-1 px-3 py-1 bg-primary-container/10 text-primary rounded-full font-label-sm text-label-sm border border-primary/20">
+<span class="material-symbols-outlined text-[14px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+                عضو متميز (Premium Member)
+            </div>
+</section>
+<!-- Financial Health Bento Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Gauge Card -->
+<div class="glass-card p-6 flex flex-col items-center justify-center text-center">
+<h3 class="font-body-lg text-body-lg text-on-surface-variant mb-4">درجة الصحة المالية</h3>
+<div class="relative flex items-center justify-center w-40 h-40">
+<svg class="gauge-svg w-36 h-36" viewbox="0 0 100 100">
+<circle class="text-surface-variant/30" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-width="8"></circle>
+<circle class="progress-circle" cx="50" cy="50" fill="transparent" r="40" stroke="url(#gradient-primary)" stroke-linecap="round" stroke-width="8"></circle>
+<defs>
+<lineargradient id="gradient-primary" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="#2563eb"></stop>
+<stop offset="100%" stop-color="#4edea3"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="font-display-lg text-display-lg text-on-surface">85</span>
+<span class="text-label-sm text-outline font-label-sm">من 100</span>
+</div>
+</div>
+<p class="mt-4 font-body-md text-body-md text-secondary font-semibold">ممتاز - وضعك المالي مستقر</p>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-2 gap-3">
+<div class="glass-card p-4 flex flex-col justify-between">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-xl self-start" data-icon="savings">savings</span>
+<div class="mt-2">
+<p class="text-label-sm text-on-surface-variant font-label-sm">إجمالي الادخار</p>
+<p class="text-body-lg font-bold text-on-surface">45,200 SAR</p>
+</div>
+</div>
+<div class="glass-card p-4 flex flex-col justify-between">
+<span class="material-symbols-outlined text-secondary bg-secondary/10 p-2 rounded-xl self-start" data-icon="flag">flag</span>
+<div class="mt-2">
+<p class="text-label-sm text-on-surface-variant font-label-sm">الأهداف النشطة</p>
+<p class="text-body-lg font-bold text-on-surface">4 أهداف</p>
+</div>
+</div>
+<div class="glass-card p-4 flex flex-col justify-between col-span-2">
+<div class="flex justify-between items-center">
+<span class="material-symbols-outlined text-tertiary bg-tertiary/10 p-2 rounded-xl" data-icon="trending_up">trending_up</span>
+<div class="text-left">
+<p class="text-label-sm text-on-surface-variant font-label-sm">التدفق الشهري</p>
+<p class="text-body-lg font-bold text-on-surface">+12,400 SAR</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Achievements Section -->
+<section class="mt-4">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-4">الإنجازات</h3>
+<div class="flex overflow-x-auto gap-4 pb-2 no-scrollbar rtl">
+<div class="flex-shrink-0 w-32 h-40 glass-card flex flex-col items-center justify-center p-4 border border-white/50">
+<div class="w-16 h-16 mb-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-[48px] text-yellow-500 drop-shadow-md" data-icon="workspace_premium" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<p class="text-label-sm font-label-sm text-center">Super Saver</p>
+</div>
+<div class="flex-shrink-0 w-32 h-40 glass-card flex flex-col items-center justify-center p-4 border border-white/50">
+<div class="w-16 h-16 mb-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-[48px] text-primary drop-shadow-md" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<p class="text-label-sm font-label-sm text-center">Debt Free</p>
+</div>
+<div class="flex-shrink-0 w-32 h-40 glass-card flex flex-col items-center justify-center p-4 border border-white/50">
+<div class="w-16 h-16 mb-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-[48px] text-secondary drop-shadow-md" data-icon="military_tech" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+</div>
+<p class="text-label-sm font-label-sm text-center">Budget Master</p>
+</div>
+</div>
+</section>
+<!-- Settings List Group -->
+<section class="glass-card divide-y divide-outline-variant/20 overflow-hidden">
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-variant/20 transition-colors group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="settings">settings</span>
+<span class="text-body-md font-body-md">إعدادات الحساب</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant rotate-180" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-variant/20 transition-colors group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="lock">lock</span>
+<span class="text-body-md font-body-md">الأمان والخصوصية</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant rotate-180" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-variant/20 transition-colors group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="language">language</span>
+<div class="text-right">
+<span class="block text-body-md font-body-md">اللغة</span>
+<span class="text-label-sm text-outline font-label-sm">العربية</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant rotate-180" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-variant/20 transition-colors group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="payments">payments</span>
+<div class="text-right">
+<span class="block text-body-md font-body-md">العملة</span>
+<span class="text-label-sm text-outline font-label-sm">SAR - ريال سعودي</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant rotate-180" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-variant/20 transition-colors group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="cloud_upload">cloud_upload</span>
+<span class="text-body-md font-body-md">النسخ الاحتياطي</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant rotate-180" data-icon="chevron_left">chevron_left</span>
+</button>
+</section>
+<!-- Logout Button -->
+<button class="w-full flex items-center justify-center gap-2 p-4 mt-8 bg-tertiary-container/10 text-tertiary rounded-2xl font-body-lg hover:bg-tertiary-container/20 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>تسجيل الخروج</span>
+</button>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe rtl bg-surface/70 backdrop-blur-xl shadow-[0px_-4px_20px_rgba(0,0,0,0.05)] rounded-t-xl">
+<button class="flex flex-col items-center justify-center text-on-surface-variant transition-transform duration-200 active:scale-90">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">الرئيسية</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant transition-transform duration-200 active:scale-90">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label-sm text-label-sm">المحفظة</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant transition-transform duration-200 active:scale-90">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-sm text-label-sm">التحليلات</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant transition-transform duration-200 active:scale-90">
+<span class="material-symbols-outlined" data-icon="track_changes">track_changes</span>
+<span class="font-label-sm text-label-sm">الأهداف</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary after:content-[''] after:w-1 after:h-1 after:bg-primary after:rounded-full after:mt-1 transition-transform duration-200 active:scale-90">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm">الملف</span>
+</button>
+</nav>
+<script>
+        // Micro-interaction for list items
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('touchstart', function() {
+                this.classList.add('opacity-70');
+            });
+            btn.addEventListener('touchend', function() {
+                this.classList.remove('opacity-70');
+            });
+        });
+
+        // Initialize progress circle animation
+        window.addEventListener('DOMContentLoaded', () => {
+            const circle = document.querySelector('.progress-circle');
+            if(circle) {
+                circle.style.strokeDashoffset = "calc(251.32 - (251.32 * 85) / 100)";
+            }
+        });
+    </script>
+</body></html>
