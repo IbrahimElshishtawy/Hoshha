@@ -69,13 +69,13 @@ class SocialLoginButtons extends StatelessWidget {
             onPressed: () {
               // Apple login is not implemented in Cubit yet, but we will mock it
             },
-            style: OutlinedButton.styleFrom(
+             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 14.0),
               side: const BorderSide(color: AppTheme.surfaceVariant),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppTheme.radiusCard),
               ),
-              backgroundColor: Colors.white.withOpacity(0.7),
+              backgroundColor: Colors.white.withValues(alpha: 0.7),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -94,7 +94,7 @@ class SocialLoginButtons extends StatelessWidget {
                   child: SvgPicture.string(
                     appleSvg,
                     colorFilter: ColorFilter.mode(
-                      theme.colorScheme.onBackground,
+                      theme.colorScheme.onSurface,
                       BlendMode.srcIn,
                     ),
                   ),

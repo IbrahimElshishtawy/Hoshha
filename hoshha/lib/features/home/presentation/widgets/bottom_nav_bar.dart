@@ -20,7 +20,7 @@ class BottomNavBar extends StatelessWidget {
         top: 8.0,
       ),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.7),
+        color: Colors.white.withValues(alpha: 0.7),
         borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
         boxShadow: const [
           BoxShadow(

@@ -17,7 +17,7 @@ class DashboardHeader extends StatelessWidget implements PreferredSizeWidget {
         bottom: 8.0,
       ),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.7),
+        color: Colors.white.withValues(alpha: 0.7),
         border: const Border(
           bottom: BorderSide(color: AppTheme.surfaceContainer, width: 1.0),
         ),

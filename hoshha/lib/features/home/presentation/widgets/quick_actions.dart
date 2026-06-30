@@ -54,7 +54,7 @@ class QuickActions extends StatelessWidget {
               backgroundColor: AppTheme.primary,
               foregroundColor: Colors.white,
               elevation: 4.0,
-              shadowColor: AppTheme.primary.withOpacity(0.2),
+              shadowColor: AppTheme.primary.withValues(alpha: 0.2),
               minimumSize: const Size.fromHeight(56.0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppTheme.radiusCard),

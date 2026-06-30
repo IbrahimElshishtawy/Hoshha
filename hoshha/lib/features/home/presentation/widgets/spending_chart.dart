@@ -25,7 +25,7 @@ class _SpendingChartState extends State<SpendingChart> {
     return Container(
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.7),
+        color: Colors.white.withValues(alpha: 0.7),
         borderRadius: BorderRadius.circular(AppTheme.radiusCard),
         boxShadow: const [
           BoxShadow(
