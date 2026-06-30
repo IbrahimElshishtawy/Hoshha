@@ -26,7 +26,6 @@ class ChatBubbleStream extends StatelessWidget {
   }
 
   Widget _buildBubble(BuildContext context, ChatMessage msg) {
-    final theme = Theme.of(context);
     final isUser = msg.isUser;
 
     return Row(
@@ -67,7 +66,7 @@ class ChatBubbleStream extends StatelessWidget {
   }
 
   Widget _buildBubbleContent(BuildContext context, ChatMessage msg, bool isUser) {
-    final theme = Theme.of(context);
+
 
     return Container(
       padding: const EdgeInsets.all(16.0),

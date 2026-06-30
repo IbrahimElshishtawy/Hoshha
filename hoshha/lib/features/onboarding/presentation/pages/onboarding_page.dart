@@ -9,12 +9,6 @@ class OnboardingPage extends StatefulWidget {
   @override
   State<OnboardingPage> createState() => _OnboardingPageState();
 }
-
-class _SpendingCalendarPageState extends State<OnboardingPage> {
-  // Wait, the state name should be _OnboardingPageState, not _SpendingCalendarPageState!
-  // Let's correct it right away to avoid compilation errors.
-}
-
 class _OnboardingPageState extends State<OnboardingPage> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
