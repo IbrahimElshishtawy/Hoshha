@@ -40,4 +40,48 @@ class TransactionCubit extends Cubit<TransactionState> {
       emit(TransactionFailure(result.errorValue!.message));
     }
   }
+
+  void loadTransactions() {
+    emit(TransactionLoadInProgress());
+    // Simulate loading data. In real app, fetch from repository/usecase
+    final dummyTransactions = [
+      TransactionEntity(
+        id: '1',
+        title: 'ستاربكس',
+        amount: 35.0,
+        type: 'expense',
+        category: 'قهوة',
+        date: '2023-11-01',
+        time: '09:41 ص',
+      ),
+      TransactionEntity(
+        id: '2',
+        title: 'إيداع راتب',
+        amount: 12000.0,
+        type: 'income',
+        category: 'راتب',
+        date: '2023-11-01',
+        time: '08:15 ص',
+      ),
+      TransactionEntity(
+        id: '3',
+        title: 'أوبر',
+        amount: 42.5,
+        type: 'expense',
+        category: 'مواصلات',
+        date: '2023-10-31',
+        time: '11:20 م',
+      ),
+      TransactionEntity(
+        id: '4',
+        title: 'نون للتسوق',
+        amount: 189.0,
+        type: 'expense',
+        category: 'تسوق',
+        date: '2023-10-31',
+        time: '04:30 م',
+      ),
+    ];
+    emit(TransactionLoadSuccess(dummyTransactions));
+  }
 }

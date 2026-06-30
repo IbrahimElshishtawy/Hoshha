@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../domain/entities/transaction.dart';
+import '../../domain/entities/transaction_entity.dart';
 import 'package:intl/intl.dart';
 
 class TransactionHistoryList extends StatelessWidget {
   final String title;
-  final List<Transaction> transactions;
+  final List<TransactionEntity> transactions;
 
   const TransactionHistoryList({
     super.key,
@@ -36,8 +36,8 @@ class TransactionHistoryList extends StatelessWidget {
     );
   }
 
-  Widget _buildTransactionCard(BuildContext context, Transaction transaction) {
-    final isIncome = transaction.type == TransactionType.income;
+  Widget _buildTransactionCard(BuildContext context, TransactionEntity transaction) {
+    final isIncome = transaction.type == 'income';
     final formatter = NumberFormat.currency(symbol: 'ريال', decimalDigits: 2, customPattern: '\u00a4 #,##0.00');
 
     return Container(
@@ -105,7 +105,7 @@ class TransactionHistoryList extends StatelessWidget {
                 textDirection: TextDirection.ltr,
               ),
               Text(
-                DateFormat('hh:mm a').format(transaction.date),
+                transaction.time,
                 style: TextStyle(
                   fontSize: 10,
                   color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.5),

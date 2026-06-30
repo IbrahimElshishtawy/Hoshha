@@ -4,7 +4,7 @@ import '../cubit/transaction_cubit.dart';
 import '../cubit/transaction_state.dart';
 import 'widgets/transaction_history_list.dart';
 import 'widgets/transaction_filter_chip.dart';
-import '../../domain/entities/transaction.dart';
+import '../../domain/entities/transaction_entity.dart';
 
 class TransactionHistoryPage extends StatefulWidget {
   const TransactionHistoryPage({super.key});
@@ -72,9 +72,9 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
           Expanded(
             child: BlocBuilder<TransactionCubit, TransactionState>(
               builder: (context, state) {
-                if (state is TransactionLoading) {
+                if (state is TransactionLoadInProgress) {
                   return const Center(child: CircularProgressIndicator());
-                } else if (state is TransactionLoaded) {
+                } else if (state is TransactionLoadSuccess) {
                   // For demo, just splitting the list arbitrarily
                   final today = state.transactions.take(2).toList();
                   final yesterday = state.transactions.skip(2).toList();
@@ -110,7 +110,7 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
                       const SizedBox(height: 80), // Fab space
                     ],
                   );
-                } else if (state is TransactionError) {
+                } else if (state is TransactionFailure) {
                   return Center(child: Text(state.message));
                 }
                 return const SizedBox.shrink();

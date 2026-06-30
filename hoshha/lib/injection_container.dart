@@ -24,6 +24,7 @@ import 'features/profile/presentation/cubit/profile_cubit.dart';
 import 'features/settings/presentation/cubit/settings_cubit.dart';
 import 'features/spending_calendar/presentation/cubit/spending_calendar_cubit.dart';
 import 'features/financial_reports/presentation/cubit/financial_reports_cubit.dart';
+import 'features/financial_health_score/presentation/cubit/health_score_cubit.dart';
 import 'features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import 'features/notifications/presentation/cubit/notifications_cubit.dart';
 import 'features/debt/presentation/cubit/debt_cubit.dart';
@@ -111,6 +112,9 @@ Future<void> init() async {
 
   // Financial Reports
   sl.registerFactory(() => FinancialReportsCubit());
+
+  // Financial Health Score
+  sl.registerFactory(() => HealthScoreCubit());
 
   // ==================== Features - Onboarding ====================
   sl.registerFactory(() => OnboardingCubit());
