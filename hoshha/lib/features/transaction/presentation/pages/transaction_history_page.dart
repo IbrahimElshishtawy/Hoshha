@@ -4,7 +4,7 @@ import '../cubit/transaction_cubit.dart';
 import '../cubit/transaction_state.dart';
 import '../widgets/transaction_history_list.dart';
 import '../widgets/transaction_filter_chip.dart';
-import '../../domain/entities/transaction_entity.dart';
+
 
 class TransactionHistoryPage extends StatefulWidget {
   const TransactionHistoryPage({super.key});

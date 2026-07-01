@@ -16,7 +16,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   void initState() {
     super.initState();
-    context.read<SettingsCubit>().loadSettings();
+    // Settings are already loaded at the app root
   }
 
   @override
@@ -61,8 +61,11 @@ class _SettingsPageState extends State<SettingsPage> {
                       SettingsItem(
                         icon: Icons.language_outlined,
                         title: 'اللغة',
-                        trailingText: 'العربية',
-                        onTap: () {},
+                        trailingText: setting.languageCode == 'ar' ? 'العربية' : 'English',
+                        onTap: () {
+                          final newLang = setting.languageCode == 'ar' ? 'en' : 'ar';
+                          context.read<SettingsCubit>().toggleLanguage(newLang);
+                        },
                       ),
                       SettingsItem(
                         icon: Icons.payments_outlined,
@@ -113,7 +116,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       SettingsItem(
                         icon: Icons.notifications_active_outlined,
                         title: 'التنبيهات',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, '/notifications');
+                        },
                       ),
                       SettingsItem(
                         icon: Icons.gavel_outlined,

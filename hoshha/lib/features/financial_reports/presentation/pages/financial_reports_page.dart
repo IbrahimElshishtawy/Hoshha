@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import '../cubit/financial_reports_cubit.dart';
 import '../cubit/financial_reports_state.dart';
-import 'widgets/report_chart_widget.dart';
+import '../widgets/report_chart_widget.dart';
+import '../../domain/entities/financial_report.dart';
+import 'dart:ui' as ui;
 
 class FinancialReportsPage extends StatefulWidget {
   const FinancialReportsPage({super.key});
@@ -91,6 +93,7 @@ class _FinancialReportsPageState extends State<FinancialReportsPage> {
                               ),
                               child: Text(
                                 '+12.4% متوازن',
+                                textDirection: ui.TextDirection.ltr,
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Theme.of(context).colorScheme.onSecondaryContainer,
@@ -149,7 +152,7 @@ class _FinancialReportsPageState extends State<FinancialReportsPage> {
           children: [
             Text(label, style: TextStyle(fontSize: 10, color: Theme.of(context).colorScheme.onSurfaceVariant)),
             const SizedBox(height: 4),
-            Text(value, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: color), textDirection: TextDirection.ltr),
+            Text(value, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: color), textDirection: ui.TextDirection.ltr),
           ],
         ),
       ),

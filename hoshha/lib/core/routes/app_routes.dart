@@ -5,7 +5,7 @@ import '../../features/home/presentation/pages/home_dashboard_page.dart';
 import '../../features/transaction/presentation/pages/add_transaction_page.dart';
 import '../../features/ai_assistant/presentation/pages/ai_assistant_page.dart';
 import '../../features/onboarding/presentation/pages/onboarding_page.dart';
-import '../../features/profile/presentation/pages/settings_page.dart';
+import '../../features/settings/presentation/pages/settings_page.dart';
 import '../../features/budget/presentation/pages/budget_management_page.dart';
 import '../../features/debt/presentation/pages/debt_tracker_page.dart';
 import '../../features/bills/presentation/pages/bills_reminder_page.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../widgets/illustration_widget.dart';
 import '../widgets/register_form_widget.dart';
 import '../widgets/social_login_buttons.dart';
 
@@ -21,18 +22,9 @@ class RegisterPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Illustration
-                  Image.network(
-                    'https://lh3.googleusercontent.com/aida-public/AB6AXuAzuE0RHzEtVAhN_-VldH46hLYqKUSCgcPb7ZBA5Ho4rnEKUy-R7bLD59ozNO2muZWFsUfieU5rOeMgOEInOrVJ1tTQ_4hNxxzTGKrm-1urTPZLnetnAMxyUZXUwnqIdjY6V1NDktj_C-_5CgufodA7RKxnSEMKoGB9fiEUrFbg55aYl33kWE8hatQXi_rhspgDDZI_cvahPx8lusV0gf5zIFM1TgPSWpTztbM2fy7RIwgSRuG38NhYt8amhp1grZQM9svYYcZSgV_R',
-                    width: 192.0,
-                    height: 192.0,
-                    fit: BoxFit.contain,
-                    errorBuilder: (context, error, stackTrace) {
-                      return const Icon(
-                        Icons.wallet_giftcard_outlined,
-                        size: 96.0,
-                        color: AppTheme.primary,
-                      );
-                    },
+                  const IllustrationWidget(
+                    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAzuE0RHzEtVAhN_-VldH46hLYqKUSCgcPb7ZBA5Ho4rnEKUy-R7bLD59ozNO2muZWFsUfieU5rOeMgOEInOrVJ1tTQ_4hNxxzTGKrm-1urTPZLnetnAMxyUZXUwnqIdjY6V1NDktj_C-_5CgufodA7RKxnSEMKoGB9fiEUrFbg55aYl33kWE8hatQXi_rhspgDDZI_cvahPx8lusV0gf5zIFM1TgPSWpTztbM2fy7RIwgSRuG38NhYt8amhp1grZQM9svYYcZSgV_R',
+                    size: 192.0,
                   ),
                   const SizedBox(height: 16.0),
 

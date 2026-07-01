@@ -27,4 +27,12 @@ class SettingsCubit extends Cubit<SettingsState> {
       emit(SettingsLoaded(newSetting));
     }
   }
+
+  void toggleLanguage(String code) {
+    if (state is SettingsLoaded) {
+      final currentState = state as SettingsLoaded;
+      final newSetting = currentState.setting.copyWith(languageCode: code);
+      emit(SettingsLoaded(newSetting));
+    }
+  }
 }

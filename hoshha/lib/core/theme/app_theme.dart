@@ -52,6 +52,7 @@ class AppTheme {
   static const Color background = Color(0xFFFAF8FF);
   static const Color onBackground = Color(0xFF191B23);
   static const Color surfaceVariant = Color(0xFFE1E2ED);
+  static const Color shadow = Color(0xFF000000);
 
   // Spacing & Corner Radius
   static const double radiusSm = 4.0;
@@ -166,6 +167,125 @@ class AppTheme {
           fontSize: 14,
           fontWeight: FontWeight.w400,
           color: onSurfaceVariant,
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primary,
+          foregroundColor: onPrimary,
+          minimumSize: const Size.fromHeight(56.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(radiusFull),
+          ),
+          elevation: 0,
+          textStyle: GoogleFonts.beVietnamPro(
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+    );
+  }
+
+  static ThemeData get darkTheme {
+    return ThemeData(
+      useMaterial3: true,
+      colorScheme: const ColorScheme(
+        brightness: Brightness.dark,
+        primary: primary,
+        onPrimary: onPrimary,
+        primaryContainer: primaryContainer,
+        onPrimaryContainer: onPrimaryContainer,
+        secondary: secondary,
+        onSecondary: onSecondary,
+        secondaryContainer: secondaryContainer,
+        onSecondaryContainer: onSecondaryContainer,
+        tertiary: tertiary,
+        onTertiary: onTertiary,
+        tertiaryContainer: tertiaryContainer,
+        onTertiaryContainer: onTertiaryContainer,
+        error: error,
+        onError: onError,
+        errorContainer: errorContainer,
+        onErrorContainer: onErrorContainer,
+        surface: Color(0xFF191B23), // Dark surface
+        onSurface: Color(0xFFFAF8FF),
+        onSurfaceVariant: Color(0xFFC3C6D7),
+        outline: outline,
+        outlineVariant: outlineVariant,
+        shadow: Colors.black45,
+        inverseSurface: inverseSurface,
+        onInverseSurface: inverseOnSurface,
+        inversePrimary: inversePrimary,
+        surfaceTint: surfaceTint,
+      ),
+      scaffoldBackgroundColor: const Color(0xFF191B23),
+      textTheme: TextTheme(
+        displayLarge: GoogleFonts.beVietnamPro(
+          fontSize: 32,
+          fontWeight: FontWeight.w700,
+          letterSpacing: -0.02,
+          color: const Color(0xFFFAF8FF),
+        ),
+        headlineLarge: GoogleFonts.beVietnamPro(
+          fontSize: 28,
+          fontWeight: FontWeight.w700,
+          color: const Color(0xFFFAF8FF),
+        ),
+        headlineMedium: GoogleFonts.beVietnamPro(
+          fontSize: 24,
+          fontWeight: FontWeight.w700,
+          color: const Color(0xFFFAF8FF),
+        ),
+        headlineSmall: GoogleFonts.beVietnamPro(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: const Color(0xFFFAF8FF),
+        ),
+        bodyLarge: GoogleFonts.ibmPlexSans(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: const Color(0xFFFAF8FF),
+        ),
+        bodyMedium: GoogleFonts.ibmPlexSans(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: const Color(0xFFFAF8FF),
+        ),
+        labelSmall: GoogleFonts.ibmPlexSans(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 0.05,
+          color: const Color(0xFFFAF8FF),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: const Color(0xFF2E3039),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16.0,
+          vertical: 18.0,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(radiusCard),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(radiusCard),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(radiusCard),
+          borderSide: const BorderSide(color: primary, width: 1.5),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(radiusCard),
+          borderSide: const BorderSide(color: error, width: 1.5),
+        ),
+        hintStyle: GoogleFonts.ibmPlexSans(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: const Color(0xFFC3C6D7),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(

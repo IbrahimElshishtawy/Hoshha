@@ -1,8 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hoshha/features/financial_health_score/presentation/widgets/score_gauge_widget.dart';
 import '../cubit/health_score_cubit.dart';
 import '../cubit/health_score_state.dart';
-import 'widgets/score_gauge_widget.dart';
 import '../../domain/entities/health_score.dart';
 
 class HealthScorePage extends StatefulWidget {

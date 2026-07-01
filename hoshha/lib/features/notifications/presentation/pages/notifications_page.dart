@@ -25,7 +25,7 @@ class NotificationsPage extends StatelessWidget {
             ),
           ),
           centerTitle: true,
-          backgroundColor: Colors.white.withValues(alpha: 0.7),
+          backgroundColor: Theme.of(context).colorScheme.surface,
           elevation: 2.0,
           shadowColor: Colors.black12,
           leading: IconButton(

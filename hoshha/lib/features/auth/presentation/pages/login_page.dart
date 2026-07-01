@@ -30,6 +30,7 @@ class LoginPage extends StatelessWidget {
                   backgroundColor: AppTheme.secondary,
                 ),
               );
+              Navigator.pushReplacementNamed(context, '/home');
             } else if (state is AuthFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -78,7 +79,9 @@ class LoginPage extends StatelessWidget {
                           const SizedBox(height: 16.0),
 
                           // Illustration Section
-                          const IllustrationWidget(),
+                          const IllustrationWidget(
+                            imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAlhHVI61-X1zVQPAYvj2ouhl91CCDaVBu-LUk9mRSpbrDhgWLI8lxYAHSXYc6SLv3FKMge8fc-X8qT9B379gDwjYtO9WN-A0lg81rtWmfjMT8kqOOFi2SXAyahABlFu36d3OrYIkqMvn4N8J__EpYR1LnRR9i4Q8E2yhZ-KbO-DGcB6pFDZnHHKHmw-E4lDlZ-__YUtjZfcI8tJRFKTHVzBJ22ZLsYZe8_l61n_ZJGa7huRzRZ4PiBYvy2QQuMe063FMm14FPtBU4e',
+                          ),
                           const SizedBox(height: AppTheme.stackGap),
 
                           // Welcoming Text
@@ -135,7 +138,11 @@ class LoginPage extends StatelessWidget {
                           const SizedBox(height: 32.0),
 
                           // Footer link
-                          const AuthFooter(),
+                          AuthFooter(
+                            onRegisterPressed: () {
+                              Navigator.pushNamed(context, '/register');
+                            },
+                          ),
                           const SizedBox(height: 48.0),
                         ],
                       ),
